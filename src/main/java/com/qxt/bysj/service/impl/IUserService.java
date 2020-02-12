@@ -40,4 +40,10 @@ public class IUserService implements UserService {
     public int update(User record) {
         return UserDao.updateByPrimaryKey(record);
     }
+
+    @Override
+    public User selectByOpenid(String openid) {
+        return UserDao.selectByOpenid(openid);
+    }
+
 }

@@ -15,4 +15,5 @@ public interface  UserService {
 
     int update(User record);
 
+    User selectByOpenid(String openid);
 }

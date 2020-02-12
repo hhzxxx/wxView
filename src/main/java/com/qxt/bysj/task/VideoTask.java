@@ -3,7 +3,6 @@ package com.qxt.bysj.task;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.qxt.bysj.dao.VideoMapper;
 import com.qxt.bysj.service.VideoService;
 import com.qxt.bysj.utils.BiliRequest;
 import org.json.JSONException;
@@ -19,15 +18,12 @@ import java.util.Date;
 @Component
 @Async
 public class VideoTask {
-    private VideoService service;
+    private VideoService videoService;
 
     @Autowired
     public VideoTask(VideoService service){
-        this.service = service;
+        this.videoService = service;
     }
-
-    @Autowired
-    private VideoMapper videoDao;
 
     @Autowired
     private BiliRequest biliRequest;
@@ -48,7 +44,7 @@ public class VideoTask {
         JSONArray list = data.getJSONArray("archives");
         for(int i=0;i<list.size();i++){
             JSONObject jsonObj = (JSONObject) list.get(i);
-            service.dealTaskVideo(jsonObj);
+            videoService.dealTaskVideo(jsonObj);
         }
     }
 }
