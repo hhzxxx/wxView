@@ -69,6 +69,7 @@ public class OpenFace {
                 Map<String,String> map = new HashMap<>();
                 map.put("session_key",session_key);
                 map.put("openid",openid);
+//                map.put("id",user.getId().toString());
                 result.setData(map);
             }
         }

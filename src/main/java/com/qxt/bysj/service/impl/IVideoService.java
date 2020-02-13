@@ -12,39 +12,9 @@ import java.util.Date;
 import java.util.UUID;
 
 @Service
-public class IVideoService implements VideoService {
+public class IVideoService extends IBaseService<Video> implements VideoService {
     @Autowired
     private VideoMapper videoDao;
-
-    @Override
-    public int deleteById(Integer id) {
-        return videoDao.deleteByPrimaryKey(id);
-    }
-
-    @Override
-    public int insert(Video record) {
-        return videoDao.insert(record);
-    }
-
-    @Override
-    public int insertSelective(Video record) {
-        return videoDao.insertSelective(record);
-    }
-
-    @Override
-    public Video selectById(Integer id) {
-        return videoDao.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public int updateSelective(Video record) {
-        return videoDao.updateByPrimaryKeySelective(record);
-    }
-
-    @Override
-    public int update(Video record) {
-        return videoDao.updateByPrimaryKey(record);
-    }
 
     @Override
     public Video selectByAvid(Integer avid) {
