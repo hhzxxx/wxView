@@ -22,5 +22,4 @@ public interface BaseMapper<T> {
 
     int updateByPrimaryKey(T record);
 
-    T selectByOpenid(String openid);
 }

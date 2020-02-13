@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class IUserService extends IBaseService<User> implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
     @Autowired
     private UserMapper UserDao;
 

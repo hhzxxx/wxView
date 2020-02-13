@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Date 2020/2/13 11:18
  * @Version 1.0
  */
-public class IBaseService<T> implements BaseService<T> {
+public class BaseServiceImpl<T> implements BaseService<T> {
     @Autowired
     private BaseMapper<T> BaseDao;
 

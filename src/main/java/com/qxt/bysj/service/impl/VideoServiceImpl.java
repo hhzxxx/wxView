@@ -3,6 +3,7 @@ package com.qxt.bysj.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.qxt.bysj.dao.VideoMapper;
 import com.qxt.bysj.domain.Video;
+import com.qxt.bysj.service.TagService;
 import com.qxt.bysj.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,11 @@ import java.util.Date;
 import java.util.UUID;
 
 @Service
-public class IVideoService extends IBaseService<Video> implements VideoService {
+public class VideoServiceImpl extends BaseServiceImpl<Video> implements VideoService {
     @Autowired
     private VideoMapper videoDao;
+    @Autowired
+    private TagService tagService;
 
     @Override
     public Video selectByAvid(Integer avid) {
@@ -29,7 +32,9 @@ public class IVideoService extends IBaseService<Video> implements VideoService {
         Integer avid = Integer.valueOf(jsonObj.getString("aid"));
         Video video =  new Video();
         Video video1 = videoDao.selectByAvid(avid);
+        int flag = 0;
         if(video1 == null) {
+            flag = 1;
             video.setUpdatetime(date);
             video.setStatus(0);
             video.setCreatetime(date);
@@ -45,6 +50,10 @@ public class IVideoService extends IBaseService<Video> implements VideoService {
         video.setPic(jsonObj.getString("pic"));
         video.setTitle(jsonObj.getString("title"));
         video.setRemark(jsonObj.getString("dynamic"));
-        return videoDao.updateByPrimaryKeySelective(video);
+        videoDao.updateByPrimaryKeySelective(video);
+        if(flag == 1){
+            tagService.dealTaskVideoTag(video);
+        }
+        return 1;
     }
 }
