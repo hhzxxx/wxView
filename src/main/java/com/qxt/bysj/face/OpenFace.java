@@ -2,10 +2,14 @@ package com.qxt.bysj.face;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.qxt.bysj.utils.Result;
+import com.qxt.bysj.domain.Tag;
+import com.qxt.bysj.domain.TagXuser;
 import com.qxt.bysj.domain.User;
+import com.qxt.bysj.service.TagService;
+import com.qxt.bysj.service.TagXuserService;
 import com.qxt.bysj.service.UserService;
 import com.qxt.bysj.utils.BiliRequest;
+import com.qxt.bysj.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,20 +18,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/Face", method = RequestMethod.POST)
 public class OpenFace {
-    private UserService userService;
-
     @Autowired
-    public OpenFace(UserService service){
-        this.userService = service;
-    }
+    private UserService userService;
+    @Autowired
+    private TagService tagService;
+    @Autowired
+    private TagXuserService tagXuserService;
 
     @Autowired
     private BiliRequest biliRequest;
@@ -52,10 +53,12 @@ public class OpenFace {
                 String session_key = jsonObject.getString("session_key");
                 String openid = jsonObject.getString("openid");
                 User user = userService.selectByOpenid(openid);
+                String isNew = "old";
                 if(user!=null){
                     user.setUpdatetime(date);
                     userService.updateSelective(user);
                 }else {
+                    isNew = "new";
                     user = new User();
                     user.setUuid(UUID.randomUUID().toString());
                     user.setStatus(0);
@@ -69,6 +72,7 @@ public class OpenFace {
                 Map<String,String> map = new HashMap<>();
                 map.put("session_key",session_key);
                 map.put("openid",openid);
+                map.put("isNew",isNew);
 //                map.put("id",user.getId().toString());
                 result.setData(map);
             }
@@ -102,7 +106,67 @@ public class OpenFace {
         return result;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/firstTagChoose", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> firstTagChoose(HttpServletRequest request) {
+        Result<Object> result = new Result<>();
+        try{
+            List<Tag> list = tagService.firstTagChoose();
+            List<Tag> resList = new ArrayList<>();
+            for(int i=0;i<list.size();i++){
+                if(i<15){
+                    resList.add(list.get(i));
+                }else {
+                    break;
+                }
+            }
+            result.setData(resList);
+            result.setCode("1");
+        }catch (Exception e){
+            result.setMessage("后台出错！");
+        }
+        return result;
+    }
 
+    @ResponseBody
+    @RequestMapping(value = "/firstTagSave", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> firstTagSave(FirstTagSaveDto dto,HttpServletRequest request) {
+        Result<Object> result = new Result<>();
+        List<Integer> tagIds = dto.getTagIds();
+        String openid = dto.getOpenid();
+        User user = userService.selectByOpenid(openid);
+        Integer userId = user.getId();
+        if(tagIds.size()>0){
+            for(int i=0;i<tagIds.size();i++){
+                TagXuser obj = new TagXuser();
+                obj.setTagid(tagIds.get(i));
+                obj.setUserid(userId);
+                tagXuserService.insert(obj);
+            }
+        }
+        return result;
+    }
+
+    static class FirstTagSaveDto{
+        private String openid;
+        private List<Integer> tagIds;
+
+        public String getOpenid() {
+            return openid;
+        }
+
+        public void setOpenid(String openid) {
+            this.openid = openid;
+        }
+
+        public List<Integer> getTagIds() {
+            return tagIds;
+        }
+
+        public void setTagIds(List<Integer> tagIds) {
+            this.tagIds = tagIds;
+        }
+    }
 
     static class UserInfoDto{
         private String nickName;

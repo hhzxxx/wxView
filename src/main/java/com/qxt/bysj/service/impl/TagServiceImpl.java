@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,5 +61,10 @@ public class TagServiceImpl extends BaseServiceImpl<Tag> implements TagService {
     @Override
     public Tag selectByTagname(String tagname) {
         return tagDao.selectByTagname(tagname);
+    }
+
+    @Override
+    public List<Tag> firstTagChoose() {
+        return tagDao.firstTagChoose();
     }
 }

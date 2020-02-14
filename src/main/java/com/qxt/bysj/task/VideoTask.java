@@ -28,12 +28,13 @@ public class VideoTask {
     @Autowired
     private BiliRequest biliRequest;
 
-    @Scheduled(initialDelay = 1000, fixedDelay = 24*3600*1000 )
+    @Scheduled(initialDelay = 1000, fixedDelay = 1200*1000 )
     public void biliTask() throws JSONException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         Date date=new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
+        System.out.println("viedeoTask:"+date);
         //最新排行
         String obj =  biliRequest.getHTMLContentByHttpGetMethod("https://api.bilibili.com/x/web-interface/newlist?rid=76&pn=1&ps=50",null);
         //热门排行
