@@ -1,5 +1,7 @@
 package com.qxt.bysj.dao;
 
+import java.util.List;
+
 /**
  * @Author huanghz
  * @Date 2020/2/13 11:21
@@ -22,4 +24,15 @@ public interface BaseMapper<T> {
 
     int updateByPrimaryKey(T record);
 
+    /**
+     * 查询全部
+     * @return
+     */
+    List<T> find();
+
+    /**
+     * 分页查询
+     * @return
+     */
+    List<T> findPage();
 }

@@ -9,6 +9,13 @@
   <sql id="Base_Column_List">
     id, tagname, hot
   </sql>
+
+    <select id="findPage"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_user
+    </select>
+
     <select id="selectByTagname" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select
         <include refid="Base_Column_List" />

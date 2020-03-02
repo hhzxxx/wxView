@@ -132,7 +132,7 @@ public class OpenFace {
     @RequestMapping(value = "/firstTagSave", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> firstTagSave(FirstTagSaveDto dto,HttpServletRequest request) {
         Result<Object> result = new Result<>();
-        List<Integer> tagIds = dto.getTagIds();
+        List<Integer> tagIds = dto.getTagList();
         String openid = dto.getOpenid();
         User user = userService.selectByOpenid(openid);
         Integer userId = user.getId();
@@ -149,7 +149,7 @@ public class OpenFace {
 
     static class FirstTagSaveDto{
         private String openid;
-        private List<Integer> tagIds;
+        private List<Integer> tagList;
 
         public String getOpenid() {
             return openid;
@@ -159,12 +159,12 @@ public class OpenFace {
             this.openid = openid;
         }
 
-        public List<Integer> getTagIds() {
-            return tagIds;
+        public List<Integer> getTagList() {
+            return tagList;
         }
 
-        public void setTagIds(List<Integer> tagIds) {
-            this.tagIds = tagIds;
+        public void setTagList(List<Integer> tagList) {
+            this.tagList = tagList;
         }
     }
 
