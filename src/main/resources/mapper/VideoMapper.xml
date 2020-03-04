@@ -218,4 +218,22 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+    <select id="find"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tab_video
+    </select>
+
+    <select id="findPage"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tab_video
+        <where>
+            status &lt;&gt; 9
+            <if test="title!= null and title!=''">
+                AND title LIKE  '%' #{title} '%'
+            </if>
+        </where>
+    </select>
 </mapper>

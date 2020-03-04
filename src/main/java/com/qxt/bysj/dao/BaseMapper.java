@@ -1,6 +1,7 @@
 package com.qxt.bysj.dao;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author huanghz
@@ -28,11 +29,11 @@ public interface BaseMapper<T> {
      * 查询全部
      * @return
      */
-    List<T> find();
+    List<T> find(Map<String, Object> map);
 
     /**
      * 分页查询
      * @return
      */
-    List<T> findPage();
+    List<T> findPage(Map<String, Object> map);
 }

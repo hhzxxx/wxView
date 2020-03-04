@@ -8,11 +8,15 @@ import com.qxt.bysj.domain.User;
 import com.qxt.bysj.service.TagService;
 import com.qxt.bysj.service.TagXuserService;
 import com.qxt.bysj.service.UserService;
+import com.qxt.bysj.service.VideoService;
 import com.qxt.bysj.utils.BiliRequest;
+import com.qxt.bysj.utils.PageRequest;
+import com.qxt.bysj.utils.PageResult;
 import com.qxt.bysj.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +33,8 @@ public class OpenFace {
     private TagService tagService;
     @Autowired
     private TagXuserService tagXuserService;
-
+    @Autowired
+    private VideoService videoService;
     @Autowired
     private BiliRequest biliRequest;
 
@@ -147,6 +152,19 @@ public class OpenFace {
         return result;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/videoPage", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> videoPage(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        PageResult page = videoService.findPage(pageQuery);
+        result.setData(page);
+        return result;
+    }
+
+
+
+
+   //以下都是Dto
     static class FirstTagSaveDto{
         private String openid;
         private List<Integer> tagList;
