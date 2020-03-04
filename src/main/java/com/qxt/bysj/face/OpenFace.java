@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qxt.bysj.domain.Tag;
 import com.qxt.bysj.domain.TagXuser;
 import com.qxt.bysj.domain.User;
+import com.qxt.bysj.domain.Video;
 import com.qxt.bysj.service.TagService;
 import com.qxt.bysj.service.TagXuserService;
 import com.qxt.bysj.service.UserService;
@@ -157,6 +158,29 @@ public class OpenFace {
     public Result<Object> videoPage(@RequestBody PageRequest pageQuery) {
         Result<Object> result = new Result<>();
         PageResult page = videoService.findPage(pageQuery);
+        result.setData(page);
+        return result;
+    }
+
+    /**
+     * 必须userId
+     * @param pageQuery
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findIndexPage", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> findIndexPage(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        PageResult page = videoService.findIndexPage(pageQuery);
+        List<Video> list = (List<Video>) page.getContent();
+        List<Integer> idList = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            if(!idList.contains(list.get(i).getId())){
+                idList.add(list.get(i).getId());
+            }else {
+                list.remove(i);
+            }
+        }
         result.setData(page);
         return result;
     }

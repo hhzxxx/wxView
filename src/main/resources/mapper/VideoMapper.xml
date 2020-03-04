@@ -232,8 +232,26 @@
         <where>
             status &lt;&gt; 9
             <if test="title!= null and title!=''">
-                AND title LIKE  '%' #{title} '%'
+                AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
             </if>
         </where>
+    </select>
+
+    <select id="findIndexPage"  resultMap="BaseResultMap">
+        select
+        DISTINCT u.id as dd,u.*,t.hot as tHot
+        FROM
+        tab_video u LEFT JOIN tab_tagxvideo r on u.id = r.videoId LEFT JOIN tab_tagxuser t on r.tagId = t.tagId
+        WHERE
+        r.tagId in (select
+        u.id
+        FROM
+        tab_tag u LEFT JOIN tab_tagxuser r on u.id = r.tagId
+        where
+        r.userId = #{userId})
+        <if test="title!= null and title!=''">
+            AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
+        </if>
+        order by u.hot desc,tHot desc
     </select>
 </mapper>
