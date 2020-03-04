@@ -181,6 +181,7 @@ public class OpenFace {
                 list.remove(i);
             }
         }
+        page.setPageSize(list.size());
         result.setData(page);
         return result;
     }
