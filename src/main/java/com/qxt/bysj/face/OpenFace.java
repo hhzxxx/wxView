@@ -10,6 +10,7 @@ import com.qxt.bysj.service.TagService;
 import com.qxt.bysj.service.TagXuserService;
 import com.qxt.bysj.service.UserService;
 import com.qxt.bysj.service.VideoService;
+import com.qxt.bysj.threads.TestThreadPoolManager;
 import com.qxt.bysj.utils.BiliRequest;
 import com.qxt.bysj.utils.PageRequest;
 import com.qxt.bysj.utils.PageResult;
@@ -17,10 +18,7 @@ import com.qxt.bysj.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -38,7 +36,8 @@ public class OpenFace {
     private VideoService videoService;
     @Autowired
     private BiliRequest biliRequest;
-
+    @Autowired
+    TestThreadPoolManager testThreadPoolManager;
     @Value("${app.secret}")
     private String secret;
     @Value("${app.id}")
@@ -196,7 +195,13 @@ public class OpenFace {
         Result<Object> result = new Result<>();
         String openId = dto.getOpenId();
         Integer videoId = dto.getVideoId();
-        if(openId!=null && openId.length()>0){
+
+        //模拟的随机数
+        String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
+
+            testThreadPoolManager.addOrders(orderNo,openId,videoId);
+
+/*        if(openId!=null && openId.length()>0){
             User user = userService.selectByOpenid(openId);
             Video video = videoService.selectById(videoId);
             if(video.getHot()==null) video.setHot(0);
@@ -232,8 +237,23 @@ public class OpenFace {
                     }
                 }
             }
-        }
+        }*/
         return result;
+    }
+
+    /**
+     * 停止服务
+     * @param id
+     * @return
+     */
+    @GetMapping("/end/{id}")
+    public String end(@PathVariable Long id) {
+
+        testThreadPoolManager.shutdown();
+
+        Queue q = testThreadPoolManager.getMsgQueue();
+        System.out.println("关闭了线程服务，还有未处理的信息条数：" + q.size());
+        return "Test ThreadPoolExecutor start";
     }
 
 
