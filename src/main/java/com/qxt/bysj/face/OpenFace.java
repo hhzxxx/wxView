@@ -163,7 +163,7 @@ public class OpenFace {
     }
 
     /**
-     * 必须userId
+     * 必须openId
      * @param pageQuery
      * @return
      */
@@ -186,6 +186,55 @@ public class OpenFace {
         return result;
     }
 
+    /**
+     * 必须openId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/tapVideo", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> tapVideo(@RequestBody tapVideoDto dto) {
+        Result<Object> result = new Result<>();
+        String openId = dto.getOpenId();
+        Integer videoId = dto.getVideoId();
+        if(openId!=null && openId.length()>0){
+            User user = userService.selectByOpenid(openId);
+            Video video = videoService.selectById(videoId);
+            if(video.getHot()==null) video.setHot(0);
+            video.setHot(video.getHot()+1);
+            videoService.update(video);
+
+            Map<String, Object> query1 = new HashMap<>();
+            query1.put("videoId",dto.getVideoId());
+            List<Tag> tagList = tagService.find(query1);
+            if(tagList.size()>0){
+                for(Tag tag:tagList){
+                    if(tag.getHot()==null) tag.setHot(0);
+                    tag.setHot(tag.getHot()+1);
+                    tagService.update(tag);
+
+                    Map<String, Object> query2 = new HashMap<>();
+                    query2.put("userId",user.getId());
+                    query2.put("tagId",tag.getId());
+
+                    List<TagXuser> xuserList = tagXuserService.find(query2);
+                    if(xuserList.size()>0){
+                        for(TagXuser tagXuser:xuserList){
+                            if(tagXuser.getHot()==null) tagXuser.setHot(0);
+                            tagXuser.setHot(tagXuser.getHot()+1);
+                            tagXuserService.update(tagXuser);
+                        }
+                    }else {
+                        TagXuser obj = new TagXuser();
+                        obj.setTagid(tag.getId());
+                        obj.setUserid(user.getId());
+                        obj.setHot(1);
+                        tagXuserService.insert(obj);
+                    }
+                }
+            }
+        }
+        return result;
+    }
 
 
 
@@ -280,4 +329,24 @@ public class OpenFace {
         }
     }
 
+    static class tapVideoDto{
+        private Integer videoId;
+        private String openId;
+
+        public Integer getVideoId() {
+            return videoId;
+        }
+
+        public void setVideoId(Integer videoId) {
+            this.videoId = videoId;
+        }
+
+        public String getOpenId() {
+            return openId;
+        }
+
+        public void setOpenId(String openId) {
+            this.openId = openId;
+        }
+    }
 }

@@ -44,6 +44,7 @@ public class VideoServiceImpl extends BaseServiceImpl<Video> implements VideoSer
             video.setCreatetime(date);
             video.setUuid(UUID.randomUUID().toString());
             video.setAvid(avid);
+            video.setCid(Integer.valueOf(jsonObj.getString("cid")));
             videoDao.insert(video);
         }
         video = videoDao.selectByAvid(avid);

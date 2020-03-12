@@ -10,10 +10,27 @@
     id, tagname, hot
   </sql>
 
+    <select id="find"  resultMap="BaseResultMap">
+        select
+        u.*
+        from tab_tag u RIGHT JOIN tab_tagxvideo r on u.id=r.tagId
+        <where>
+            <if test="videoId!= null and videoId!=''">
+                AND r.videoId = #{videoId}
+            </if>
+            <if test="id!= null and id!=''">
+                AND u.id = #{id}
+            </if>
+            <if test="tagname!= null and tagname!=''">
+                AND u.tagname = #{tagname}
+            </if>
+        </where>
+    </select>
+
     <select id="findPage"  resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from sys_user
+        from tab_tag
     </select>
 
     <select id="selectByTagname" resultMap="BaseResultMap" parameterType="java.lang.String" >
