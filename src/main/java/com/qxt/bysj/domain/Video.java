@@ -102,6 +102,33 @@ public class Video {
     private String remark;
 
     private Integer hot;
+    private Integer good;
+    private Integer bad;
+    private Integer collection;
+
+    public Integer getGood() {
+        return good;
+    }
+
+    public void setGood(Integer good) {
+        this.good = good;
+    }
+
+    public Integer getBad() {
+        return bad;
+    }
+
+    public void setBad(Integer bad) {
+        this.bad = bad;
+    }
+
+    public Integer getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Integer collection) {
+        this.collection = collection;
+    }
 
     public Integer getHot() {
         return hot;

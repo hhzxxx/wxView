@@ -69,7 +69,8 @@ public class TestThreadPoolManager implements BeanFactoryAware {
         //验证当前进入的订单是否已经存在
         if (cacheMap.get(orderId) == null) {
             cacheMap.put(orderId, new Object());
-            BusinessThread businessThread = new BusinessThread(orderId,openId,videoId);
+            BusinessService businessService = (BusinessService)factory.getBean("businessService");
+            BusinessThread businessThread = new BusinessThread(orderId,openId,videoId,businessService);
             threadPool.execute(businessThread);
         }
     }

@@ -2,14 +2,8 @@ package com.qxt.bysj.face;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.qxt.bysj.domain.Tag;
-import com.qxt.bysj.domain.TagXuser;
-import com.qxt.bysj.domain.User;
-import com.qxt.bysj.domain.Video;
-import com.qxt.bysj.service.TagService;
-import com.qxt.bysj.service.TagXuserService;
-import com.qxt.bysj.service.UserService;
-import com.qxt.bysj.service.VideoService;
+import com.qxt.bysj.domain.*;
+import com.qxt.bysj.service.*;
 import com.qxt.bysj.threads.TestThreadPoolManager;
 import com.qxt.bysj.utils.BiliRequest;
 import com.qxt.bysj.utils.PageRequest;
@@ -38,11 +32,17 @@ public class OpenFace {
     private BiliRequest biliRequest;
     @Autowired
     TestThreadPoolManager testThreadPoolManager;
+    @Autowired
+    private VideoXuserService videoXuserService;
     @Value("${app.secret}")
     private String secret;
     @Value("${app.id}")
     private String appid;
 
+    /**
+     * 登陆
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/login", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> login(LoginDto dto, HttpServletRequest request){
@@ -85,6 +85,10 @@ public class OpenFace {
         return result;
     }
 
+    /**
+     * 用户信息储存
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/userInfo", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> userInfo(UserInfoDto dto, HttpServletRequest request) {
@@ -111,6 +115,10 @@ public class OpenFace {
         return result;
     }
 
+    /**
+     * 标签列表
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/firstTagChoose", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> firstTagChoose(HttpServletRequest request) {
@@ -133,6 +141,10 @@ public class OpenFace {
         return result;
     }
 
+    /**
+     * 首次添加用户标签
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/firstTagSave", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> firstTagSave(FirstTagSaveDto dto,HttpServletRequest request) {
@@ -152,6 +164,11 @@ public class OpenFace {
         return result;
     }
 
+    /**
+     * 视频全部查询接口
+     * @param pageQuery
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/videoPage", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> videoPage(@RequestBody PageRequest pageQuery) {
@@ -162,6 +179,7 @@ public class OpenFace {
     }
 
     /**
+     * 首页推荐视频
      * 必须openId
      * @param pageQuery
      * @return
@@ -186,6 +204,7 @@ public class OpenFace {
     }
 
     /**
+     * 点击视频
      * 必须openId
      * @return
      */
@@ -202,6 +221,32 @@ public class OpenFace {
         testThreadPoolManager.addOrders(orderNo,openId,videoId);
         return result;
     }
+
+    /**
+     * 点赞 踩 收藏
+     * 必须openId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/doUserAction", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> doUserAction(@RequestBody tapVideoDto dto) {
+        Result<Object> result = new Result<>();
+        String openId = dto.getOpenId();
+        Integer videoId = dto.getVideoId();
+        String action = dto.getAction();
+
+        if(openId!=null && openId.length()>0) {
+            videoXuserService.doUserAction(openId,videoId,action);
+        }else {
+            result.setMessage("openid为null");
+            result.setCode("999");
+        }
+
+        return result;
+    }
+
+
+    //https://xbeibeix.com/api/bilibilivideo.php?url=www.bilibili.com/video/av95643079
 
     /**
      * 停止服务
@@ -314,6 +359,15 @@ public class OpenFace {
     static class tapVideoDto{
         private Integer videoId;
         private String openId;
+        private String action; //good点赞 bad踩 collection收藏
+
+        public String getAction() {
+            return action;
+        }
+
+        public void setAction(String action) {
+            this.action = action;
+        }
 
         public Integer getVideoId() {
             return videoId;

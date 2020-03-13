@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qxt.bysj.dao.VideoXuserMapper" >
+  <resultMap id="BaseResultMap" type="com.qxt.bysj.domain.VideoXuser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="videoId" property="videoid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="isGood" property="isgood" jdbcType="INTEGER" />
+    <result column="isBad" property="isbad" jdbcType="INTEGER" />
+    <result column="isCollection" property="iscollection" jdbcType="INTEGER" />
+    <result column="collectionTime" property="collectiontime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, status, createTime, updateTime, videoId, userId, isGood, isBad, isCollection, 
+    collectionTime
+  </sql>
+
+    <select id="find"  resultMap="BaseResultMap">
+        select
+        u.*
+        from tab_videoxuser u
+        <where>
+            <if test="userId!= null and userId!=''">
+                AND u.userId = #{userId}
+            </if>
+            <if test="videoId!= null and videoId!=''">
+                AND u.videoId = #{videoId}
+            </if>
+            <if test="id!= null and id!=''">
+                AND u.id = #{id}
+            </if>
+            <if test="isCollection!= null and isCollection!=''">
+                AND u.isCollection = #{isCollection}
+            </if>
+        </where>
+    </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tab_videoxuser
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tab_videoxuser
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qxt.bysj.domain.VideoXuser" >
+    insert into tab_videoxuser (id, status, createTime, 
+      updateTime, videoId, userId, 
+      isGood, isBad, isCollection, 
+      collectionTime)
+    values (#{id,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, now(),
+      now(), #{videoid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},
+      #{isgood,jdbcType=INTEGER}, #{isbad,jdbcType=INTEGER}, #{iscollection,jdbcType=INTEGER}, 
+      #{collectiontime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qxt.bysj.domain.VideoXuser" >
+    insert into tab_videoxuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="videoid != null" >
+        videoId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="isgood != null" >
+        isGood,
+      </if>
+      <if test="isbad != null" >
+        isBad,
+      </if>
+      <if test="iscollection != null" >
+        isCollection,
+      </if>
+      <if test="collectiontime != null" >
+        collectionTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoid != null" >
+        #{videoid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="isgood != null" >
+        #{isgood,jdbcType=INTEGER},
+      </if>
+      <if test="isbad != null" >
+        #{isbad,jdbcType=INTEGER},
+      </if>
+      <if test="iscollection != null" >
+        #{iscollection,jdbcType=INTEGER},
+      </if>
+      <if test="collectiontime != null" >
+        #{collectiontime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qxt.bysj.domain.VideoXuser" >
+    update tab_videoxuser
+    <set >
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoid != null" >
+        videoId = #{videoid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="isgood != null" >
+        isGood = #{isgood,jdbcType=INTEGER},
+      </if>
+      <if test="isbad != null" >
+        isBad = #{isbad,jdbcType=INTEGER},
+      </if>
+      <if test="iscollection != null" >
+        isCollection = #{iscollection,jdbcType=INTEGER},
+      </if>
+      <if test="collectiontime != null" >
+        collectionTime = #{collectiontime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qxt.bysj.domain.VideoXuser" >
+    update tab_videoxuser
+    set status = #{status,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = now(),
+      videoId = #{videoid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER},
+      isGood = #{isgood,jdbcType=INTEGER},
+      isBad = #{isbad,jdbcType=INTEGER},
+      isCollection = #{iscollection,jdbcType=INTEGER},
+      collectionTime = #{collectiontime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

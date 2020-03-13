@@ -1,13 +1,7 @@
 package com.qxt.bysj.threads;
 
-import com.qxt.bysj.domain.Tag;
-import com.qxt.bysj.domain.TagXuser;
-import com.qxt.bysj.domain.User;
-import com.qxt.bysj.domain.Video;
-import com.qxt.bysj.service.TagService;
-import com.qxt.bysj.service.TagXuserService;
-import com.qxt.bysj.service.UserService;
-import com.qxt.bysj.service.VideoService;
+import com.qxt.bysj.domain.*;
+import com.qxt.bysj.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +24,8 @@ public class BusinessService {
     private TagXuserService tagXuserService;
     @Autowired
     private VideoService videoService;
+    @Autowired
+    private VideoXuserService videoXuserService;
 
     public void doVideoTap(String openId,Integer videoId){
         if(openId!=null && openId.length()>0){
@@ -38,6 +34,19 @@ public class BusinessService {
             if(video.getHot()==null) video.setHot(0);
             video.setHot(video.getHot()+1);
             videoService.update(video);
+
+            Map<String, Object> videoXuserQuery = new HashMap<>();
+            videoXuserQuery.put("videoId",videoId);
+            videoXuserQuery.put("userId",user.getId());
+
+            List<VideoXuser> videoXuserList = videoXuserService.find(videoXuserQuery);
+            if(videoXuserList.size()<1){
+                VideoXuser entity = new VideoXuser();
+                entity.setVideoid(videoId);
+                entity.setUserid(user.getId());
+                entity.setStatus(0);
+                videoXuserService.insert(entity);
+            }
 
             Map<String, Object> query1 = new HashMap<>();
             query1.put("videoId",videoId);
