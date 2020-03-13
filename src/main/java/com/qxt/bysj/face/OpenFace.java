@@ -245,6 +245,21 @@ public class OpenFace {
         return result;
     }
 
+    /**
+     * 历史记录 收藏列表
+     * 必须openId
+     * @param pageQuery
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findOldAndCollection", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> findOldAndCollection(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        PageResult page = videoXuserService.findPage(pageQuery);
+        result.setData(page);
+        return result;
+    }
+
 
     //https://xbeibeix.com/api/bilibilivideo.php?url=www.bilibili.com/video/av95643079
 

@@ -46,6 +46,9 @@ public class BusinessService {
                 entity.setUserid(user.getId());
                 entity.setStatus(0);
                 videoXuserService.insert(entity);
+            }else {
+                VideoXuser entity = videoXuserList.get(0);
+                videoXuserService.update(entity);
             }
 
             Map<String, Object> query1 = new HashMap<>();

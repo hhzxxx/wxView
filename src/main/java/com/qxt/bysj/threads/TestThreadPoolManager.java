@@ -27,7 +27,7 @@ public class TestThreadPoolManager implements BeanFactoryAware {
     // 线程池维护线程所允许的空闲时间
     private final static int KEEP_ALIVE_TIME = 0;
     // 线程池所使用的缓冲队列大小
-    private final static int WORK_QUEUE_SIZE = 200;
+    private final static int WORK_QUEUE_SIZE = 2;
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
@@ -92,15 +92,14 @@ public class TestThreadPoolManager implements BeanFactoryAware {
                 //当线程池的队列容量少于WORK_QUEUE_SIZE，则开始把缓冲队列的订单 加入到 线程池
                 if (threadPool.getQueue().size() < WORK_QUEUE_SIZE) {
                     BusinessThread businessThread = (BusinessThread) msgQueue.poll();
-//                    String orderId = (String) msgQueue.poll();
-//                    BusinessThread businessThread = new BusinessThread(orderId);
                     threadPool.execute(businessThread);
                     System.out.println("(调度线程池)缓冲队列出现订单业务，重新添加到线程池，订单号："+businessThread.getAcceptStr());
                     System.out.println("线程池队列剩余："+threadPool.getQueue().size()+",缓冲池队列剩余："+msgQueue.size());
+                    System.out.println("当前线程数量："+threadPool.getPoolSize());
                 }
             }
         }
-    }, 0, 800, TimeUnit.MILLISECONDS);
+    }, 0, 500, TimeUnit.MILLISECONDS);
 
 
     /**获取消息缓冲队列*/

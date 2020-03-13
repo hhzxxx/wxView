@@ -56,5 +56,6 @@ public class BusinessThread implements Runnable{
 //        BusinessService businessService = (BusinessService) SpringContextUtils.getBean(BusinessService.class);
 
         businessService.doVideoTap(openId,videoId);
+
     }
 }
