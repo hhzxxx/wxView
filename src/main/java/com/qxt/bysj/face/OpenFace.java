@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qxt.bysj.domain.*;
 import com.qxt.bysj.service.*;
 import com.qxt.bysj.threads.TestThreadPoolManager;
-import com.qxt.bysj.utils.BiliRequest;
-import com.qxt.bysj.utils.PageRequest;
-import com.qxt.bysj.utils.PageResult;
-import com.qxt.bysj.utils.Result;
+import com.qxt.bysj.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -30,6 +27,8 @@ public class OpenFace {
     private VideoService videoService;
     @Autowired
     private BiliRequest biliRequest;
+    @Autowired
+    private httpPost httpPost;
     @Autowired
     TestThreadPoolManager testThreadPoolManager;
     @Autowired
@@ -214,6 +213,11 @@ public class OpenFace {
         Result<Object> result = new Result<>();
         String openId = dto.getOpenId();
         Integer videoId = dto.getVideoId();
+
+        Video video = videoService.selectById(videoId);
+
+        String obj =  httpPost.post4video(video.getAvid(),null);
+
 
         //模拟的随机数
         String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
