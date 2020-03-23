@@ -5,7 +5,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -16,7 +15,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author huanghz
@@ -37,7 +35,7 @@ public class httpPost {
         httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"); //这项内容很重要
         HttpResponse response = null;
         List<NameValuePair> paramList = new ArrayList<NameValuePair>();
-            paramList.add(new BasicNameValuePair("urlav", "https://www.bilibili.com/video/av"+avid));
+            paramList.add(new BasicNameValuePair("urlav", "https://www.bilibili.com/video/av"+avid+"&zengqiang=true"));
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(paramList, "utf-8"));
         } catch (UnsupportedEncodingException e1) {

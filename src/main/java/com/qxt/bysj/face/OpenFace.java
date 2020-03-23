@@ -2,10 +2,7 @@ package com.qxt.bysj.face;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.qxt.bysj.domain.Tag;
-import com.qxt.bysj.domain.TagXuser;
-import com.qxt.bysj.domain.User;
-import com.qxt.bysj.domain.Video;
+import com.qxt.bysj.domain.*;
 import com.qxt.bysj.service.*;
 import com.qxt.bysj.threads.TestThreadPoolManager;
 import com.qxt.bysj.utils.*;
@@ -219,19 +216,25 @@ public class OpenFace {
         Result<Object> result = new Result<>();
         String openId = dto.getOpenId();
         Integer videoId = dto.getVideoId();
-
+        User user = userService.selectByOpenid(openId);
+        //获取视频地址
         Video video = videoService.selectById(videoId);
-
         String obj =  httpPost.post4video(video.getAvid(),null);
-
         Document doc = Jsoup.parse(obj);
         Elements elements = doc.select("span[id=basic-addon1]").select("a");
         String url = elements.get(0).attr("href");
-        //模拟的随机数
+        System.out.println(url);
+        //执行视频点击流程
         String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
-
         testThreadPoolManager.addOrders(orderNo,openId,videoId);
+
+        //查询用户视频关联信息
+        Map<String, Object> videoXuserQuery = new HashMap<>();
+        videoXuserQuery.put("videoId",videoId);
+        videoXuserQuery.put("userId",user.getId());
+        VideoXuser videoXuser = videoXuserService.find(videoXuserQuery).get(0);
         result.setMessage(url);
+        result.setData(videoXuser);
         return result;
     }
 
