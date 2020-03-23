@@ -2,10 +2,16 @@ package com.qxt.bysj.face;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.qxt.bysj.domain.*;
+import com.qxt.bysj.domain.Tag;
+import com.qxt.bysj.domain.TagXuser;
+import com.qxt.bysj.domain.User;
+import com.qxt.bysj.domain.Video;
 import com.qxt.bysj.service.*;
 import com.qxt.bysj.threads.TestThreadPoolManager;
 import com.qxt.bysj.utils.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -218,11 +224,14 @@ public class OpenFace {
 
         String obj =  httpPost.post4video(video.getAvid(),null);
 
-
+        Document doc = Jsoup.parse(obj);
+        Elements elements = doc.select("span[id=basic-addon1]").select("a");
+        String url = elements.get(0).attr("href");
         //模拟的随机数
         String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
 
         testThreadPoolManager.addOrders(orderNo,openId,videoId);
+        result.setMessage(url);
         return result;
     }
 
