@@ -35,22 +35,6 @@ public class BusinessService {
             video.setHot(video.getHot()+1);
             videoService.update(video);
 
-            Map<String, Object> videoXuserQuery = new HashMap<>();
-            videoXuserQuery.put("videoId",videoId);
-            videoXuserQuery.put("userId",user.getId());
-
-            List<VideoXuser> videoXuserList = videoXuserService.find(videoXuserQuery);
-            if(videoXuserList.size()<1){
-                VideoXuser entity = new VideoXuser();
-                entity.setVideoid(videoId);
-                entity.setUserid(user.getId());
-                entity.setStatus(0);
-                videoXuserService.insert(entity);
-            }else {
-                VideoXuser entity = videoXuserList.get(0);
-                videoXuserService.update(entity);
-            }
-
             Map<String, Object> query1 = new HashMap<>();
             query1.put("videoId",videoId);
             List<Tag> tagList = tagService.find(query1);

@@ -217,6 +217,28 @@ public class OpenFace {
         String openId = dto.getOpenId();
         Integer videoId = dto.getVideoId();
         User user = userService.selectByOpenid(openId);
+
+        //查询用户视频关联信息
+        Map<String, Object> videoXuserQuery = new HashMap<>();
+        videoXuserQuery.put("videoId",videoId);
+        videoXuserQuery.put("userId",user.getId());
+        List<VideoXuser> videoXuserList = videoXuserService.find(videoXuserQuery);
+        VideoXuser entity = null;
+        if(videoXuserList.size()<1){
+            entity = new VideoXuser();
+            entity.setVideoid(videoId);
+            entity.setUserid(user.getId());
+            entity.setStatus(0);
+            videoXuserService.insert(entity);
+        }else {
+            entity = videoXuserList.get(0);
+            videoXuserService.update(entity);
+        }
+
+        //执行视频点击流程
+        String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
+        testThreadPoolManager.addOrders(orderNo,openId,videoId);
+
         //获取视频地址
         Video video = videoService.selectById(videoId);
         String obj =  httpPost.post4video(video.getAvid(),null);
@@ -224,17 +246,9 @@ public class OpenFace {
         Elements elements = doc.select("span[id=basic-addon1]").select("a");
         String url = elements.get(0).attr("href");
         System.out.println(url);
-        //执行视频点击流程
-        String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
-        testThreadPoolManager.addOrders(orderNo,openId,videoId);
 
-        //查询用户视频关联信息
-        Map<String, Object> videoXuserQuery = new HashMap<>();
-        videoXuserQuery.put("videoId",videoId);
-        videoXuserQuery.put("userId",user.getId());
-        VideoXuser videoXuser = videoXuserService.find(videoXuserQuery).get(0);
         result.setMessage(url);
-        result.setData(videoXuser);
+        result.setData(entity);
         return result;
     }
 

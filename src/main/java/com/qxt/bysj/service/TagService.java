@@ -1,5 +1,6 @@
 package com.qxt.bysj.service;
 
+import com.qxt.bysj.domain.Article;
 import com.qxt.bysj.domain.Tag;
 import com.qxt.bysj.domain.Video;
 
@@ -13,6 +14,9 @@ import java.util.List;
 public interface TagService extends BaseService<Tag> {
 
     int dealTaskVideoTag(Video video);
+
+    int dealTaskArticleTag(Article article);
+
 
     Tag selectByTagname(String tagname);
 

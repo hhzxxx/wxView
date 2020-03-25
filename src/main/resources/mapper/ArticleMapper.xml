@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qxt.bysj.dao.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.qxt.bysj.domain.Article" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="cvid" property="cvid" jdbcType="INTEGER" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="ownerId" property="ownerid" jdbcType="INTEGER" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="hot" property="hot" jdbcType="INTEGER" />
+    <result column="good" property="good" jdbcType="INTEGER" />
+    <result column="bad" property="bad" jdbcType="INTEGER" />
+    <result column="collection" property="collection" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uuid, status, createTime, updateTime, title, cvid, owner, ownerId, pic, remark, 
+    hot, good, bad, collection
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tab_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tab_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qxt.bysj.domain.Article" >
+    insert into tab_article (id, uuid, status, 
+      createTime, updateTime, title, 
+      cvid, owner, ownerId, 
+      pic, remark)
+    values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      now(), now(), #{title,jdbcType=VARCHAR},
+      #{cvid,jdbcType=INTEGER}, #{owner,jdbcType=VARCHAR}, #{ownerid,jdbcType=INTEGER}, 
+      #{pic,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qxt.bysj.domain.Article" >
+    insert into tab_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="cvid != null" >
+        cvid,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="ownerid != null" >
+        ownerId,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="hot != null" >
+        hot,
+      </if>
+      <if test="good != null" >
+        good,
+      </if>
+      <if test="bad != null" >
+        bad,
+      </if>
+      <if test="collection != null" >
+        collection,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cvid != null" >
+        #{cvid,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null" >
+        #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="hot != null" >
+        #{hot,jdbcType=INTEGER},
+      </if>
+      <if test="good != null" >
+        #{good,jdbcType=INTEGER},
+      </if>
+      <if test="bad != null" >
+        #{bad,jdbcType=INTEGER},
+      </if>
+      <if test="collection != null" >
+        #{collection,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qxt.bysj.domain.Article" >
+    update tab_article
+    <set >
+        updateTime = now(),
+        <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cvid != null" >
+        cvid = #{cvid,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null" >
+        ownerId = #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="hot != null" >
+        hot = #{hot,jdbcType=INTEGER},
+      </if>
+      <if test="good != null" >
+        good = #{good,jdbcType=INTEGER},
+      </if>
+      <if test="bad != null" >
+        bad = #{bad,jdbcType=INTEGER},
+      </if>
+      <if test="collection != null" >
+        collection = #{collection,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qxt.bysj.domain.Article" >
+    update tab_article
+    set uuid = #{uuid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = now(),
+      title = #{title,jdbcType=VARCHAR},
+      cvid = #{cvid,jdbcType=INTEGER},
+      owner = #{owner,jdbcType=VARCHAR},
+      ownerId = #{ownerid,jdbcType=INTEGER},
+      pic = #{pic,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      hot = #{hot,jdbcType=INTEGER},
+      good = #{good,jdbcType=INTEGER},
+      bad = #{bad,jdbcType=INTEGER},
+      collection = #{collection,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="find"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tab_article
+    </select>
+
+    <select id="findPage"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tab_article
+        <where>
+            status &lt;&gt; 9
+            <if test="title!= null and title!=''">
+                AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByCvid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tab_article
+        where cvid = #{cvid,jdbcType=INTEGER}
+    </select>
+
+    <select id="findIndexPage"  resultMap="BaseResultMap">
+        select
+        DISTINCT u.id as dd,u.*,t.hot as tHot
+        FROM
+        tab_article u LEFT JOIN tab_tagxarticle r on u.id = r.articleId LEFT JOIN tab_tagxuser t on r.tagId = t.tagId
+        WHERE
+        r.tagId in (select
+        u.id
+        FROM
+        tab_tag u LEFT JOIN tab_tagxuser r on u.id = r.tagId LEFT JOIN tab_user p on p.id= r.userId
+        where
+        p.openId = #{openId})
+        <if test="title!= null and title!=''">
+            AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
+        </if>
+        order by u.hot desc,tHot desc,createTime desc
+    </select>
+</mapper>
