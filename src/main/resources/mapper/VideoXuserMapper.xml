@@ -20,8 +20,8 @@
 
     <select id="find"  resultMap="BaseResultMap">
         select
-        u.*
-        from tab_videoxuser u
+        u.*,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
+        from tab_videoxuser u left join tab_video r on u.videoId = r.id LEFT JOIN tab_user p on p.id = u.userId
         <where>
             <if test="userId!= null and userId!=''">
                 AND u.userId = #{userId}
@@ -58,10 +58,10 @@
     </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from tab_videoxuser
-    where id = #{id,jdbcType=INTEGER}
+   select
+    u.*,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
+    from tab_videoxuser u left join tab_video r on u.videoId = r.id LEFT JOIN tab_user p on p.id = u.userId
+    where u.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tab_videoxuser

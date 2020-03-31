@@ -30,6 +30,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
 
     @Override
     public int dealTaskArticle(JSONObject jsonObj){
+        if(!jsonObj.containsKey("dynamic")) return 0;
         Date date=new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

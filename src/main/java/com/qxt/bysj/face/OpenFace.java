@@ -6,9 +6,6 @@ import com.qxt.bysj.domain.*;
 import com.qxt.bysj.service.*;
 import com.qxt.bysj.threads.TestThreadPoolManager;
 import com.qxt.bysj.utils.*;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -193,14 +190,15 @@ public class OpenFace {
         PageResult page = videoService.findIndexPage(pageQuery);
         List<Video> list = (List<Video>) page.getContent();
         List<Integer> idList = new ArrayList<>();
+        List<Video> res = new ArrayList<>();
         for(int i=0;i<list.size();i++){
             if(!idList.contains(list.get(i).getId())){
                 idList.add(list.get(i).getId());
-            }else {
-                list.remove(i);
+                res.add(list.get(i));
             }
         }
-        page.setPageSize(list.size());
+        page.setContent(res);
+        page.setPageSize(res.size());
         result.setData(page);
         return result;
     }
@@ -234,19 +232,22 @@ public class OpenFace {
             entity = videoXuserList.get(0);
             videoXuserService.update(entity);
         }
-
         //执行视频点击流程
         String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
         testThreadPoolManager.addOrders(orderNo,openId,videoId);
 
         //获取视频地址
         Video video = videoService.selectById(videoId);
-        String obj =  httpPost.post4video(video.getAvid(),null);
-        Document doc = Jsoup.parse(obj);
-        Elements elements = doc.select("span[id=basic-addon1]").select("a");
-        String url = elements.get(0).attr("href");
+//        String obj =  httpPost.post4video(video.getAvid(),null);
+//        Document doc = Jsoup.parse(obj);
+//        Elements elements = doc.select("span[id=basic-addon1]").select("a");
+//        String url = elements.get(0).attr("href");
+        String obj =  biliRequest.getHTMLContentByHttpGetMethod("https://www.xbeibeix.com/api/bilibiliapi.php?url=https://www.bilibili.com/&aid="+video.getAvid()+"&cid="+video.getCid(),null);
+        JSONObject jsonObject = JSON.parseObject(obj);
+        String url = jsonObject.getString("url");
         System.out.println(url);
-
+        videoXuserList = videoXuserService.find(videoXuserQuery);
+        entity = videoXuserList.get(0);
         result.setMessage(url);
         result.setData(entity);
         return result;

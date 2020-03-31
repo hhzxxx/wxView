@@ -35,7 +35,9 @@ public class httpPost {
         httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"); //这项内容很重要
         HttpResponse response = null;
         List<NameValuePair> paramList = new ArrayList<NameValuePair>();
-            paramList.add(new BasicNameValuePair("urlav", "https://www.bilibili.com/video/av"+avid+"&zengqiang=true"));
+        paramList.add(new BasicNameValuePair("urlav", "https://www.bilibili.com/video/av"+avid));
+        paramList.add(new BasicNameValuePair("sxe", "zunzhongbanquan202003250013"));
+        paramList.add(new BasicNameValuePair("zengqiang", "true"));
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(paramList, "utf-8"));
         } catch (UnsupportedEncodingException e1) {
