@@ -290,6 +290,7 @@
                 AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
             </if>
         </where>
+        order by hot desc,good desc
     </select>
 
     <select id="findIndexPage"  resultMap="BaseResultMap">
