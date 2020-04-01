@@ -32,7 +32,7 @@ public class OpenFace {
     @Autowired
     TestThreadPoolManager testThreadPoolManager;
     @Autowired
-    private VideoXuserService videoXuserService;
+    private ObjXuserService objXuserService;
     @Value("${app.secret}")
     private String secret;
     @Value("${app.id}")
@@ -213,31 +213,33 @@ public class OpenFace {
     public Result<Object> tapVideo(@RequestBody tapVideoDto dto) {
         Result<Object> result = new Result<>();
         String openId = dto.getOpenId();
-        Integer videoId = dto.getVideoId();
+        Integer objId = dto.getObjId();
         User user = userService.selectByOpenid(openId);
 
         //查询用户视频关联信息
-        Map<String, Object> videoXuserQuery = new HashMap<>();
-        videoXuserQuery.put("videoId",videoId);
-        videoXuserQuery.put("userId",user.getId());
-        List<VideoXuser> videoXuserList = videoXuserService.find(videoXuserQuery);
-        VideoXuser entity = null;
-        if(videoXuserList.size()<1){
-            entity = new VideoXuser();
-            entity.setVideoid(videoId);
+        Map<String, Object> objXuserQuery = new HashMap<>();
+        objXuserQuery.put("objId",objId);
+        objXuserQuery.put("objType",1);
+        objXuserQuery.put("userId",user.getId());
+        List<ObjXuser> objXuserList = objXuserService.find(objXuserQuery);
+        ObjXuser entity = null;
+        if(objXuserList.size()<1){
+            entity = new ObjXuser();
+            entity.setObjid(objId);
             entity.setUserid(user.getId());
             entity.setStatus(0);
-            videoXuserService.insert(entity);
+            entity.setObjtype(1);
+            objXuserService.insert(entity);
         }else {
-            entity = videoXuserList.get(0);
-            videoXuserService.update(entity);
+            entity = objXuserList.get(0);
+            objXuserService.update(entity);
         }
         //执行视频点击流程
         String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
-        testThreadPoolManager.addOrders(orderNo,openId,videoId);
+        testThreadPoolManager.addOrders(orderNo,openId,objId);
 
         //获取视频地址
-        Video video = videoService.selectById(videoId);
+        Video video = videoService.selectById(objId);
 //        String obj =  httpPost.post4video(video.getAvid(),null);
 //        Document doc = Jsoup.parse(obj);
 //        Elements elements = doc.select("span[id=basic-addon1]").select("a");
@@ -246,8 +248,8 @@ public class OpenFace {
         JSONObject jsonObject = JSON.parseObject(obj);
         String url = jsonObject.getString("url");
         System.out.println(url);
-        videoXuserList = videoXuserService.find(videoXuserQuery);
-        entity = videoXuserList.get(0);
+        objXuserList = objXuserService.find(objXuserQuery);
+        entity = objXuserList.get(0);
         result.setMessage(url);
         result.setData(entity);
         return result;
@@ -263,11 +265,12 @@ public class OpenFace {
     public Result<Object> doUserAction(@RequestBody tapVideoDto dto) {
         Result<Object> result = new Result<>();
         String openId = dto.getOpenId();
-        Integer videoId = dto.getVideoId();
+        Integer objId = dto.getObjId();
+        Integer objType = dto.getObjType();
         String action = dto.getAction();
 
         if(openId!=null && openId.length()>0) {
-            videoXuserService.doUserAction(openId,videoId,action);
+            objXuserService.doUserAction(openId,objId,action,objType);
         }else {
             result.setMessage("openid为null");
             result.setCode("999");
@@ -286,7 +289,7 @@ public class OpenFace {
     @RequestMapping(value = "/findOldAndCollection", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> findOldAndCollection(@RequestBody PageRequest pageQuery) {
         Result<Object> result = new Result<>();
-        PageResult page = videoXuserService.findPage(pageQuery);
+        PageResult page = objXuserService.findPage(pageQuery);
         result.setData(page);
         return result;
     }
@@ -403,9 +406,26 @@ public class OpenFace {
     }
 
     static class tapVideoDto{
-        private Integer videoId;
+        private Integer objId;
+        private Integer objType;
         private String openId;
         private String action; //good点赞 bad踩 collection收藏
+
+        public Integer getObjId() {
+            return objId;
+        }
+
+        public void setObjId(Integer objId) {
+            this.objId = objId;
+        }
+
+        public Integer getObjType() {
+            return objType;
+        }
+
+        public void setObjType(Integer objType) {
+            this.objType = objType;
+        }
 
         public String getAction() {
             return action;
@@ -413,14 +433,6 @@ public class OpenFace {
 
         public void setAction(String action) {
             this.action = action;
-        }
-
-        public Integer getVideoId() {
-            return videoId;
-        }
-
-        public void setVideoId(Integer videoId) {
-            this.videoId = videoId;
         }
 
         public String getOpenId() {

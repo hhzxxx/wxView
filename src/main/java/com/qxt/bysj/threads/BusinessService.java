@@ -25,7 +25,7 @@ public class BusinessService {
     @Autowired
     private VideoService videoService;
     @Autowired
-    private VideoXuserService videoXuserService;
+    private ObjXuserService videoXuserService;
 
     public void doVideoTap(String openId,Integer videoId){
         if(openId!=null && openId.length()>0){
