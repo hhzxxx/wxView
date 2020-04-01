@@ -87,6 +87,9 @@ public class ObjXuserServiceImpl extends BaseServiceImpl<ObjXuser> implements Ob
                 video.setCollection(video.getCollection()-1);
             }
         }
+        if(action.equals("reply")){
+                video.setHot(video.getHot()+5);
+        }
         videoService.update(video);
         objXuserMapper.updateByPrimaryKey(entity);
     }

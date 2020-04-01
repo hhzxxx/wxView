@@ -20,6 +20,8 @@ public class OpenFace {
     @Autowired
     private UserService userService;
     @Autowired
+    private ReplyService replyService;
+    @Autowired
     private TagService tagService;
     @Autowired
     private TagXuserService tagXuserService;
@@ -188,7 +190,7 @@ public class OpenFace {
     public Result<Object> findIndexPage(@RequestBody PageRequest pageQuery) {
         Result<Object> result = new Result<>();
         PageResult page = videoService.findIndexPage(pageQuery);
-        List<Video> list = (List<Video>) page.getContent();
+/*        List<Video> list = (List<Video>) page.getContent();
         List<Integer> idList = new ArrayList<>();
         List<Video> res = new ArrayList<>();
         for(int i=0;i<list.size();i++){
@@ -198,7 +200,7 @@ public class OpenFace {
             }
         }
         page.setContent(res);
-        page.setPageSize(res.size());
+        page.setPageSize(res.size());*/
         result.setData(page);
         return result;
     }
@@ -296,6 +298,35 @@ public class OpenFace {
 
 
     //https://xbeibeix.com/api/bilibilivideo.php?url=www.bilibili.com/video/av95643079
+
+
+    @ResponseBody
+    @RequestMapping(value = "/reply", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> reply(@RequestBody tapVideoDto dto) {
+        Result<Object> result = new Result<>();
+        String openId = dto.getOpenId();
+        Integer objId = dto.getObjId();
+        Integer objType = dto.getObjType();
+        String content = dto.getContent();
+        String action = "reply";
+        User user = userService.selectByOpenid(openId);
+        Reply reply = null;
+        if(user!=null && objId!=null && objType!=null && content.length()>0){
+            objXuserService.doUserAction(openId,objId,action,objType);
+            reply = new Reply();
+            reply.setUuid(UUID.randomUUID().toString());
+            reply.setContent(content);
+            reply.setObjid(objId);
+            reply.setObjtype(objType.toString());
+            reply.setUserid(user.getId());
+            replyService.insert(reply);
+            Map<String, Object> replyQuery = new HashMap<>();
+            replyQuery.put("uuid",reply.getUuid());
+            reply = replyService.find(replyQuery).get(0);
+        }
+        result.setData(reply);
+        return result;
+    }
 
     /**
      * 停止服务
@@ -410,6 +441,7 @@ public class OpenFace {
         private Integer objType;
         private String openId;
         private String action; //good点赞 bad踩 collection收藏
+        private String content;//回复内容
 
         public Integer getObjId() {
             return objId;
@@ -442,5 +474,14 @@ public class OpenFace {
         public void setOpenId(String openId) {
             this.openId = openId;
         }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
     }
+
 }
