@@ -259,6 +259,7 @@ public class OpenFace {
 
     /**
      * 点赞 踩 收藏
+     * objType:1:视频 2:文章 3:评论
      * 必须openId
      * @return
      */
@@ -328,6 +329,11 @@ public class OpenFace {
             Map<String, Object> replyQuery = new HashMap<>();
             replyQuery.put("uuid",reply.getUuid());
             reply = replyService.find(replyQuery).get(0);
+            if(objType==1){
+                Video video = videoService.selectById(objId);
+                video.setReply(video.getReply()+1);
+                videoService.update(video);
+            }
         }
         result.setData(reply);
         return result;

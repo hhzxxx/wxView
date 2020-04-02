@@ -25,6 +25,35 @@ public class Reply {
 
     private Integer bad;
 
+    //非DB
+    private String nickName;
+    private Integer isBad;
+    private Integer isGood;
+
+    public Integer getIsBad() {
+        return isBad;
+    }
+
+    public void setIsBad(Integer isBad) {
+        this.isBad = isBad;
+    }
+
+    public Integer getIsGood() {
+        return isGood;
+    }
+
+    public void setIsGood(Integer isGood) {
+        this.isGood = isGood;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     public Integer getId() {
         return id;
     }

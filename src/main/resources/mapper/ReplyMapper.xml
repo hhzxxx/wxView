@@ -39,8 +39,10 @@
 
     <select id="findPage" resultType="com.qxt.bysj.domain.Reply">
         select
-        u.*
+        u.*,r.nickName,x.isBad,x.isGood
         from tab_reply u
+        left join tab_user r on u.userId = r.id
+        LEFT JOIN tab_objxuser x on x.objId = u.id and x.objType = 3
         <where>
             <if test="userId!= null and userId!=''">
                 AND u.userId = #{userId}
@@ -50,6 +52,9 @@
             </if>
             <if test="objId!= null and objId!=''">
                 AND u.objId = #{objId}
+            </if>
+            <if test="openId!= null and openId!=''">
+                AND r.openId = #{openId}
             </if>
         </where>
         order by u.createTime desc
