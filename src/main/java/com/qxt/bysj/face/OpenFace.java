@@ -300,6 +300,11 @@ public class OpenFace {
     //https://xbeibeix.com/api/bilibilivideo.php?url=www.bilibili.com/video/av95643079
 
 
+    /**
+     * 评论
+     * @param dto
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/reply", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> reply(@RequestBody tapVideoDto dto) {
@@ -325,6 +330,20 @@ public class OpenFace {
             reply = replyService.find(replyQuery).get(0);
         }
         result.setData(reply);
+        return result;
+    }
+
+    /**
+     * 分页获取评论列表
+     * @param pageQuery
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findReplyPage", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> findReplyPage(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        PageResult page = replyService.findPage(pageQuery);
+        result.setData(page);
         return result;
     }
 

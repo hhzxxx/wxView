@@ -8,6 +8,7 @@ import com.qxt.bysj.domain.Article;
 import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.ArticleService;
 import com.qxt.bysj.service.TagService;
+import com.qxt.bysj.utils.EmojiFilter;
 import com.qxt.bysj.utils.PageRequest;
 import com.qxt.bysj.utils.PageResult;
 import com.qxt.bysj.utils.PageUtils;
@@ -31,6 +32,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     @Override
     public int dealTaskArticle(JSONObject jsonObj){
         if(!jsonObj.containsKey("dynamic")) return 0;
+        if(EmojiFilter.containsEmoji(jsonObj.getString("dynamic"))) return 0;
         Date date=new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

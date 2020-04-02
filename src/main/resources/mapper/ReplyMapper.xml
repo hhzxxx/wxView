@@ -27,6 +27,12 @@
             <if test="userId!= null and userId!=''">
                 AND u.userId = #{userId}
             </if>
+            <if test="objType!= null and objType!=''">
+                AND u.objType = #{objType}
+            </if>
+            <if test="objId!= null and objId!=''">
+                AND u.objId = #{objId}
+            </if>
         </where>
         order by u.createTime desc
     </select>
@@ -36,9 +42,14 @@
         u.*
         from tab_reply u
         <where>
-            u.status &lt;&gt; 9
             <if test="userId!= null and userId!=''">
                 AND u.userId = #{userId}
+            </if>
+            <if test="objType!= null and objType!=''">
+                AND u.objType = #{objType}
+            </if>
+            <if test="objId!= null and objId!=''">
+                AND u.objId = #{objId}
             </if>
         </where>
         order by u.createTime desc
@@ -59,10 +70,10 @@
       createTime, updateTime, userId, 
       content, objType, objId, 
       good, bad)
-    values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, 0,
       now(),now(), #{userid,jdbcType=INTEGER},
       #{content,jdbcType=VARCHAR}, #{objtype,jdbcType=VARCHAR}, #{objid,jdbcType=INTEGER}, 
-      #{good,jdbcType=INTEGER}, #{bad,jdbcType=INTEGER})
+      0,0)
   </insert>
   <insert id="insertSelective" parameterType="com.qxt.bysj.domain.Reply" >
     insert into tab_reply
