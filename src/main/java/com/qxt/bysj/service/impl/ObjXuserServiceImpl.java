@@ -66,7 +66,9 @@ public class ObjXuserServiceImpl extends BaseServiceImpl<ObjXuser> implements Ob
             }else {
                 entity.setIsgood(0);
                 video.setHot(video.getHot()-5);
-                video.setGood(video.getGood()-1);
+                if(video.getGood()>0){
+                    video.setGood(video.getGood()-1);
+                }
             }
         }
         if(action.equals("bad")){
@@ -77,7 +79,9 @@ public class ObjXuserServiceImpl extends BaseServiceImpl<ObjXuser> implements Ob
             }else {
                 entity.setIsbad(0);
                 video.setHot(video.getHot()+3);
-                video.setBad(video.getBad()-1);
+                if(video.getBad()>0){
+                    video.setBad(video.getBad()-1);
+                }
             }
         }
         if(action.equals("collection")){
@@ -89,7 +93,9 @@ public class ObjXuserServiceImpl extends BaseServiceImpl<ObjXuser> implements Ob
             }else {
                 entity.setIscollection(0);
                 video.setHot(video.getHot()-5);
-                video.setCollection(video.getCollection()-1);
+                if(video.getCollection()>0){
+                    video.setCollection(video.getCollection()-1);
+                }
             }
         }
         if(action.equals("reply")){
@@ -107,7 +113,9 @@ public class ObjXuserServiceImpl extends BaseServiceImpl<ObjXuser> implements Ob
                 reply.setGood(reply.getGood()+1);
             }else {
                 entity.setIsgood(0);
-                reply.setGood(reply.getGood()-1);
+                if(reply.getGood()>0){
+                    reply.setGood(reply.getGood()-1);
+                }
             }
         }
         if(action.equals("bad")){
@@ -117,6 +125,9 @@ public class ObjXuserServiceImpl extends BaseServiceImpl<ObjXuser> implements Ob
             }else {
                 entity.setIsbad(0);
                 reply.setBad(reply.getBad()-1);
+                if(reply.getBad()>0){
+                    reply.setBad(reply.getBad()-1);
+                }
             }
         }
         replyService.update(reply);

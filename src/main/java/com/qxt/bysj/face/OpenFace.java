@@ -3,6 +3,7 @@ package com.qxt.bysj.face;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qxt.bysj.domain.*;
+import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.*;
 import com.qxt.bysj.threads.TestThreadPoolManager;
 import com.qxt.bysj.utils.*;
@@ -189,6 +190,12 @@ public class OpenFace {
     @RequestMapping(value = "/findIndexPage", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> findIndexPage(@RequestBody PageRequest pageQuery) {
         Result<Object> result = new Result<>();
+        List<ruleDto> list = pageQuery.getRules();
+        ruleDto dto = new ruleDto();
+        dto.setRuleName("index");
+        dto.setRuleValue(1);
+        list.add(dto);
+        pageQuery.setRules(list);
         PageResult page = videoService.findIndexPage(pageQuery);
 /*        List<Video> list = (List<Video>) page.getContent();
         List<Integer> idList = new ArrayList<>();
@@ -201,6 +208,21 @@ public class OpenFace {
         }
         page.setContent(res);
         page.setPageSize(res.size());*/
+        result.setData(page);
+        return result;
+    }
+
+    /**
+     * 猜你喜欢
+     * 必须openId
+     * @param pageQuery
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findLikePage", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> findLikePage(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        PageResult page = videoService.findIndexPage(pageQuery);
         result.setData(page);
         return result;
     }

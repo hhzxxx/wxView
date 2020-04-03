@@ -311,17 +311,29 @@
         FROM
         tab_video u LEFT JOIN tab_tagxvideo r on u.id = r.videoId LEFT JOIN tab_tagxuser t on r.tagId = t.tagId
         WHERE
-        r.tagId in (select
+        r.tagId in
+      <if test="index!= null and index!=''">
+        (select
         u.id
         FROM
         tab_tag u LEFT JOIN tab_tagxuser r on u.id = r.tagId LEFT JOIN tab_user p on p.id= r.userId
         where
         p.openId = #{openId})
+      </if>
+      <if test="videoId!= null and videoId!=''">
+        (SELECT
+        u.id
+        FROM
+        tab_tag u LEFT JOIN tab_tagxvideo r on u.id = r.tagId
+        WHERE
+        r.videoId = #{videoId} )
+      </if>
         <if test="title!= null and title!=''">
             and u.title LIKE  '%' #{title} '%' OR u.remark like '%' #{title} '%'
         </if>
         ) x
         group by x.id
-        order by x.hot desc,x.tHot desc,x.createTime desc,x.reply desc
+        order by rand()
+        /*order by x.hot desc,x.tHot desc,x.createTime desc,x.reply desc*/
     </select>
 </mapper>

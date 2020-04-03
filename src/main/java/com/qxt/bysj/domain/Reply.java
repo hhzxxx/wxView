@@ -29,6 +29,15 @@ public class Reply {
     private String nickName;
     private Integer isBad;
     private Integer isGood;
+    private String avatarUrl;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     public Integer getIsBad() {
         return isBad;

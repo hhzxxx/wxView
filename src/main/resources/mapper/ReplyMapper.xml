@@ -39,7 +39,7 @@
 
     <select id="findPage" resultType="com.qxt.bysj.domain.Reply">
         select
-        u.*,r.nickName,x.isBad,x.isGood
+        u.*,r.nickName,x.isBad,x.isGood,r.avatarUrl
         from tab_reply u
         left join tab_user r on u.userId = r.id
         LEFT JOIN tab_objxuser x on x.objId = u.id and x.objType = 3
