@@ -12,14 +12,16 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")//spring 多例
 public class BusinessThread implements Runnable{
 
-    private Integer videoId;
+    private Integer objId;
+    private Integer objType;
     private String openId;
     private String acceptStr;
     private BusinessService businessService;
 
-    public BusinessThread(String acceptStr,String openId,Integer videoId,BusinessService businessService) {
+    public BusinessThread(String acceptStr,String openId,Integer objId,Integer objType,BusinessService businessService) {
         this.openId = openId;
-        this.videoId = videoId;
+        this.objId = objId;
+        this.objType = objType;
         this.acceptStr = acceptStr;
         this.businessService = businessService;
     }
@@ -32,12 +34,20 @@ public class BusinessThread implements Runnable{
         this.acceptStr = acceptStr;
     }
 
-    public Integer getVideoId() {
-        return videoId;
+    public Integer getObjId() {
+        return objId;
     }
 
-    public void setVideoId(Integer videoId) {
-        this.videoId = videoId;
+    public void setObjId(Integer objId) {
+        this.objId = objId;
+    }
+
+    public Integer getObjType() {
+        return objType;
+    }
+
+    public void setObjType(Integer objType) {
+        this.objType = objType;
     }
 
     public String getOpenId() {
@@ -55,7 +65,7 @@ public class BusinessThread implements Runnable{
 
 //        BusinessService businessService = (BusinessService) SpringContextUtils.getBean(BusinessService.class);
 
-        businessService.doVideoTap(openId,videoId);
+        businessService.doVideoTap(openId,objId,objType);
 
     }
 }

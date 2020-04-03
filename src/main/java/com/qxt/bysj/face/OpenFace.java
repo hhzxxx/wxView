@@ -7,6 +7,9 @@ import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.*;
 import com.qxt.bysj.threads.TestThreadPoolManager;
 import com.qxt.bysj.utils.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -29,9 +32,13 @@ public class OpenFace {
     @Autowired
     private VideoService videoService;
     @Autowired
+    private ArticleService articleService;
+    @Autowired
     private BiliRequest biliRequest;
     @Autowired
     private httpPost httpPost;
+    @Autowired
+    private httpGet httpGet;
     @Autowired
     TestThreadPoolManager testThreadPoolManager;
     @Autowired
@@ -213,7 +220,7 @@ public class OpenFace {
     }
 
     /**
-     * 猜你喜欢
+     * 猜你喜欢 视频
      * 必须openId
      * @param pageQuery
      * @return
@@ -260,11 +267,11 @@ public class OpenFace {
         }
         //执行视频点击流程
         String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
-        testThreadPoolManager.addOrders(orderNo,openId,objId);
+        testThreadPoolManager.addOrders(orderNo,openId,objId,1);
 
         //获取视频地址
         Video video = videoService.selectById(objId);
-//        String obj =  httpPost.post4video(video.getAvid(),null);
+//        String obj =  httpPost.getPostStr(video.getAvid(),null);
 //        Document doc = Jsoup.parse(obj);
 //        Elements elements = doc.select("span[id=basic-addon1]").select("a");
 //        String url = elements.get(0).attr("href");
@@ -372,6 +379,87 @@ public class OpenFace {
         Result<Object> result = new Result<>();
         PageResult page = replyService.findPage(pageQuery);
         result.setData(page);
+        return result;
+    }
+
+    /**
+     * 首页推荐文章
+     * 必须openId
+     * @param pageQuery
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findIndexArticlePage", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> findIndexArticlePage(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        List<ruleDto> list = pageQuery.getRules();
+        ruleDto dto = new ruleDto();
+        dto.setRuleName("index");
+        dto.setRuleValue(1);
+        list.add(dto);
+        pageQuery.setRules(list);
+        PageResult page = articleService.findIndexPage(pageQuery);
+        result.setData(page);
+        return result;
+    }
+
+    /**
+     * 猜你喜欢 文章
+     * 必须openId
+     * @param pageQuery
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findLikeArticlePage", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> findLikeArticlePage(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        PageResult page = articleService.findIndexPage(pageQuery);
+        result.setData(page);
+        return result;
+    }
+
+    /**
+     * 点击文章
+     * 必须openId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/tapArticle", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> tapArticle(@RequestBody tapVideoDto dto) {
+        Result<Object> result = new Result<>();
+        Article article = articleService.selectById(dto.getObjId());
+        User user = userService.selectByOpenid(dto.getOpenId());
+        Integer cvid = article.getCvid();
+        String obj =  httpGet.getGetStr("https://www.bilibili.com/read/mobile/"+cvid,null);
+        Document doc = Jsoup.parse(obj);
+        String div = doc.select("div .max-content").select("div .article-holder").html();
+        String html = div.replaceAll("//","http://");
+        article.setContent(html);
+
+        //查询用户视频关联信息
+        Map<String, Object> objXuserQuery = new HashMap<>();
+        objXuserQuery.put("objId",dto.getObjId());
+        objXuserQuery.put("objType",2);
+        objXuserQuery.put("userId",user.getId());
+        List<ObjXuser> objXuserList = objXuserService.find(objXuserQuery);
+        ObjXuser entity = null;
+        if(objXuserList.size()<1){
+            entity = new ObjXuser();
+            entity.setObjid(dto.getObjId());
+            entity.setUserid(user.getId());
+            entity.setStatus(0);
+            entity.setObjtype(2);
+            objXuserService.insert(entity);
+        }else {
+            entity = objXuserList.get(0);
+            objXuserService.update(entity);
+        }
+
+        //执行视频点击流程
+        String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
+        testThreadPoolManager.addOrders(orderNo,dto.getOpenId(),dto.getObjId(),2);
+
+        result.setData(article);
         return result;
     }
 

@@ -230,20 +230,35 @@
     </select>
 
     <select id="findIndexPage"  resultMap="BaseResultMap">
-        select
-        DISTINCT u.id as dd,u.*,t.hot as tHot
-        FROM
-        tab_article u LEFT JOIN tab_tagxarticle r on u.id = r.articleId LEFT JOIN tab_tagxuser t on r.tagId = t.tagId
-        WHERE
-        r.tagId in (select
+      SELECT x.*
+      from(select
+      DISTINCT u.id as dd,u.*,t.hot as tHot
+      FROM
+      tab_article u LEFT JOIN tab_tagxarticle r on u.id = r.articleId LEFT JOIN tab_tagxuser t on r.tagId = t.tagId
+      WHERE
+      r.tagId in
+      <if test="index!= null and index!=''">
+        (select
         u.id
         FROM
         tab_tag u LEFT JOIN tab_tagxuser r on u.id = r.tagId LEFT JOIN tab_user p on p.id= r.userId
         where
         p.openId = #{openId})
-        <if test="title!= null and title!=''">
-            AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
-        </if>
-        order by u.hot desc,tHot desc,createTime desc
+      </if>
+      <if test="articleId!= null and articleId!=''">
+        (SELECT
+        u.id
+        FROM
+        tab_tag u LEFT JOIN tab_tagxarticle r on u.id = r.tagId
+        WHERE
+        r.articleId = #{articleId} )
+      </if>
+      <if test="title!= null and title!=''">
+        and u.title LIKE  '%' #{title} '%' OR u.remark like '%' #{title} '%'
+      </if>
+      ) x
+      group by x.id
+      order by rand()
+      /*order by x.hot desc,x.tHot desc,x.createTime desc,x.reply desc*/
     </select>
 </mapper>
