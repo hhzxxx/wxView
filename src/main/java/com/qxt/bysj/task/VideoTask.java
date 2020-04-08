@@ -40,9 +40,9 @@ public class VideoTask {
         //热门排行
 //        String obj =  biliRequest.getHTMLContentByHttpGetMethod(
 //                "https://s.search.bilibili.com/cate/search?search_type=video&view_type=hot_rank&cate_id=76&page=1&pagesize=100&time_from=20191204&time_to=20200211",null);
-        JSONObject jsonObject = JSON.parseObject(obj);
-        JSONObject data = jsonObject.getJSONObject("data");
-        JSONArray list = data.getJSONArray("archives");
+        JSONObject jsonObject = JSON.parseObject(obj);//将爬虫所得的json字符串转为json对象
+        JSONObject data = jsonObject.getJSONObject("data");//获取json对象里的data对象
+        JSONArray list = data.getJSONArray("archives");//获取data对象里的archives数组
         for(int i=0;i<list.size();i++){
             JSONObject jsonObj = (JSONObject) list.get(i);
             videoService.dealTaskVideo(jsonObj);
