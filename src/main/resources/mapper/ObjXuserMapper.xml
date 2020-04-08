@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qxt.bysj.dao.VideoXuserMapper" >
-  <resultMap id="BaseResultMap" type="com.qxt.bysj.domain.VideoXuser" >
+<mapper namespace="com.qxt.bysj.dao.ObjXuserMapper" >
+  <resultMap id="BaseResultMap" type="com.qxt.bysj.domain.ObjXuser" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
-    <result column="videoId" property="videoid" jdbcType="INTEGER" />
+    <result column="objId" property="objid" jdbcType="INTEGER" />
+    <result column="objType" property="objtype" jdbcType="INTEGER" />
     <result column="userId" property="userid" jdbcType="INTEGER" />
     <result column="isGood" property="isgood" jdbcType="INTEGER" />
     <result column="isBad" property="isbad" jdbcType="INTEGER" />
@@ -14,20 +15,23 @@
     <result column="collectionTime" property="collectiontime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, status, createTime, updateTime, videoId, userId, isGood, isBad, isCollection, 
-    collectionTime
+    id, status, createTime, updateTime, objId, userId, isGood, isBad, isCollection,
+    collectionTime,objType
   </sql>
 
     <select id="find"  resultMap="BaseResultMap">
         select
         u.*,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
-        from tab_videoxuser u left join tab_video r on u.videoId = r.id LEFT JOIN tab_user p on p.id = u.userId
+        from tab_objxuser u left join tab_video r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
         <where>
             <if test="userId!= null and userId!=''">
                 AND u.userId = #{userId}
             </if>
-            <if test="videoId!= null and videoId!=''">
-                AND u.videoId = #{videoId}
+            <if test="objId!= null and objId!=''">
+                AND u.objId = #{objId}
+            </if>
+            <if test="objType!= null and objType!=''">
+                AND u.objType = #{objType}
             </if>
             <if test="id!= null and id!=''">
                 AND u.id = #{id}
@@ -38,10 +42,10 @@
         </where>
     </select>
 
-    <select id="findPage" resultType="com.qxt.bysj.domain.VideoXuser">
+    <select id="findPage" resultType="com.qxt.bysj.domain.ObjXuser">
         select
         u.*,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
-        from tab_videoxuser u left join tab_video r on u.videoId = r.id LEFT JOIN tab_user p on p.id = u.userId
+        from tab_objxuser u left join tab_video r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
         <where>
             u.status &lt;&gt; 9
             <if test="openId!= null and openId!=''">
@@ -49,6 +53,9 @@
             </if>
             <if test="userId!= null and userId!=''">
                 AND u.userId = #{userId}
+            </if>
+            <if test="objType!= null and objType!=''">
+                AND u.objType = #{objType}
             </if>
             <if test="isCollection!= null and isCollection!=''">
                 AND u.isCollection = #{isCollection}
@@ -60,25 +67,25 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
    select
     u.*,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
-    from tab_videoxuser u left join tab_video r on u.videoId = r.id LEFT JOIN tab_user p on p.id = u.userId
+    from tab_objxuser u left join tab_video r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
     where u.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tab_videoxuser
+    delete from tab_objxuser
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.qxt.bysj.domain.VideoXuser" >
-    insert into tab_videoxuser (id, status, createTime, 
-      updateTime, videoId, userId, 
+  <insert id="insert" parameterType="com.qxt.bysj.domain.ObjXuser" >
+    insert into tab_objxuser (id, status, createTime, 
+      updateTime, objId, userId,
       isGood, isBad, isCollection, 
-      collectionTime)
+      collectionTime,objType)
     values (#{id,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, now(),
-      now(), #{videoid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},
+      now(), #{objid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},
       #{isgood,jdbcType=INTEGER}, #{isbad,jdbcType=INTEGER}, #{iscollection,jdbcType=INTEGER}, 
-      #{collectiontime,jdbcType=TIMESTAMP})
+      #{collectiontime,jdbcType=TIMESTAMP},#{objtype,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.qxt.bysj.domain.VideoXuser" >
-    insert into tab_videoxuser
+  <insert id="insertSelective" parameterType="com.qxt.bysj.domain.ObjXuser" >
+    insert into tab_objxuser
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -92,8 +99,8 @@
       <if test="updatetime != null" >
         updateTime,
       </if>
-      <if test="videoid != null" >
-        videoId,
+      <if test="objid != null" >
+        objId,
       </if>
       <if test="userid != null" >
         userId,
@@ -110,6 +117,9 @@
       <if test="collectiontime != null" >
         collectionTime,
       </if>
+        <if test="objtype != null" >
+            objType,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -124,8 +134,8 @@
       <if test="updatetime != null" >
         #{updatetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="videoid != null" >
-        #{videoid,jdbcType=INTEGER},
+      <if test="objid != null" >
+        #{objid,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
@@ -142,10 +152,13 @@
       <if test="collectiontime != null" >
         #{collectiontime,jdbcType=TIMESTAMP},
       </if>
+        <if test="objtype != null" >
+            #{objtype,jdbcType=INTEGER},
+        </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qxt.bysj.domain.VideoXuser" >
-    update tab_videoxuser
+  <update id="updateByPrimaryKeySelective" parameterType="com.qxt.bysj.domain.ObjXuser" >
+    update tab_objxuser
     <set >
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -156,8 +169,8 @@
       <if test="updatetime != null" >
         updateTime = #{updatetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="videoid != null" >
-        videoId = #{videoid,jdbcType=INTEGER},
+      <if test="objid != null" >
+        objId = #{objid,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
         userId = #{userid,jdbcType=INTEGER},
@@ -174,20 +187,24 @@
       <if test="collectiontime != null" >
         collectionTime = #{collectiontime,jdbcType=TIMESTAMP},
       </if>
+        <if test="objtype != null" >
+            objType = #{objtype,jdbcType=INTEGER},
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qxt.bysj.domain.VideoXuser" >
-    update tab_videoxuser
+  <update id="updateByPrimaryKey" parameterType="com.qxt.bysj.domain.ObjXuser" >
+    update tab_objxuser
     set status = #{status,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
       updateTime = now(),
-      videoId = #{videoid,jdbcType=INTEGER},
+      objId = #{objid,jdbcType=INTEGER},
       userId = #{userid,jdbcType=INTEGER},
       isGood = #{isgood,jdbcType=INTEGER},
       isBad = #{isbad,jdbcType=INTEGER},
       isCollection = #{iscollection,jdbcType=INTEGER},
-      collectionTime = #{collectiontime,jdbcType=TIMESTAMP}
+      collectionTime = #{collectiontime,jdbcType=TIMESTAMP},
+            objType = #{objtype,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

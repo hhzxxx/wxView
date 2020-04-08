@@ -64,13 +64,13 @@ public class TestThreadPoolManager implements BeanFactoryAware {
 
 
     /**将任务加入订单线程池*/
-    public void addOrders(String orderId,String openId,Integer videoId){
+    public void addOrders(String orderId,String openId,Integer objId,Integer objType){
         System.out.println("此订单准备添加到线程池，订单号：" + orderId);
         //验证当前进入的订单是否已经存在
         if (cacheMap.get(orderId) == null) {
             cacheMap.put(orderId, new Object());
             BusinessService businessService = (BusinessService)factory.getBean("businessService");
-            BusinessThread businessThread = new BusinessThread(orderId,openId,videoId,businessService);
+            BusinessThread businessThread = new BusinessThread(orderId,openId,objId,objType,businessService);
             threadPool.execute(businessThread);
         }
     }

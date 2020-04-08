@@ -105,6 +105,15 @@ public class Video {
     private Integer good;
     private Integer bad;
     private Integer collection;
+    private Integer reply;
+
+    public Integer getReply() {
+        return reply;
+    }
+
+    public void setReply(Integer reply) {
+        this.reply = reply;
+    }
 
     public Integer getGood() {
         return good;

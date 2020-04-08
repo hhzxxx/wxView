@@ -13,10 +13,19 @@
     <select id="find"  resultMap="BaseResultMap">
         select
         u.*
-        from tab_tag u RIGHT JOIN tab_tagxvideo r on u.id=r.tagId
+        from tab_tag u
+        <if test="video!= null and video!=''">
+        RIGHT JOIN tab_tagxvideo r on u.id=r.tagId
+        </if>
+        <if test="article!= null and article!=''">
+            RIGHT JOIN tab_tagxarticle r on u.id=r.tagId
+        </if>
         <where>
             <if test="videoId!= null and videoId!=''">
                 AND r.videoId = #{videoId}
+            </if>
+            <if test="articleId!= null and articleId!=''">
+                AND r.articleId = #{articleId}
             </if>
             <if test="id!= null and id!=''">
                 AND u.id = #{id}

@@ -1,8 +1,8 @@
 package com.qxt.bysj.service;
 
-import com.qxt.bysj.domain.VideoXuser;
+import com.qxt.bysj.domain.Reply;
 
-public interface VideoXuserService extends BaseService<VideoXuser> {
+public interface ReplyService extends BaseService<Reply> {
 
     /**
      * 分页查询接口
@@ -14,5 +14,4 @@ public interface VideoXuserService extends BaseService<VideoXuser> {
      */
 //    PageResult findIndexPage(PageRequest pageRequest);
 
-    void doUserAction(String openId,Integer videoId,String action);
 }

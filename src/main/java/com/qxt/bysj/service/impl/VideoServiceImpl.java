@@ -8,6 +8,7 @@ import com.qxt.bysj.domain.Video;
 import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.TagService;
 import com.qxt.bysj.service.VideoService;
+import com.qxt.bysj.utils.EmojiFilter;
 import com.qxt.bysj.utils.PageRequest;
 import com.qxt.bysj.utils.PageResult;
 import com.qxt.bysj.utils.PageUtils;
@@ -30,6 +31,7 @@ public class VideoServiceImpl extends BaseServiceImpl<Video> implements VideoSer
 
     @Override
     public int dealTaskVideo(JSONObject jsonObj){
+        if(EmojiFilter.containsEmoji(jsonObj.getString("dynamic"))) return 0;
         Date date=new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

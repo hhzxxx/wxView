@@ -2,7 +2,7 @@ package com.qxt.bysj.domain;
 
 import java.util.Date;
 
-public class VideoXuser {
+public class ObjXuser {
     private Integer id;
 
     private Integer status;
@@ -11,7 +11,9 @@ public class VideoXuser {
 
     private Date updatetime;
 
-    private Integer videoid;
+    private Integer objid;
+
+    private Integer objtype;
 
     private Integer userid;
 
@@ -35,6 +37,14 @@ public class VideoXuser {
     private Integer good;
     private Integer bad;
     private Integer collection;
+
+    public Integer getObjtype() {
+        return objtype;
+    }
+
+    public void setObjtype(Integer objtype) {
+        this.objtype = objtype;
+    }
 
     public String getTitle() {
         return title;
@@ -156,12 +166,12 @@ public class VideoXuser {
         this.updatetime = updatetime;
     }
 
-    public Integer getVideoid() {
-        return videoid;
+    public Integer getObjid() {
+        return objid;
     }
 
-    public void setVideoid(Integer videoid) {
-        this.videoid = videoid;
+    public void setObjid(Integer objid) {
+        this.objid = objid;
     }
 
     public Integer getUserid() {

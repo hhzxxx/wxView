@@ -54,7 +54,7 @@ public class httpPost {
         return httpEntity;
     }
 
-    public String post4video(Integer avid, String code) {
+    public String getPostStr(Integer avid, String code) {
         //获取Html内容
         try {
             return EntityUtils.toString(getEntityByHttpPostMethod(avid), code);
