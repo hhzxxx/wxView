@@ -47,7 +47,7 @@ public class BusinessService {
                     tag.setHot(tag.getHot()+1);
                     tagService.update(tag);
 
-                    Map<String, Object> query2 = new HashMap<>();
+/*                    Map<String, Object> query2 = new HashMap<>();
                     query2.put("userId",user.getId());
                     query2.put("tagId",tag.getId());
 
@@ -64,7 +64,7 @@ public class BusinessService {
                         obj.setUserid(user.getId());
                         obj.setHot(1);
                         tagXuserService.insert(obj);
-                    }
+                    }*/
                 }
             }
         }else if(openId!=null && openId.length()>0 && objType==2){
@@ -84,7 +84,7 @@ public class BusinessService {
                     tag.setHot(tag.getHot()+1);
                     tagService.update(tag);
 
-                    Map<String, Object> query2 = new HashMap<>();
+/*                    Map<String, Object> query2 = new HashMap<>();
                     query2.put("userId",user.getId());
                     query2.put("tagId",tag.getId());
 
@@ -101,7 +101,7 @@ public class BusinessService {
                         obj.setUserid(user.getId());
                         obj.setHot(1);
                         tagXuserService.insert(obj);
-                    }
+                    }*/
                 }
             }
         }
