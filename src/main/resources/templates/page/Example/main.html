@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>springboot-thymeleaf demo</title>
+    <link rel="stylesheet" href="static/apps/css/example.css" >
+</head>
+
+<body>
+<!--/*@thymesVar id="name" type="templates"*/-->
+<p th:text="'hello, ' + ${name} + '!'" />
+
+<script src="static/apps/js/example.js"></script>
+
+</body>
+</html>

@@ -134,15 +134,7 @@ public class OpenFace {
         Result<Object> result = new Result<>();
         try{
             List<Tag> list = tagService.firstTagChoose();
-            List<Tag> resList = new ArrayList<>();
-            for(int i=0;i<list.size();i++){
-                if(i<15){
-                    resList.add(list.get(i));
-                }else {
-                    break;
-                }
-            }
-            result.setData(resList);
+            result.setData(list);
             result.setCode("1");
         }catch (Exception e){
             result.setMessage("后台出错！");

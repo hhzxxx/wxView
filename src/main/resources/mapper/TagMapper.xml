@@ -49,11 +49,18 @@
         where tagname = #{tagname,jdbcType=INTEGER}
     </select>
     <select id="firstTagChoose" resultMap="BaseResultMap">
-    SELECT
+    select x.* from((select y.* from(SELECT
     t.tagId as id,p.tagname,p.hot
     from tab_tagXvideo t LEFT JOIN tab_tag p on p.id=t.tagId
     GROUP BY t.tagId
-    ORDER BY count(t.videoId) desc,p.hot desc
+    ORDER BY p.hot desc,count(t.videoId) desc
+		LIMIT 45)y ORDER BY RAND() LIMIT 15)union (SELECT
+    t.tagId as id,p.tagname,p.hot
+    from tab_tagXvideo t LEFT JOIN tab_tag p on p.id=t.tagId
+    GROUP BY t.tagId
+		ORDER BY RAND()
+  LIMIT 5))x
+		ORDER BY RAND()
     </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
