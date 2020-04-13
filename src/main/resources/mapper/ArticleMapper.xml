@@ -212,8 +212,8 @@
 
     <select id="findPage"  resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
-        from tab_article
+        u.*,o.face
+        from tab_article u left join tab_owner o on o.ownerId = u.ownerId
         <where>
             status &lt;&gt; 9
             <if test="title!= null and title!=''">
@@ -232,7 +232,7 @@
     <select id="findIndexPage"  resultMap="BaseResultMap">
       SELECT x.*
       from(select
-      DISTINCT u.id as dd,u.*,t.hot as tHot
+      DISTINCT u.id as dd,u.*
       FROM
       tab_article u LEFT JOIN tab_tagxarticle r on u.id = r.articleId LEFT JOIN tab_tagxuser t on r.tagId = t.tagId
       WHERE

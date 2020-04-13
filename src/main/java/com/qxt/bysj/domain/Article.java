@@ -35,6 +35,15 @@ public class Article {
 
     //非DB
     private String content;
+    private String face;
+
+    public String getFace() {
+        return face;
+    }
+
+    public void setFace(String face) {
+        this.face = face;
+    }
 
     public String getContent() {
         return content;

@@ -277,6 +277,7 @@ public class OpenFace {
         result.setData(entity);
         return result;
     }
+    //https://xbeibeix.com/api/bilibilivideo.php?url=www.bilibili.com/video/av95643079
 
     /**
      * 点赞 踩 收藏
@@ -313,13 +314,11 @@ public class OpenFace {
     @RequestMapping(value = "/findOldAndCollection", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> findOldAndCollection(@RequestBody PageRequest pageQuery) {
         Result<Object> result = new Result<>();
-        PageResult page = objXuserService.findPage(pageQuery);
+        PageResult page = objXuserService.findOldAndCollectPage(pageQuery);
         result.setData(page);
         return result;
     }
 
-
-    //https://xbeibeix.com/api/bilibilivideo.php?url=www.bilibili.com/video/av95643079
 
 
     /**
@@ -411,6 +410,20 @@ public class OpenFace {
     }
 
     /**
+     * 文章全部查询接口
+     * @param pageQuery
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/articlePage", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> articlePage(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        PageResult page = articleService.findPage(pageQuery);
+        result.setData(page);
+        return result;
+    }
+
+    /**
      * 点击文章
      * 必须openId
      * @return
@@ -419,16 +432,8 @@ public class OpenFace {
     @RequestMapping(value = "/tapArticle", produces = "application/json", method = RequestMethod.POST)
     public Result<Object> tapArticle(@RequestBody tapVideoDto dto) {
         Result<Object> result = new Result<>();
-        Article article = articleService.selectById(dto.getObjId());
         User user = userService.selectByOpenid(dto.getOpenId());
-        Integer cvid = article.getCvid();
-        String obj =  httpGet.getGetStr("https://www.bilibili.com/read/mobile/"+cvid,null);
-        Document doc = Jsoup.parse(obj);
-        String div = doc.select("div .max-content").select("div .article-holder").html();
-        String html = div.replaceAll("//","http://");
-        article.setContent(html);
-
-        //查询用户视频关联信息
+        //查询用户文章关联信息
         Map<String, Object> objXuserQuery = new HashMap<>();
         objXuserQuery.put("objId",dto.getObjId());
         objXuserQuery.put("objType",2);
@@ -442,16 +447,22 @@ public class OpenFace {
             entity.setStatus(0);
             entity.setObjtype(2);
             objXuserService.insert(entity);
+            entity = objXuserService.find(objXuserQuery).get(0);
         }else {
             entity = objXuserList.get(0);
             objXuserService.update(entity);
         }
-
-        //执行视频点击流程
+        Integer cvid = entity.getCvid();
+        String obj =  httpGet.getGetStr("https://www.bilibili.com/read/mobile/"+cvid,null);
+        Document doc = Jsoup.parse(obj);
+        String div = doc.select("div .max-content").select("div .article-holder").html();
+        String html = div.replaceAll("//","http://");
+        entity.setArticleContent(html);
+        //执行文章点击流程
         String orderNo = System.currentTimeMillis() + UUID.randomUUID().toString();
         testThreadPoolManager.addOrders(orderNo,dto.getOpenId(),dto.getObjId(),2);
 
-        result.setData(article);
+        result.setData(entity);
         return result;
     }
 

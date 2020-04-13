@@ -21,8 +21,20 @@
 
     <select id="find"  resultMap="BaseResultMap">
         select
-        u.*,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
-        from tab_objxuser u left join tab_video r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
+        u.*
+        <if test="objType!= null and objType!='' and objType eq 1">
+            ,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
+        </if>
+        <if test="objType!= null and objType!='' and objType eq 2">
+            ,r.title,r.cvid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.good,r.bad,r.collection
+        </if>
+        from tab_objxuser u
+        <if test="objType!= null and objType!='' and objType eq 1">
+            left join tab_video r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
+        </if>
+        <if test="objType!= null and objType!='' and objType eq 2">
+            left join tab_article r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
+        </if>
         <where>
             <if test="userId!= null and userId!=''">
                 AND u.userId = #{userId}
@@ -42,10 +54,51 @@
         </where>
     </select>
 
+    <select id="findOldAndCollectPage" resultType="com.qxt.bysj.domain.ObjXuser">
+        select
+        u.*,r.title,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.good,r.bad,r.collection
+        from tab_objxuser u
+        left join
+        (SELECT
+        r.id,r.title,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.good,r.bad,r.collection
+        FROM
+        tab_video r
+        union
+        SELECT
+        x.id,x.title,x.owner,x.ownerId,x.pic,x.remark,x.hot,x.good,x.bad,x.collection
+        FROM
+        tab_article x) r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
+        <where>
+            u.status &lt;&gt; 9 AND u.objType &lt;&gt; 3
+            <if test="openId!= null and openId!=''">
+                AND p.openId = #{openId}
+            </if>
+            <if test="userId!= null and userId!=''">
+                AND u.userId = #{userId}
+            </if>
+            <if test="isCollection!= null and isCollection!=''">
+                AND u.isCollection = #{isCollection}
+            </if>
+        </where>
+        order by u.updatetime desc
+    </select>
+
     <select id="findPage" resultType="com.qxt.bysj.domain.ObjXuser">
         select
-        u.*,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
-        from tab_objxuser u left join tab_video r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
+        u.*
+        <if test="objType!= null and objType!='' and objType eq 1">
+            ,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
+        </if>
+        <if test="objType!= null and objType!='' and objType eq 2">
+            ,r.title,r.cvid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.good,r.bad,r.collection
+        </if>
+        from tab_objxuser u
+        <if test="objType!= null and objType!='' and objType eq 1">
+            left join tab_video r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
+        </if>
+        <if test="objType!= null and objType!='' and objType eq 2">
+            left join tab_article r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
+        </if>
         <where>
             u.status &lt;&gt; 9
             <if test="openId!= null and openId!=''">
@@ -56,6 +109,9 @@
             </if>
             <if test="objType!= null and objType!=''">
                 AND u.objType = #{objType}
+            </if>
+            <if test="id!= null and id!=''">
+                AND u.id = #{id}
             </if>
             <if test="isCollection!= null and isCollection!=''">
                 AND u.isCollection = #{isCollection}
@@ -74,7 +130,7 @@
     delete from tab_objxuser
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.qxt.bysj.domain.ObjXuser" >
+  <insert id="insert" parameterType="com.qxt.bysj.domain.ObjXuser" useGeneratedKeys="true" keyProperty="id" >
     insert into tab_objxuser (id, status, createTime, 
       updateTime, objId, userId,
       isGood, isBad, isCollection, 

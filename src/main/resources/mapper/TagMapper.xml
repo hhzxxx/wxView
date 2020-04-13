@@ -20,11 +20,23 @@
         <if test="article!= null and article!=''">
             RIGHT JOIN tab_tagxarticle r on u.id=r.tagId
         </if>
+        <if test="type eq 1">
+            RIGHT JOIN tab_tagxvideo r on u.id=r.tagId
+        </if>
+        <if test="type eq 2">
+            RIGHT JOIN tab_tagxarticle r on u.id=r.tagId
+        </if>
         <where>
             <if test="videoId!= null and videoId!=''">
                 AND r.videoId = #{videoId}
             </if>
             <if test="articleId!= null and articleId!=''">
+                AND r.articleId = #{articleId}
+            </if>
+            <if test="type eq 1">
+                AND r.videoId = #{videoId}
+            </if>
+            <if test="type eq 2">
                 AND r.articleId = #{articleId}
             </if>
             <if test="id!= null and id!=''">

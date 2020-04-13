@@ -5,8 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qxt.bysj.dao.ArticleMapper;
 import com.qxt.bysj.domain.Article;
+import com.qxt.bysj.domain.Owner;
 import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.ArticleService;
+import com.qxt.bysj.service.OwnerService;
 import com.qxt.bysj.service.TagService;
 import com.qxt.bysj.utils.EmojiFilter;
 import com.qxt.bysj.utils.PageRequest;
@@ -23,14 +25,15 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
     private ArticleMapper ArticleDao;
     @Autowired
     private TagService tagService;
-
+    @Autowired
+    private OwnerService ownerService;
     @Override
     public Article selectByCvid(Integer cvid) {
         return ArticleDao.selectByCvid(cvid);
     }
 
     @Override
-    public int dealTaskArticle(JSONObject jsonObj){
+    public int dealTaskArticle(JSONObject jsonObj,int num){
         if(!jsonObj.containsKey("dynamic")) return 0;
         if(EmojiFilter.containsEmoji(jsonObj.getString("dynamic"))) return 0;
         Date date=new Date();
@@ -59,6 +62,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
         Article.setTitle(jsonObj.getString("title"));
         Article.setRemark(jsonObj.getString("dynamic"));
         ArticleDao.updateByPrimaryKeySelective(Article);
+        ownerService.dealOwner(Article.getOwnerid(),num);
         if(flag == 1){
             tagService.dealTaskArticleTag(Article);
         }
@@ -67,7 +71,14 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
 
     @Override
     public PageResult findIndexPage(PageRequest pageRequest) {
-        return PageUtils.getPageResult(pageRequest, getIndexPage(pageRequest));
+        PageResult pageResult = PageUtils.getPageResult(pageRequest, getIndexPage(pageRequest));
+        List<Article> list = (List<Article>) pageResult.getContent();
+        for(Article article : list){
+            Owner owner = ownerService.selectByOwnerId(article.getOwnerid());
+            if(owner!=null) article.setFace(owner.getFace());
+        }
+        pageResult.setContent(list);
+        return pageResult;
     }
 
     /**

@@ -28,7 +28,7 @@ public class ArticleTask {
     @Autowired
     private BiliRequest biliRequest;
 
-    @Scheduled(initialDelay = 1000, fixedDelay = 12000*1000 )
+//    @Scheduled(initialDelay = 1000, fixedDelay = 12000*1000 )
     public void biliTask() throws JSONException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         Date date=new Date();
@@ -44,7 +44,7 @@ public class ArticleTask {
         JSONArray list = jsonObject.getJSONArray("data");
         for(int i=0;i<list.size();i++){
             JSONObject jsonObj = (JSONObject) list.get(i);
-            articleService.dealTaskArticle(jsonObj);
+            articleService.dealTaskArticle(jsonObj,list.size()-i);
         }
     }
 }

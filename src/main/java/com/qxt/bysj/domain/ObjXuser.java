@@ -37,6 +37,24 @@ public class ObjXuser {
     private Integer good;
     private Integer bad;
     private Integer collection;
+    private String articleContent;
+    private Integer cvid;
+
+    public Integer getCvid() {
+        return cvid;
+    }
+
+    public void setCvid(Integer cvid) {
+        this.cvid = cvid;
+    }
+
+    public String getArticleContent() {
+        return articleContent;
+    }
+
+    public void setArticleContent(String articleContent) {
+        this.articleContent = articleContent;
+    }
 
     public Integer getObjtype() {
         return objtype;

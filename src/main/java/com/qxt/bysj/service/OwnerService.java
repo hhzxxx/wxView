@@ -1,15 +1,9 @@
 package com.qxt.bysj.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qxt.bysj.domain.Article;
-import com.qxt.bysj.utils.PageRequest;
-import com.qxt.bysj.utils.PageResult;
+import com.qxt.bysj.domain.Owner;
 
-public interface ArticleService extends BaseService<Article> {
-
-    Article selectByCvid(Integer cvid);
-
-    int dealTaskArticle(JSONObject jsonObj,int num);
+public interface OwnerService extends BaseService<Owner> {
 
     /**
      * 分页查询接口
@@ -19,5 +13,8 @@ public interface ArticleService extends BaseService<Article> {
      * @param pageRequest 自定义，统一分页查询请求
      * @return PageResult 自定义，统一分页查询结果
      */
-    PageResult findIndexPage(PageRequest pageRequest);
+//    PageResult findIndexPage(PageRequest pageRequest);
+    Owner selectByOwnerId(Integer ownerId);
+
+    void dealOwner(Integer ownerId,int num);
 }

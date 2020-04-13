@@ -1,6 +1,8 @@
 package com.qxt.bysj.service;
 
 import com.qxt.bysj.domain.ObjXuser;
+import com.qxt.bysj.utils.PageRequest;
+import com.qxt.bysj.utils.PageResult;
 
 public interface ObjXuserService extends BaseService<ObjXuser> {
 
@@ -12,7 +14,7 @@ public interface ObjXuserService extends BaseService<ObjXuser> {
      * @param pageRequest 自定义，统一分页查询请求
      * @return PageResult 自定义，统一分页查询结果
      */
-//    PageResult findIndexPage(PageRequest pageRequest);
+    PageResult findOldAndCollectPage(PageRequest pageRequest);
 
     void doUserAction(String openId,Integer videoId,String action,Integer objType);
 }

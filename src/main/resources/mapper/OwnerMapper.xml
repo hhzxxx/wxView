@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qxt.bysj.dao.OwnerMapper" >
+  <resultMap id="BaseResultMap" type="com.qxt.bysj.domain.Owner" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="ownerId" property="ownerid" jdbcType="INTEGER" />
+    <result column="face" property="face" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, owner, ownerId, face, sign, sex, birthday
+  </sql>
+
+  <select id="find"  resultType="com.qxt.bysj.domain.Owner">
+    select
+    u.*
+    from tab_owner u
+    <where>
+      <if test="ownerId!= null and ownerId!=''">
+        AND u.ownerId = #{ownerId}
+      </if>
+    </where>
+  </select>
+  <select id="selectByOwnerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tab_owner
+    where ownerId = #{ownerId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tab_owner
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tab_owner
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qxt.bysj.domain.Owner" >
+    insert into tab_owner (id, owner, ownerId, 
+      face, sign, sex, birthday
+      )
+    values (#{id,jdbcType=INTEGER}, #{owner,jdbcType=VARCHAR}, #{ownerid,jdbcType=INTEGER}, 
+      #{face,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qxt.bysj.domain.Owner" >
+    insert into tab_owner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="ownerid != null" >
+        ownerId,
+      </if>
+      <if test="face != null" >
+        face,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null" >
+        #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="face != null" >
+        #{face,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qxt.bysj.domain.Owner" >
+    update tab_owner
+    <set >
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null" >
+        ownerId = #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="face != null" >
+        face = #{face,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qxt.bysj.domain.Owner" >
+    update tab_owner
+    set owner = #{owner,jdbcType=VARCHAR},
+      ownerId = #{ownerid,jdbcType=INTEGER},
+      face = #{face,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

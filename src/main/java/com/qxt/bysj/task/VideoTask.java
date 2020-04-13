@@ -28,7 +28,7 @@ public class VideoTask {
     @Autowired
     private BiliRequest biliRequest;
 
-    @Scheduled(initialDelay = 1000, fixedDelay = 1200*1000 )
+//    @Scheduled(initialDelay = 1000, fixedDelay = 1200*1000 )
     public void biliTask() throws JSONException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         Date date=new Date();
@@ -45,7 +45,7 @@ public class VideoTask {
         JSONArray list = data.getJSONArray("archives");//获取data对象里的archives数组
         for(int i=0;i<list.size();i++){
             JSONObject jsonObj = (JSONObject) list.get(i);
-            videoService.dealTaskVideo(jsonObj);
+            videoService.dealTaskVideo(jsonObj,list.size()-i);
         }
     }
 }

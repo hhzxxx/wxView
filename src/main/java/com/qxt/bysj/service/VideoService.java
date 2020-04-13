@@ -9,7 +9,7 @@ public interface  VideoService extends BaseService<Video> {
 
     Video selectByAvid(Integer avid);
 
-    int dealTaskVideo(JSONObject jsonObj);
+    int dealTaskVideo(JSONObject jsonObj,int num);
 
     /**
      * 分页查询接口

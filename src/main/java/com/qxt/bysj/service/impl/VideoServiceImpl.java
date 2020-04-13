@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.qxt.bysj.dao.VideoMapper;
 import com.qxt.bysj.domain.Video;
 import com.qxt.bysj.domain.dto.ruleDto;
+import com.qxt.bysj.service.OwnerService;
 import com.qxt.bysj.service.TagService;
 import com.qxt.bysj.service.VideoService;
 import com.qxt.bysj.utils.EmojiFilter;
@@ -23,6 +24,8 @@ public class VideoServiceImpl extends BaseServiceImpl<Video> implements VideoSer
     private VideoMapper videoDao;
     @Autowired
     private TagService tagService;
+    @Autowired
+    private OwnerService ownerService;
 
     @Override
     public Video selectByAvid(Integer avid) {
@@ -30,7 +33,7 @@ public class VideoServiceImpl extends BaseServiceImpl<Video> implements VideoSer
     }
 
     @Override
-    public int dealTaskVideo(JSONObject jsonObj){
+    public int dealTaskVideo(JSONObject jsonObj,int num){
         if(EmojiFilter.containsEmoji(jsonObj.getString("dynamic"))) return 0;
         Date date=new Date();
         Calendar calendar = Calendar.getInstance();
@@ -58,6 +61,7 @@ public class VideoServiceImpl extends BaseServiceImpl<Video> implements VideoSer
         video.setTitle(jsonObj.getString("title"));
         video.setRemark(jsonObj.getString("dynamic"));
         videoDao.updateByPrimaryKeySelective(video);
+        ownerService.dealOwner(video.getOwnerid(),num);
         if(flag == 1){
             tagService.dealTaskVideoTag(video);
         }
