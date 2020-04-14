@@ -1,7 +1,7 @@
 package com.qxt.bysj.utils;
 
 /**
- * @Author huanghz
+ * @Author qxt
  * @Date 2020/4/2 11:11
  * @Version 1.0
  */

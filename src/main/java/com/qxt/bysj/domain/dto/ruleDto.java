@@ -1,7 +1,7 @@
 package com.qxt.bysj.domain.dto;
 
 /**
- * @Author huanghz
+ * @Author qxt
  * @Date 2020/3/4 11:21
  * @Version 1.0
  */

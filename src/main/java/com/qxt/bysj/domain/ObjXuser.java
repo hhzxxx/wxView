@@ -39,6 +39,15 @@ public class ObjXuser {
     private Integer collection;
     private String articleContent;
     private Integer cvid;
+    private String face;
+
+    public String getFace() {
+        return face;
+    }
+
+    public void setFace(String face) {
+        this.face = face;
+    }
 
     public Integer getCvid() {
         return cvid;

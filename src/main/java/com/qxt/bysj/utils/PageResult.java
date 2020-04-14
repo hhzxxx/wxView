@@ -3,7 +3,7 @@ package com.qxt.bysj.utils;
 import java.util.List;
 
 /**
- * @Author huanghz
+ * @Author qxt
  * @Date 2020/3/4 10:36
  * @Version 1.0
  */

@@ -26,7 +26,7 @@
             ,r.title,r.avid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.cid,r.good,r.bad,r.collection
         </if>
         <if test="objType!= null and objType!='' and objType eq 2">
-            ,r.title,r.cvid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.good,r.bad,r.collection
+            ,r.title,r.cvid,r.owner,r.ownerId,r.pic,r.remark,r.hot,r.good,r.bad,r.collection,o.face
         </if>
         from tab_objxuser u
         <if test="objType!= null and objType!='' and objType eq 1">
@@ -34,6 +34,7 @@
         </if>
         <if test="objType!= null and objType!='' and objType eq 2">
             left join tab_article r on u.objId = r.id LEFT JOIN tab_user p on p.id = u.userId
+            left join tab_owner o on o.ownerId = r.ownerId
         </if>
         <where>
             <if test="userId!= null and userId!=''">

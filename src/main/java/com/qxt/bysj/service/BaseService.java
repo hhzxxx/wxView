@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Author huanghz
+ * @Author qxt
  * @Version 1.0
  */
 public interface BaseService<T> {

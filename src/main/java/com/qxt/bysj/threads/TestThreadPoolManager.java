@@ -10,7 +10,7 @@ import java.util.Queue;
 import java.util.concurrent.*;
 
 /**
- * @Author huanghz
+ * @Author qxt
  * @Date 2020/3/12 16:14
  * @Version 1.0
  */

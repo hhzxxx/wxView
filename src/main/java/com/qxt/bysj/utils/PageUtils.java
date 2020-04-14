@@ -3,7 +3,7 @@ package com.qxt.bysj.utils;
 import com.github.pagehelper.PageInfo;
 
 /**
- * @Author huanghz
+ * @Author qxt
  * @Date 2020/3/4 10:37
  * @Version 1.0
  */
