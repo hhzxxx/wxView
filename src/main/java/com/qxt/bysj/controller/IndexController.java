@@ -15,7 +15,7 @@ public class IndexController {
     public String hello(ModelMap modelMap, @RequestParam(value = "name", required = false) String name) {
         name = "QXT";
         modelMap.put("name", name);
-        return "page/index";
+        return "page/index";   //"page/index.html"
     }
 
     @RequestMapping(value = "/basicTable",method = RequestMethod.GET)
