@@ -9,12 +9,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ExampleController {
+public class IndexController {
 
-    @RequestMapping(value = "/hello",method = RequestMethod.GET)
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String hello(ModelMap modelMap, @RequestParam(value = "name", required = false) String name) {
         name = "QXT";
         modelMap.put("name", name);
-        return "page/Example/main";
+        return "page/index";
+    }
+
+    @RequestMapping(value = "/basicTable",method = RequestMethod.GET)
+    public String basicTable(ModelMap modelMap, @RequestParam(value = "name", required = false) String name) {
+        name = "QXT";
+        modelMap.put("name", name);
+        return "page/Example/basic-table";
     }
 }
