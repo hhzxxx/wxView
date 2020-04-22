@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../bysj/static/plugins/images/favicon.png">
+    <title>Pixel Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap</title>
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/static/bootstrap/dist/css/bootstrap.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Menu CSS -->
+    <link th:href="@{/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}"
+          href="../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link th:href="@{/static/css/animate.css}" href="../bysj/static/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/static/css/style.css}" href="../bysj/static/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link th:href="@{/static/css/colors/megna-dark.css}" href="../bysj/static/css/colors/megna-dark.css" id="theme"
+          rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link th:href="@{/static/plugins/bower_components/fonts.googleapis/fonts.css}"
+          href="../bysj/static/plugins/bower_components/fonts.googleapis/fonts.css" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div class="title">注册</div>
+    <div class="col-md-8 col-xs-12" style="width: 100%;">
+        <div class="white-box">
+            <form class="form-horizontal form-material">
+                <div class="form-group">
+                    <label class="col-md-12">登录名</label>
+                    <div class="col-md-12">
+                        <input type="text" placeholder="请输入登录名" class="form-control form-control-line"></div>
+                </div>
+                <div class="form-group">
+                    <label for="example-email" class="col-md-12">邮箱</label>
+                    <div class="col-md-12">
+                        <input type="email" placeholder="请输入邮箱" class="form-control form-control-line"
+                               name="example-email" id="example-email"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">密码</label>
+                    <div class="col-md-12">
+                        <input type="password" class="form-control form-control-line" placeholder="请输入密码"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">手机号</label>
+                    <div class="col-md-12">
+                        <input type="text" placeholder="请输入手机号" class="form-control form-control-line"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="foot">
+        <p class="login" onclick="login()">已有账号？去登录</p>
+        <p id="btn_add"
+           class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
+           data-toggle="modal" data-target="#con-close-modal"
+           style="position: absolute;bottom: 20px;right:110px">确&nbsp&nbsp&nbsp&nbsp&nbsp认</p>
+        <p id="btn_add"
+           class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
+           data-toggle="modal" data-target="#con-close-modal"
+           style="position: absolute;bottom: 20px;right: 20px;">取&nbsp&nbsp&nbsp&nbsp&nbsp消</p>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    function login() {
+        window.location.href = '/bysj/index';
+    }
+</script>
+<style>
+    body{
+        background: #ccc !important;
+    }
+    .content {
+        border: 1px solid #8c8c8c;
+        height: 450px;
+        width: 400px;
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+    }
+
+    .content .title {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .white-box{
+        padding: 0;
+    }
+</style>
