@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class LoginController {
     private ManagerService managerService;
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String login(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+    public String login(HttpServletRequest request) {
         SessionUser manager=(SessionUser)request.getSession().getAttribute("SessionUser");
         if (manager == null) {
             return "/login";
@@ -83,6 +84,15 @@ public class LoginController {
         result.setCode("200");
         result.setMessage("注册成功！");
         return result;
+    }
+
+    @RequestMapping(value = "/exit",method = RequestMethod.GET)
+    public String exit( HttpSession session, HttpServletRequest request) {
+        try {
+            session.invalidate();
+        } catch (Exception e) {
+        }
+        return login(request);
     }
 
 }
