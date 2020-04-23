@@ -21,6 +21,7 @@
     <!-- color CSS -->
     <link th:href="@{/static/css/colors/megna-dark.css}" href="../bysj/static/css/colors/megna-dark.css" id="theme"
           rel="stylesheet">
+    <link th:href="@{/static/bootstrapValidator/css/bootstrapValidator.min.css}" href="../bysj/static/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,47 +33,97 @@
     <link th:href="@{/static/apps/css/login.css}" href="../bysj/static/apps/css/login.css" rel="stylesheet">
 </head>
 <body>
-<div class="content">
-    <div class="title">注册</div>
-    <div class="col-md-8 col-xs-12" style="width: 100%;">
-        <div class="white-box">
-            <form id="registerForm" class="form-horizontal form-material" method="post" action="/register" th:action="@{/register}">
-                <div class="form-group">
-                    <label class="col-md-12">账号</label>
-                    <div class="col-md-12">
-                        <input type="text" placeholder="请输入账号" id="account" name="account" class="form-control form-control-line"></div>
+<div class="all">
+    <ul class="nav">
+        <li class="selected">登录</li>
+        <li>注册</li>
+    </ul>
+    <div class="content">
+        <!--    <div class="title">注册</div>-->
+        <div class="list">
+            <div class="col-md-8 col-xs-12" style="width: 100%;">
+                <div class="white-box">
+                    <form id="loginForm" class="form-horizontal form-material" method="post" action="/register"
+                          th:action="@{/register}" novalidate>
+                        <div class="form-group">
+                            <label class="col-md-12">账号</label>
+                            <div class="col-md-12">
+                                <input type="text" placeholder="请输入账号" id="loginAccount" name="loginAccount"
+                                       class="form-control form-control-line"></div>
+                        </div>
+                        <!--                <div class="form-group">
+                                            <label for="example-email" class="col-md-12">邮箱</label>
+                                            <div class="col-md-12">
+                                                <input type="email" placeholder="请输入邮箱" class="form-control form-control-line"
+                                                       name="example-email" id="example-email"></div>
+                                        </div>-->
+                        <div class="form-group">
+                            <label class="col-md-12">密码</label>
+                            <div class="col-md-12">
+                                <input type="password" id="loginPassword" name="loginPassword"
+                                       class="form-control form-control-line"
+                                       placeholder="请输入密码"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">用户名</label>
+                            <div class="col-md-12">
+                                <input type="text" id="loginName" name="loginName" placeholder="请输入用户名"
+                                       class="form-control form-control-line"></div>
+                        </div>
+                    </form>
                 </div>
-<!--                <div class="form-group">
-                    <label for="example-email" class="col-md-12">邮箱</label>
-                    <div class="col-md-12">
-                        <input type="email" placeholder="请输入邮箱" class="form-control form-control-line"
-                               name="example-email" id="example-email"></div>
-                </div>-->
-                <div class="form-group">
-                    <label class="col-md-12">密码</label>
-                    <div class="col-md-12">
-                        <input type="password" id="password" name="password" class="form-control form-control-line" placeholder="请输入密码"></div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-12">用户名</label>
-                    <div class="col-md-12">
-                        <input type="text" id="name" name="name" placeholder="请输入用户名" class="form-control form-control-line"></div>
-                </div>
-            </form>
+            </div>
+            <div class="foot">
+                <p id="btn_login"
+                   class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
+                   style="position: absolute;bottom: 20px;right:20px">登&nbsp&nbsp&nbsp&nbsp&nbsp录</p>
+            </div>
         </div>
-    </div>
-    <div class="foot">
-        <p class="login" onclick="login()">已有账号？去登录</p>
-        <p id="btn_login"
-           class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
-           style="position: absolute;bottom: 20px;right:110px">登&nbsp&nbsp&nbsp&nbsp&nbsp陆</p>
-        <p id="btn_register"
-           class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
-           style="position: absolute;bottom: 20px;right: 20px;">注&nbsp&nbsp&nbsp&nbsp&nbsp册</p>
+        <div class="list" style="display: none">
+            <div class="col-md-8 col-xs-12" style="width: 100%;">
+                <div class="white-box">
+                    <form id="registerForm" class="form-horizontal form-material" method="post" action="/register"
+                          th:action="@{/register}" novalidate>
+                        <div class="form-group">
+                            <label class="col-md-12">账号</label>
+                            <div class="col-md-12">
+                                <input type="text" placeholder="请输入账号" id="account" name="account"
+                                       class="form-control form-control-line"></div>
+                        </div>
+                        <!--                <div class="form-group">
+                                            <label for="example-email" class="col-md-12">邮箱</label>
+                                            <div class="col-md-12">
+                                                <input type="email" placeholder="请输入邮箱" class="form-control form-control-line"
+                                                       name="example-email" id="example-email"></div>
+                                        </div>-->
+                        <div class="form-group">
+                            <label class="col-md-12">密码</label>
+                            <div class="col-md-12">
+                                <input type="password" id="password" name="password"
+                                       class="form-control form-control-line"
+                                       placeholder="请输入密码"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">用户名</label>
+                            <div class="col-md-12">
+                                <input type="text" id="name" name="name" placeholder="请输入用户名"
+                                       class="form-control form-control-line"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="foot">
+                <p id="btn_register"
+                   class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
+                   style="position: absolute;bottom: 20px;right:20px">注&nbsp&nbsp&nbsp&nbsp&nbsp册</p>
+            </div>
+        </div>
     </div>
 </div>
 </body>
-<script th:src="@{/static/plugins/bower_components/jquery/dist/jquery.min.js}" src="../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script th:src="@{/static/plugins/bower_components/jquery/dist/jquery.min.js}"
+        src="../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script th:src="@{/static/bootstrapValidator/js/bootstrapValidator.min.js}" src="../bysj/static/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script th:replace="page/base/global :: jsVar"></script>
 <script th:src="@{/static/apps/js/login.js}"></script>
 </html>
