@@ -18,11 +18,11 @@
 			<ul class="nav navbar-top-links navbar-right pull-right">
 				<li>
 					<a class="profile-pic" href="#"> <img src="../bysj/static/plugins/images/users/varun.jpg" alt="user-img"
-														  width="36" class="img-circle"><b class="hidden-xs">Steave</b>
+														  width="36" class="img-circle"><b class="hidden-xs" th:text="${session.SessionUser.name}">Steave</b>
 					</a>
 				</li>
 				<li>
-					<a class="nav-link" href="/logout" th:href="@{/exit}">
+					<a class="nav-link" th:href="@{/exit}">
 						<i class="fa fa-power-off"></i>
 					</a>
 				</li>
