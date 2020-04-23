@@ -26,7 +26,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
-        SessionUser manager=(SessionUser)request.getSession().getAttribute("MANAGER");
+        SessionUser manager=(SessionUser)request.getSession().getAttribute("SessionUser");
         if (manager == null) {
             return "/login";
         }
