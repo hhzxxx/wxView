@@ -31,20 +31,12 @@ $(function () {
     $("#btn_login").click(function () {
         var bv = $("#loginForm").data('bootstrapValidator');
         bv.validate();
-        console.log(bv.isValid(), 123)
         if (bv.isValid()) {
-            // var data = JSON.stringify($("#loginForm").serializeJson());
             var data  = $("#loginForm").serializeJson();
-            // function getObjFirst(obj){
-            //     for(var i in obj) return obj[i];
-            // }
-            // console.log(getObjFirst($("#loginForm").serializeJson()))
             var obj={
                 account:data.loginAccount,
-                password:data.loginPassword,
-                name:data.loginName
+                password:data.loginPassword
             };
-            console.log(obj);
             $.ajax({
                 url: ctx + "login",
                 data: JSON.stringify(obj),
@@ -84,13 +76,20 @@ $(function () {
                         message: '密码不能为空'
                     }
                 }
+            },
+            name: {
+                validators: {
+                    notEmpty: {
+                        message: '用户名不能为空'
+                    }
+                }
             }
         }
     });
     $("#btn_register").click(function () {
         var bv = $("#registerForm").data('bootstrapValidator');
         bv.validate();
-        if (bv.validate()) {
+        if (bv.isValid()) {
             var data = JSON.stringify($("#registerForm").serializeJson());
             $.ajax({
                 url: ctx + "register",
