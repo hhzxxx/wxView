@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -30,78 +29,50 @@
     <![endif]-->
     <link th:href="@{/static/plugins/bower_components/fonts.googleapis/fonts.css}"
           href="../bysj/static/plugins/bower_components/fonts.googleapis/fonts.css" rel="stylesheet">
+    <link th:href="@{/static/apps/css/login.css}" href="../bysj/static/apps/css/login.css" rel="stylesheet">
 </head>
 <body>
 <div class="content">
     <div class="title">注册</div>
     <div class="col-md-8 col-xs-12" style="width: 100%;">
         <div class="white-box">
-            <form class="form-horizontal form-material">
+            <form id="registerForm" class="form-horizontal form-material" method="post" action="/register" th:action="@{/register}">
                 <div class="form-group">
-                    <label class="col-md-12">登录名</label>
+                    <label class="col-md-12">账号</label>
                     <div class="col-md-12">
-                        <input type="text" placeholder="请输入登录名" class="form-control form-control-line"></div>
+                        <input type="text" placeholder="请输入账号" id="account" name="account" class="form-control form-control-line"></div>
                 </div>
-                <div class="form-group">
+<!--                <div class="form-group">
                     <label for="example-email" class="col-md-12">邮箱</label>
                     <div class="col-md-12">
                         <input type="email" placeholder="请输入邮箱" class="form-control form-control-line"
                                name="example-email" id="example-email"></div>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label class="col-md-12">密码</label>
                     <div class="col-md-12">
-                        <input type="password" class="form-control form-control-line" placeholder="请输入密码"></div>
+                        <input type="password" id="password" name="password" class="form-control form-control-line" placeholder="请输入密码"></div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-12">手机号</label>
+                    <label class="col-md-12">用户名</label>
                     <div class="col-md-12">
-                        <input type="text" placeholder="请输入手机号" class="form-control form-control-line"></div>
+                        <input type="text" id="name" name="name" placeholder="请输入用户名" class="form-control form-control-line"></div>
                 </div>
             </form>
         </div>
     </div>
     <div class="foot">
         <p class="login" onclick="login()">已有账号？去登录</p>
-        <p id="btn_add"
+        <p id="btn_login"
            class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
-           data-toggle="modal" data-target="#con-close-modal"
-           style="position: absolute;bottom: 20px;right:110px">确&nbsp&nbsp&nbsp&nbsp&nbsp认</p>
-        <p id="btn_add"
+           style="position: absolute;bottom: 20px;right:110px">登&nbsp&nbsp&nbsp&nbsp&nbsp陆</p>
+        <p id="btn_register"
            class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
-           data-toggle="modal" data-target="#con-close-modal"
-           style="position: absolute;bottom: 20px;right: 20px;">取&nbsp&nbsp&nbsp&nbsp&nbsp消</p>
+           style="position: absolute;bottom: 20px;right: 20px;">注&nbsp&nbsp&nbsp&nbsp&nbsp册</p>
     </div>
 </div>
 </body>
+<script th:src="@{/static/plugins/bower_components/jquery/dist/jquery.min.js}" src="../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script th:replace="page/base/global :: jsVar"></script>
+<script th:src="@{/static/apps/js/login.js}"></script>
 </html>
-<script>
-    function login() {
-        window.location.href = '/bysj/index';
-    }
-</script>
-<style>
-    body{
-        background: #ccc !important;
-    }
-    .content {
-        border: 1px solid #8c8c8c;
-        height: 450px;
-        width: 400px;
-        background-color: #fff;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-    }
-
-    .content .title {
-        text-align: center;
-        font-size: 20px;
-        font-weight: bold;
-    }
-    .white-box{
-        padding: 0;
-    }
-</style>
