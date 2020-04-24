@@ -25,10 +25,10 @@ class BysjApplicationTests {
     @Test
     void contextLoads() {
         Map<String, Object> map = new HashMap<>();
-//        List<Video> list = videoService.find(map);
-        List<Article> list = articleService.find(map);
+        List<Video> list = videoService.find(map);
+//        List<Article> list = articleService.find(map);
         int num = list.size();
-        for(Article obj:list){
+        for(Video obj:list){
             ownerService.dealOwner(obj.getOwnerid(),num);
             num--;
         }

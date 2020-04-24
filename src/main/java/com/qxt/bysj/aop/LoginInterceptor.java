@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
@@ -42,6 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
 //         System.out.println("执行了TestInterceptor的postHandle方法");
+        modelAndView.addObject("huanghz","666");
     }
 
     /**
