@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qxt.bysj.dao.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.qxt.bysj.domain.Product">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="productName" property="productName" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="VARCHAR"/>
+        <result column="pic" property="pic" jdbcType="VARCHAR"/>
+        <result column="brandId" property="brandId" jdbcType="INTEGER"/>
+        <result column="typeId" property="typeId" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, productName, price, pic, brandId, typeId
+  </sql>
+    <select id="selectByProductName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        where productName = #{productName,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.qxt.bysj.domain.Product">
+    insert into product (id, productName, price, pic, brandId, typeId)
+    values (#{id,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
+      #{brandId,jdbcType=INTEGER},  #{typeId,jdbcType=INTEGER}
+  </insert>
+    <insert id="insertSelective" parameterType="com.qxt.bysj.domain.Product">
+        insert into product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="productName != null">
+                productName,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="brandId != null">
+                brandId,
+            </if>
+            <if test="typeId != null">
+                typeId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="productName != null">
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=VARCHAR},
+            </if>
+            <if test="brandId != null">
+                #{brandId,jdbcType=INTEGER},
+            </if>
+            <if test="typeId != null">
+                #{typeId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.qxt.bysj.domain.Product">
+        update product
+        <set>
+            <if test="productName != null">
+                productName = #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=VARCHAR},
+            </if>
+            <if test="brandId != null">
+                brandId = #{brandId,jdbcType=INTEGER},
+            </if>
+            <if test="typeId != null">
+                typeId = #{typeId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.qxt.bysj.domain.Product">
+    update product
+    set productName = #{productName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      brandId = #{brandId,jdbcType=INTEGER},
+      typeId = #{typeId,jdbcType=INTEGER},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="find" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+    </select>
+
+    <select id="findPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        <where>
+            <if test="productName!= null and productName!=''">
+                AND (productName LIKE '%' #{productName} '%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+</mapper>
