@@ -1,16 +1,16 @@
 package com.qxt.bysj.service;
 
 import com.qxt.bysj.domain.Product;
-import java.util.List;
-import java.util.Map;
+import com.qxt.bysj.utils.PageRequest;
+import com.qxt.bysj.utils.PageResult;
 
 public interface ProductService extends BaseService<Product>{
 
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(Product record);
-
-    int updateByPrimaryKey(Product record);
-
-    List<Product> findPage(Map<String, Object> map);
+//    int deleteById(Integer id);
+//
+//    int insert(Product record);
+//
+//    int update(Product record);
+//
+//    PageResult findPage(PageRequest pageRequest);
 }

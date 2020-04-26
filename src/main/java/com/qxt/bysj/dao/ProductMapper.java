@@ -9,11 +9,11 @@ public interface ProductMapper extends BaseMapper<Product>{
 
 //    Product selectByProductName(String productName);
 
-    int deleteByPrimaryKey(Integer id);
+//    int deleteByPrimaryKey(Integer id);
+//
+//    int insert(Product record);
+//
+//    int updateByPrimaryKey(Product record);
 
-    int insert(Product record);
-
-    int updateByPrimaryKey(Product record);
-
-    List<Product> findPage(Map<String, Object> map);
+//    List<Product> findPage(Map<String, Object> map);
 }

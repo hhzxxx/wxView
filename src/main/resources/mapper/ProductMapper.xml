@@ -29,16 +29,13 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.qxt.bysj.domain.Product">
-    insert into product (id, productName, price, pic, brandId, typeId)
-    values (#{id,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
-      #{brandId,jdbcType=INTEGER},  #{typeId,jdbcType=INTEGER}
+    insert into product (productName, price, pic, brandId, typeId)
+    values (#{productName,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
+      #{brandId,jdbcType=INTEGER},  #{typeId,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="com.qxt.bysj.domain.Product">
         insert into product
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="productName != null">
                 productName,
             </if>
@@ -56,14 +53,14 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
             <if test="productName != null">
                 #{productName,jdbcType=VARCHAR},
             </if>
             <if test="price != null">
                 #{price,jdbcType=VARCHAR},
+            </if>
+            <if test="pic != null">
+                #{pic,jdbcType=VARCHAR},
             </if>
             <if test="brandId != null">
                 #{brandId,jdbcType=INTEGER},

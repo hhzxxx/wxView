@@ -14,8 +14,8 @@ public class IndexController {
         return "index";   //"page/index.html"
     }
 
-    @RequestMapping(value = "/basicTable",method = RequestMethod.GET)
-    public String basicTable(ModelMap modelMap) {
-        return "page/Example/basic-table";
-    }
+//    @RequestMapping(value = "/basicTable",method = RequestMethod.GET)
+//    public String basicTable(ModelMap modelMap) {
+//        return "page/Example/basic-table";
+//    }
 }

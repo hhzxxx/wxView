@@ -6,6 +6,7 @@ public class Product {
     private String price;
     private String pic;
     private Integer brandId;
+    private Integer typeId;
 
     public Integer getId() {
         return id;
@@ -54,6 +55,4 @@ public class Product {
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
-
-    private Integer typeId;
 }

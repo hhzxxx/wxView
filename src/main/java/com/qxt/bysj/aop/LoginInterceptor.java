@@ -43,7 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
 //         System.out.println("执行了TestInterceptor的postHandle方法");
-        modelAndView.addObject("huanghz","666");
+//        modelAndView.addObject("huanghz","666");
     }
 
     /**
