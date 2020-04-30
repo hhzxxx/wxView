@@ -9,23 +9,30 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../bysj/static/plugins/images/favicon.png">
     <title>Pixel Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap</title>
     <!-- Bootstrap Core CSS -->
-    <link th:href="@{/static/bootstrap/dist/css/bootstrap.min.css}" href="../bysj/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/static/bootstrap/dist/css/bootstrap.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menu CSS -->
-    <link th:href="@{/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}" href="../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <link th:href="@{/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}"
+          href="../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <!-- animation CSS -->
     <link th:href="@{/static/css/animate.css}" href="../bysj/static/css/animate.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link th:href="@{/static/css/style.css}" href="../bysj/static/css/style.css" rel="stylesheet">
     <!-- color CSS -->
-    <link th:href="@{/static/css/colors/megna-dark.css}" href="../bysj/static/css/colors/megna-dark.css" id="theme" rel="stylesheet">
-    <link th:href="@{/static/bootstrapValidator/css/bootstrapValidator.min.css}" href="../bysj/static/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet" />
+    <link th:href="@{/static/css/colors/megna-dark.css}" href="../bysj/static/css/colors/megna-dark.css" id="theme"
+          rel="stylesheet">
+    <link th:href="@{/static/bootstrapValidator/css/bootstrapValidator.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet"/>
+    <link th:href="@{/static/bootstrap/dist/css/bootstrap-select.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link th:href="@{/static/plugins/bower_components/fonts.googleapis/fonts.css}" href="../bysj/static/plugins/bower_components/fonts.googleapis/fonts.css" rel="stylesheet">
+    <link th:href="@{/static/plugins/bower_components/fonts.googleapis/fonts.css}"
+          href="../bysj/static/plugins/bower_components/fonts.googleapis/fonts.css" rel="stylesheet">
 </head>
 
 <body>
@@ -61,116 +68,71 @@
                         <!--                            <p class="text-muted">Add class <code>.table</code></p>-->
                         <p id="btn_add"
                            class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
-                           data-toggle="modal" data-target="#con-close-modal"
                            style="float:none!important;margin-left: 0px!important;">添&nbsp&nbsp&nbsp&nbsp&nbsp加</p>
                         <div class="table-responsive">
                             <table class="table" id="table1">
                             </table>
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                                    <li>
-                                        <a href="#" aria-label="Previous" id="changePagePre">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li>
-                                        <a href="#" aria-label="Next" id="changePageNext">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
+                            <div aria-label="Page navigation" id="example">
+                                <ul class="pagination" id="pageLimit">
                                 </ul>
-                            </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /.row -->
             <!--弹出框-->
-            <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
+            <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"
+            >
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">新增</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                            <h4 class="modal-title" id="myModalLabel" style="text-align: center">新增</h4>
                         </div>
-                        <div class="modal-body">
-
-                            <!--                                <div class="form-group">-->
-                            <!--                                    <label for="txt_departmentname">名称</label>-->
-                            <!--                                    <input type="text" name="txt_departmentname" class="form-control" id="txt_departmentname" placeholder="名称">-->
-                            <!--                                </div>-->
-                            <!--                                <div class="form-group">-->
-                            <!--                                    <label for="txt_parentdepartment">名称</label>-->
-                            <!--                                    <input type="text" name="txt_parentdepartment" class="form-control" id="txt_parentdepartment" placeholder="名称">-->
-                            <!--                                </div>-->
-                            <!--                                <div class="form-group">-->
-                            <!--                                    <label for="txt_departmentlevel">名称</label>-->
-                            <!--                                    <input type="text" name="txt_departmentlevel" class="form-control" id="txt_departmentlevel" placeholder="名称">-->
-                            <!--                                </div>-->
-                            <!--                                <div class="form-group">-->
-                            <!--                                    <label for="txt_statu">描述</label>-->
-                            <!--                                    <input type="text" name="txt_statu" class="form-control" id="txt_statu" placeholder="状态">-->
-                            <!--                                </div>-->
-
+                        <div class="modal-body" style="padding: 15px 30px">
                             <form class="form-horizontal form-material" id="productForm">
                                 <div class="form-group">
-                                    <label class="col-md-12">名称</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="请输入名称"
-                                               class="form-control form-control-line" name="productName" id="productName"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">价格</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="请输入价格"
-                                               class="form-control form-control-line" name="price"
-                                               id="price"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">图片</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="请添加图片" class="form-control form-control-line" name="pic" id="pic">
+                                    <label class="col-md-12" style="padding:0;">产品所属品牌</label>
+                                    <div class="col-md-12" style="border-bottom: 1px solid #eee;padding: 10px 0">
+                                        <select id="basicSelect" class="selectpicker">
+                                            <option value="1">常州大学</option>
+                                            <option value="2">清华</option>
+                                            <option value="3">北大</option>
+                                            <option value="4">河海大学</option>
+                                        </select>
                                     </div>
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <label class="col-md-12">Phone No</label>-->
-<!--                                    <div class="col-md-12">-->
-<!--                                        <input type="text" placeholder="123 456 7890"-->
-<!--                                               class="form-control form-control-line"></div>-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <label class="col-md-12">Message</label>-->
-<!--                                    <div class="col-md-12">-->
-<!--                                        <textarea rows="5" class="form-control form-control-line"></textarea>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <label class="col-sm-12">Select Country</label>-->
-<!--                                    <div class="col-sm-12">-->
-<!--                                        <select class="form-control form-control-line">-->
-<!--                                            <option>London</option>-->
-<!--                                            <option>India</option>-->
-<!--                                            <option>Usa</option>-->
-<!--                                            <option>Canada</option>-->
-<!--                                            <option>Thailand</option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                    <div class="form-group">
+                                        <label class="col-md-12">名称</label>
+                                        <div class="col-md-12">
+                                            <input type="text" placeholder="请输入名称"
+                                                   class="form-control form-control-line" name="productName"
+                                                   id="productName"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">价格</label>
+                                        <div class="col-md-12">
+                                            <input type="text" placeholder="请输入价格"
+                                                   class="form-control form-control-line" name="price"
+                                                   id="price"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">图片</label>
+                                        <div class="col-md-12">
+                                            <input type="text" placeholder="请添加图片"
+                                                   class="form-control form-control-line"
+                                                   name="pic" id="pic">
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><span
-                                    class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭
+                            <button type="button" class="btn btn-default" id="btn_close"><span
+                                    class="glyphicon glyphicon-remove"></span>关闭
                             </button>
-                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span
-                                    class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存
+                            <button type="button" id="btn_submit" class="btn btn-primary"><span
+                                    class="glyphicon glyphicon-floppy-disk"></span>保存
                             </button>
                         </div>
                     </div>
@@ -189,6 +151,8 @@
 <script src="../../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="../../bysj/static/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="../../bysj/static/bootstrap/js/bootstrap-paginator.js"></script>
 <!-- Menu Plugin JavaScript -->
 <script src="../../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
 <!--slimscroll JavaScript -->
@@ -197,7 +161,10 @@
 <script src="../../bysj/static/js/waves.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="../../bysj/static/js/custom.min.js"></script>
-<script th:src="@{/static/bootstrapValidator/js/bootstrapValidator.min.js}" src="../bysj/static/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+<script th:src="@{/static/bootstrap/js/bootstrap-select.min.js}"
+        src="../bysj/static/bootstrap/js/bootstrap-select.min.js"></script>
+<script th:src="@{/static/bootstrapValidator/js/bootstrapValidator.min.js}"
+        src="../bysj/static/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script th:replace="page/base/global :: jsVar"></script>
 <script th:src="@{/static/apps/js/product.js}"></script>
 <!--    <script type="text/javascript">-->
@@ -207,5 +174,17 @@
 <!--        })-->
 <!--    </script>-->
 </body>
+<style>
+    .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+        background-color: #516673;
+        border-color: #516673;
+    }
 
+    .btn-default, .btn-default.disabled {
+        background: #fff;
+    }
+    .modal-footer{
+        border:0
+    }
+</style>
 </html>

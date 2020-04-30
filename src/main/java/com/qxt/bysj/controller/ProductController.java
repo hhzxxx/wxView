@@ -49,8 +49,29 @@ public class ProductController {
     public Result<Object> findDetail(@RequestBody PageRequest pageQuery, Model model) {
         Result<Object> result = new Result<>();
         PageResult page = productService.findPage(pageQuery);
-        model.addAttribute("page", page);
+//        model.addAttribute("page", page);
         result.setData(page);
+        return result;
+    }
+
+    @RequestMapping(value = "/delDetail", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Object> delDetail(@RequestBody Product product, HttpServletRequest request, HttpServletResponse response) {
+        Result<Object> result = new Result<>();
+        Integer id = product.getId();
+        productService.deleteById(id);
+        result.setCode("200");
+        result.setMessage("删除成功！");
+        return result;
+    }
+
+    @RequestMapping(value = "/updateDetail", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Object> updateDetail(@RequestBody Product product, HttpServletRequest request, HttpServletResponse response) {
+        Result<Object> result = new Result<>();
+        productService.update(product);
+        result.setCode("200");
+        result.setMessage("修改成功！");
         return result;
     }
 }

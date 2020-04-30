@@ -93,7 +93,7 @@
     set productName = #{productName,jdbcType=VARCHAR},
       price = #{price,jdbcType=VARCHAR},
       brandId = #{brandId,jdbcType=INTEGER},
-      typeId = #{typeId,jdbcType=INTEGER},
+      typeId = #{typeId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
