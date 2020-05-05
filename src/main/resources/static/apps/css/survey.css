@@ -1,0 +1,81 @@
+body {
+    background: #fff !important;
+    /*position: absolute;*/
+    /*left: 10%;*/
+    /*top: 5%;*/
+    padding: 5px;
+}
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+li, ol, ul {
+    list-style: none;
+}
+
+.items:before {
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    border: 2px solid #fa5e00;
+    width: 91px;
+    height: 96px;
+    /*opacity: 0;*/
+    content: '';
+    /*font-size: 30px;*/
+    /*position: absolute;*/
+    /*color: #00AEEF;*/
+    /*text-align: center;*/
+}
+
+.item {
+    position: relative;
+    float: left;
+    width: 91px;
+    height: 96px;
+    /*margin: 0 29px 15px 0;*/
+    margin: 0 5px 15px 0;
+    border: 1px solid #ebebeb;
+}
+
+.item img {
+    position: absolute;
+    left: 2px;
+    right: 0px;
+    top: 2px;
+    width: 86px;
+    height: 68px;
+    background-color: #ddd;
+}
+
+.item .name {
+    margin-top: 68px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    width: 82px;
+}
+
+.item .price {
+    position: absolute;
+    top: 1px;
+    color: #fff;
+    right: 0;
+    padding: 0 5px;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.65);
+}
+.foot{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0;
+}
+.foot .btn{
+    width: 100%;
+}

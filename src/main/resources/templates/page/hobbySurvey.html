@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="../../bysj/static/plugins/images/favicon.png">
+    <title>喜好调查</title>
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/static/bootstrap/dist/css/bootstrap.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Menu CSS -->
+    <link th:href="@{/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}"
+          href="../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link th:href="@{/static/css/animate.css}" href="../bysj/static/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/static/css/style.css}" href="../bysj/static/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link th:href="@{/static/css/colors/megna-dark.css}" href="../bysj/static/css/colors/megna-dark.css" id="theme"
+          rel="stylesheet">
+    <link th:href="@{/static/bootstrapValidator/css/bootstrapValidator.min.css}"
+          href="../bysj/static/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link th:href="@{/static/plugins/bower_components/fonts.googleapis/fonts.css}"
+          href="../bysj/static/plugins/bower_components/fonts.googleapis/fonts.css" rel="stylesheet">
+    <link th:href="@{/static/apps/css/survey.css}" href="../bysj/static/apps/css/survey.css" rel="stylesheet">
+</head>
+<body>
+<form>
+    <form class="form-horizontal form-material" id="productForm">
+        <div class="form-group" style="display: flex;">
+            <label class="col-md-12" style="padding:0;">选择品牌：</label>
+            <div class="col-md-12" style="border-bottom: 1px solid #eee;">
+                <select id="basicSelect" class="selectpicker">
+                    <option value="1">常州大学</option>
+                    <option value="2">清华</option>
+                    <option value="3">北大</option>
+                    <option value="4">河海大学</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="display: flex;">
+            <label class="col-md-12" style="padding:0;">选择商品分类：</label>
+            <div class="col-md-12" style="border-bottom: 1px solid #eee;">
+                <select id="basicSelects" class="selectpicker">
+                    <option value="1">常州大学</option>
+                    <option value="2">清华</option>
+                    <option value="3">北大</option>
+                    <option value="4">河海大学</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="display: block;">
+            <label class="col-md-12" style="padding:0;">选择您喜爱的商品：</label>
+            <div class="col-md-12">
+                <div class="item" id="item">
+                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
+                    <p class="name">
+                        <span>奶茶三兄弟</span>
+                    </p>
+                    <span class="price">¥16</span>
+                </div>
+                <div class="item" id="">
+                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
+                    <p class="name">
+                        <span>奶茶三兄弟</span>
+                    </p>
+                    <span class="price">¥16</span>
+                </div>
+                <div class="item" id="">
+                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
+                    <p class="name">
+                        <span>奶茶三兄弟</span>
+                    </p>
+                    <span class="price">¥16</span>
+                </div>
+                <div class="item" id="">
+                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
+                    <p class="name">
+                        <span>奶茶三兄弟</span>
+                    </p>
+                    <span class="price">¥16</span>
+                </div>
+                <div class="item" id="">
+                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
+                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
+                    <p class="name">
+                        <span>奶茶三兄弟</span>
+                    </p>
+                    <span class="price">¥16</span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="foot">
+        <button class="btn">
+            提交
+        </button>
+    </div>
+</form>
+</body>
+<script th:src="@{/static/plugins/bower_components/jquery/dist/jquery.min.js}"
+        src="../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script th:src="@{/static/bootstrapValidator/js/bootstrapValidator.min.js}"
+        src="../bysj/static/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+<script th:replace="page/base/global :: jsVar"></script>
+<script th:src="@{/static/apps/js/survey.js}"></script>
+</html>
