@@ -8,6 +8,26 @@ public class Product {
     private Integer brandId;
     private Integer typeId;
 
+    //非DB
+    private String brandname;
+    private String brandpic;
+
+    public String getBrandname() {
+        return brandname;
+    }
+
+    public void setBrandname(String brandname) {
+        this.brandname = brandname;
+    }
+
+    public String getBrandpic() {
+        return brandpic;
+    }
+
+    public void setBrandpic(String brandpic) {
+        this.brandpic = brandpic;
+    }
+
     public Integer getId() {
         return id;
     }

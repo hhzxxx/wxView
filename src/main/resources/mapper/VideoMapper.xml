@@ -296,16 +296,26 @@
     </select>
 
     <select id="findPage"  resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from tab_video
-        <where>
-            status &lt;&gt; 9
-            <if test="title!= null and title!=''">
+      SELECT x.*
+      from(select
+        DISTINCT u.id as dd,u.*
+        from tab_video u
+        <if test="tagId!= null and tagId!=''">
+         LEFT JOIN tab_tagxvideo r on u.id = r.videoId
+        </if>
+        <where>status &lt;&gt; 9
+          <if test="title!= null and title!=''">
                 AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
             </if>
-        </where>
-        order by hot desc,good desc,reply desc
+            <if test="tagId!= null and tagId!=''">
+              AND r.tagId = #{tagId}
+            </if>
+          ORDER BY
+          u.hot DESC
+          LIMIT 300
+          </where>) x
+        group by x.id
+        order by rand()
     </select>
 
     <select id="findIndexPage"  resultMap="BaseResultMap">

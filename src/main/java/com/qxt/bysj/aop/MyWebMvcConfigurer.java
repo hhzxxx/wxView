@@ -16,7 +16,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         InterceptorRegistration registration = registry.addInterceptor(new LoginInterceptor());
         registration.addPathPatterns("/**");                      //所有路径都被拦截
         registration.excludePathPatterns("/login","/register","/**/static/**","/**/register/**/"
-                ,"/**/Face/**/");              //添加不拦截路径
+                ,"/**/hobbySurvey/**/","/**/Face/**/");              //添加不拦截路径
     }
 
     @Override

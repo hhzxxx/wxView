@@ -1,6 +1,8 @@
 package com.qxt.bysj.controller;
 
 import com.qxt.bysj.domain.Product;
+import com.qxt.bysj.domain.ProductBrand;
+import com.qxt.bysj.service.ProductBrandService;
 import com.qxt.bysj.service.ProductService;
 import com.qxt.bysj.utils.PageRequest;
 import com.qxt.bysj.utils.PageResult;
@@ -14,13 +16,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller//以json格式输出
 public class ProductController {
     @Autowired
-    @Resource
     private ProductService productService;
+    @Autowired
+    private ProductBrandService productBrandService;
 
     @RequestMapping(value = "/basicTable", method = RequestMethod.GET)
     public String basicTable() {
@@ -34,10 +39,12 @@ public class ProductController {
         String productName = product.getProductName();
         String price = product.getPrice();
         String pic = product.getPic();
+        Integer brandId = product.getBrandId();
         Product newProduct = new Product();
         newProduct.setProductName(productName);
         newProduct.setPrice(price);
         newProduct.setPic(pic);
+        newProduct.setBrandId(brandId);
         productService.insert(newProduct);
         result.setCode("200");
         result.setMessage("添加成功！");
@@ -72,6 +79,18 @@ public class ProductController {
         productService.update(product);
         result.setCode("200");
         result.setMessage("修改成功！");
+        return result;
+    }
+
+    @RequestMapping(value = "/findBand", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Object> findBand(Model model) {
+        Result<Object> result = new Result<>();
+//        PageResult page = productBrandService.find(new HashMap<String, Object>());
+        Map<String, Object> map = new HashMap<>();
+        List<ProductBrand> brand = productBrandService.find(map);
+//        model.addAttribute("page", page);
+        result.setData(brand);
         return result;
     }
 }

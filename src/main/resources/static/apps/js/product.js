@@ -4,6 +4,7 @@ $(function () {
     var proTotalPages = 0;
     var currentData = [];
     var proId = "";
+    var selectedId = "";
     $('#productForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
@@ -35,6 +36,7 @@ $(function () {
             bv.validate();
             if (bv.isValid()) {
                 var data = JSON.stringify($("#productForm").serializeJson());
+                console.log(data)
                 $.ajax({
                     url: ctx + "saveFrom",
                     data: data,
@@ -126,6 +128,7 @@ $(function () {
                 // $("#id_table1").html(data.data.content);
                 var inf = "<thead><tr>\n" +
                     "                            <th>id</th>\n" +
+                    "                            <th>品牌</th>\n" +
                     "                            <th>名称</th>\n" +
                     "                            <th>价格</th>\n" +
                     "                            <th>图片</th>\n" +
@@ -134,7 +137,7 @@ $(function () {
                 /*<![CDATA[*/
                 res.data.content.forEach(function (item) {
                     /*]]*/
-                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.productName + "</td><td>" + item.price + "<td>" + item.price + "<td>"
+                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td>" + item.productName + "</td><td>" + item.price + "<td>" + item.price + "<td>"
                         + "<button class=\"btn btn-primary\" onclick='changePro(" + JSON.stringify(item) + ")' >修改</button><button class=\"btn btn-primary\" id='delete' onclick='delPro(" + JSON.stringify(item) + ")'>删除</button>" + "</td></tr></tbody>"
                 });
                 $("#table1").append(inf);
@@ -175,6 +178,7 @@ $(function () {
                                 // $("#id_table1").html(data.data.content);
                                 var inf = "<thead><tr>\n" +
                                     "                            <th>id</th>\n" +
+                                    "                            <th>品牌</th>\n" +
                                     "                            <th>名称</th>\n" +
                                     "                            <th>价格</th>\n" +
                                     "                            <th>图片</th>\n" +
@@ -183,7 +187,7 @@ $(function () {
                                 /*<![CDATA[*/
                                 res.data.content.forEach(function (item) {
                                     /*]]*/
-                                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.productName + "</td><td>" + item.price + "<td>" + item.price + "<td>"
+                                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td>" + item.productName + "</td><td>" + item.price + "<td>" + item.price + "<td>"
                                         + "<button class=\"btn btn-primary\" onclick='changePro(" + JSON.stringify(item) + ")' >修改</button><button class=\"btn btn-primary\" id='delete' onclick='delPro(" + JSON.stringify(item) + ")'>删除</button>" + "</td></tr></tbody>"
                                 });
                                 $("#table1").empty();
@@ -193,6 +197,24 @@ $(function () {
                     }
                 };
                 $("#pageLimit").bootstrapPaginator(options);
+            }
+        });
+        $.ajax({
+            url: ctx + "findBand",
+            data: '',
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                console.log(res.data);
+                var funList = res.data;
+                for (var i = 0; i < funList.length; i++) {
+                    // console.log(funList[i].id)
+                    $("#brandSelect").append("<option value='"+funList[i].id+"'>"+funList[i].brandname+"</option>");
+                };
+                //使用refresh方法更新UI以匹配新状态。
+                $('#brandSelect').selectpicker('refresh');
+                //render方法强制重新渲染引导程序 - 选择ui。
+                $('#brandSelect').selectpicker('render');
             }
         });
     };
@@ -245,5 +267,10 @@ $(function () {
         $('#con-close-modal').modal('hide');
         window.location.reload();
     });
+    $("#brandSelect").change(function(e) {
+        var options=$("#brandSelect option:selected");
+        selectedId = options.val();
+        // alert(options.val());
+    })
 });
 

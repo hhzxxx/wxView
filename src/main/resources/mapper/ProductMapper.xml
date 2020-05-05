@@ -105,8 +105,8 @@
 
     <select id="findPage" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
-        from product
+        u.*,o.brandName,o.brandPic
+        from product u left join product_brand o on o.id = u.brandId
         <where>
             <if test="productName!= null and productName!=''">
                 AND (productName LIKE '%' #{productName} '%')
