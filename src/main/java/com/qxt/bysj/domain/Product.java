@@ -11,6 +11,15 @@ public class Product {
     //非DB
     private String brandname;
     private String brandpic;
+    private String typeName;
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
 
     public String getBrandname() {
         return brandname;

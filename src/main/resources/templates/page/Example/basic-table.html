@@ -81,7 +81,7 @@
                 </div>
             </div>
             <!-- /.row -->
-            <!--弹出框-->
+            <!--添加弹出框-->
             <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                  data-keyboard="false" data-backdrop="static"
             >
@@ -91,9 +91,9 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                             <h4 class="modal-title" id="myModalLabel" style="text-align: center">新增</h4>
                         </div>
-                        <div class="modal-body" style="padding: 15px 30px">
+                        <div class="modal-body" style="padding: 15px 30px" >
                             <form class="form-horizontal form-material" id="productForm">
-                                <div class="form-group">
+                                <div class="form-group" style="overflow: visible">
                                     <label class="col-md-12" style="padding:0;">产品所属品牌</label>
                                     <div class="col-md-12" style="border-bottom: 1px solid #eee;padding: 10px 0">
                                         <select id="brandSelect" class="selectpicker" name="brandId">
@@ -101,29 +101,29 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="overflow: visible">
                                     <label class="col-md-12" style="padding:0;">产品分类</label>
                                     <div class="col-md-12" style="border-bottom: 1px solid #eee;padding: 10px 0">
-                                        <select id="typeSelect" class="selectpicker" name="brandId">
-                                            <option value="">请选择</option>
+                                        <select id="typeSelect" class="selectpicker" name="typeId">
+                                            <option value="" >请选择</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="overflow: visible" >
                                     <label class="col-md-12">名称</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="请输入名称"
                                                class="form-control form-control-line" name="productName"
                                                id="productName"></div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="overflow: visible">
                                     <label class="col-md-12">价格</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="请输入价格"
                                                class="form-control form-control-line" name="price"
-                                               id="price"></div>
+                                               id="price" ></div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="overflow: visible">
                                     <label class="col-md-12">图片</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="请添加图片"
@@ -131,8 +131,8 @@
                                                name="pic" id="pic">
                                     </div>
                                 </div>
-                        </div>
-                        </form>
+                                <!--                        </div>-->
+                            </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" id="btn_close"><span
@@ -145,7 +145,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <!-- /.container-fluid -->
     <footer class="footer text-center"> 2017 &copy; Pixel Admin brought to you by wrappixel - More Templates <a
             href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a
@@ -194,5 +193,11 @@
     .modal-footer {
         border: 0
     }
+    .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover{
+        background-color: #b5a8b9;
+    }
+    /*body  {*/
+    /*    overflow: visible;*/
+    /*}*/
 </style>
 </html>

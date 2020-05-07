@@ -20,9 +20,9 @@
     </select>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
-        <include refid="Base_Column_List"/>
-        from product
-        where id = #{id,jdbcType=INTEGER}
+        u.*,o.brandName,o.brandPic,e.typeName
+        from product u left join product_brand o on o.id = u.brandId left join product_type e on e.id = u.typeId
+        where u.id = #{u.id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from product
@@ -105,8 +105,8 @@
 
     <select id="findPage" resultMap="BaseResultMap">
         select
-        u.*,o.brandName,o.brandPic
-        from product u left join product_brand o on o.id = u.brandId
+        u.*,o.brandName,o.brandPic,e.typeName
+        from product u left join product_brand o on o.id = u.brandId left join product_type e on e.id = u.typeId
         <where>
             <if test="productName!= null and productName!=''">
                 AND (productName LIKE '%' #{productName} '%')
