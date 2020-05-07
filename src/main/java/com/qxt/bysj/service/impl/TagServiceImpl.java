@@ -108,4 +108,9 @@ public class TagServiceImpl extends BaseServiceImpl<Tag> implements TagService {
     public List<Tag> firstTagChoose() {
         return tagDao.firstTagChoose();
     }
+
+    @Override
+    public List<Tag> findRankTag(Integer objType) {
+        return tagDao.findRankTag( objType);
+    }
 }

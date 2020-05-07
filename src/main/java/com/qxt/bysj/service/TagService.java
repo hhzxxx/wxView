@@ -21,5 +21,6 @@ public interface TagService extends BaseService<Tag> {
     Tag selectByTagname(String tagname);
 
     List<Tag> firstTagChoose();
+    List<Tag> findRankTag(Integer objType);
 
 }

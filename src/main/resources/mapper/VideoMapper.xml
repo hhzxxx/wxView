@@ -336,7 +336,8 @@
         LEFT JOIN tab_user p ON p.id = r.userId
         WHERE
         p.openId = #{openId} limit 15)
-        union (select t.id from tab_tag t ORDER BY RAND() desc LIMIT 10)) q
+        union (select DISTINCT t.id from tab_tag t RIGHT JOIN tab_tagxvideo r on t.id=r.tagId
+        ORDER BY RAND() desc LIMIT 10)) q
         )
       </if>
       <if test="videoId!= null and videoId!=''">
