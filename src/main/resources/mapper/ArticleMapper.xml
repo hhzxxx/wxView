@@ -238,12 +238,18 @@
       WHERE
       r.tagId in
       <if test="index!= null and index!=''">
-        (select
+        (
+        select q.id from((SELECT
         u.id
         FROM
-        tab_tag u LEFT JOIN tab_tagxuser r on u.id = r.tagId LEFT JOIN tab_user p on p.id= r.userId
-        where
-        p.openId = #{openId})
+        tab_tag u
+        LEFT JOIN tab_tagxuser r ON u.id = r.tagId
+        LEFT JOIN tab_user p ON p.id = r.userId
+        WHERE
+        p.openId = #{openId} limit 15)
+        union (select DISTINCT t.id from tab_tag t RIGHT JOIN tab_tagxarticle r on t.id=r.tagId
+        ORDER BY RAND() desc LIMIT 10)) q
+        )
       </if>
       <if test="articleId!= null and articleId!=''">
         (SELECT

@@ -467,6 +467,29 @@ public class OpenFace {
     }
 
     /**
+     * 分类排行列表
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findRankTag", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> findRankTag(HttpServletRequest request,@RequestBody tapVideoDto dto) {
+        Result<Object> result = new Result<>();
+        Integer objType = dto.getObjType();
+        if (objType!=null){
+            try{
+                List<Tag> list = tagService.findRankTag(objType);
+                result.setData(list);
+                result.setCode("200");
+                if(objType==1) result.setMessage("视频分类");
+                if(objType==2) result.setMessage("文章分类");
+            }catch (Exception e){
+                result.setMessage("后台出错！");
+            }
+        }
+        return result;
+    }
+
+    /**
      * 停止服务
      * @param id
      * @return
