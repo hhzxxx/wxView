@@ -18,8 +18,8 @@ li, ol, ul {
     position: absolute;
     left: -1px;
     top: -1px;
-    border: 2px solid #fa5e00;
-    width: 91px;
+    border: 3px solid #00AEEF;
+    width: 92px;
     height: 96px;
     /*opacity: 0;*/
     content: '';
@@ -31,20 +31,20 @@ li, ol, ul {
 
 .item {
     position: relative;
-    float: left;
-    width: 91px;
+    /*float: left;*/
+    width: 92px;
     height: 96px;
     /*margin: 0 29px 15px 0;*/
     margin: 0 5px 15px 0;
-    border: 1px solid #ebebeb;
+    border: 2px solid #ebebeb;
 }
 
 .item img {
     position: absolute;
-    left: 2px;
+    /*left: 2px;*/
     right: 0px;
     top: 2px;
-    width: 86px;
+    width: 87px;
     height: 68px;
     background-color: #ddd;
 }

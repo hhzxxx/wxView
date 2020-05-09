@@ -99,8 +99,20 @@
 
     <select id="find" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
-        from product
+        u.*,o.brandName,o.brandPic,e.typeName
+        from product u left join product_brand o on o.id = u.brandId left join product_type e on e.id = u.typeId
+        <where>
+            <if test="productName!= null and productName!=''">
+                AND (productName LIKE '%' #{productName} '%')
+            </if>
+            <if test="brandId!= null and brandId!=''">
+                AND u.brandId = #{brandId}
+            </if>
+            <if test="typeId!= null and typeId!=''">
+                AND u.typeId = #{typeId}
+            </if>
+        </where>
+        order by id desc
     </select>
 
     <select id="findPage" resultMap="BaseResultMap">

@@ -25,6 +25,8 @@
           rel="stylesheet">
     <link th:href="@{/static/bootstrapValidator/css/bootstrapValidator.min.css}"
           href="../bysj/static/bootstrapValidator/css/bootstrapValidator.min.css" rel="stylesheet"/>
+    <link th:href="@{/static/bootstrap/dist/css/bootstrap-select.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,7 +40,7 @@
 <body>
 <form>
     <form class="form-horizontal form-material" id="productForm">
-        <div class="form-group" style="overflow: visible;display: flex; border-bottom: 1px solid #eee;">
+        <div class="form-group" style="overflow: visible;display: flex; border-bottom: 1px solid #eee;padding: 10px;">
             <label class="col-md-12" style="padding:0;">产品所属品牌</label>
             <div class="col-md-12" >
                 <select id="brandSelect" class="selectpicker" name="brandId">
@@ -46,7 +48,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group" style="overflow: visible;display: flex; border-bottom: 1px solid #eee;">
+        <div class="form-group" style="overflow: visible;display: flex; border-bottom: 1px solid #eee;padding: 10px;">
             <label class="col-md-12" style="padding:0;">产品分类</label>
             <div class="col-md-12">
                 <select id="typeSelect" class="selectpicker" name="typeId">
@@ -56,47 +58,47 @@
         </div>
         <div class="form-group" style="display: block;">
             <label class="col-md-12" style="padding:0;">选择您喜爱的商品：</label>
-            <div class="col-md-12">
-                <div class="item" id="item">
-                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
-                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
-                    <p class="name">
-                        <span>奶茶三兄弟</span>
-                    </p>
-                    <span class="price">¥16</span>
-                </div>
-                <div class="item" id="">
-                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
-                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
-                    <p class="name">
-                        <span>奶茶三兄弟</span>
-                    </p>
-                    <span class="price">¥16</span>
-                </div>
-                <div class="item" id="">
-                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
-                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
-                    <p class="name">
-                        <span>奶茶三兄弟</span>
-                    </p>
-                    <span class="price">¥16</span>
-                </div>
-                <div class="item" id="">
-                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
-                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
-                    <p class="name">
-                        <span>奶茶三兄弟</span>
-                    </p>
-                    <span class="price">¥16</span>
-                </div>
-                <div class="item" id="">
-                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"
-                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">
-                    <p class="name">
-                        <span>奶茶三兄弟</span>
-                    </p>
-                    <span class="price">¥16</span>
-                </div>
+            <div class="col-md-12" id="productItem">
+<!--                <div class="item" id="item">-->
+<!--                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"-->
+<!--                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">-->
+<!--                    <p class="name">-->
+<!--                        <span>奶茶三兄弟</span>-->
+<!--                    </p>-->
+<!--                    <span class="price">¥16</span>-->
+<!--                </div>-->
+<!--                <div class="item" id="">-->
+<!--                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"-->
+<!--                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">-->
+<!--                    <p class="name">-->
+<!--                        <span>奶茶三兄弟</span>-->
+<!--                    </p>-->
+<!--                    <span class="price">¥16</span>-->
+<!--                </div>-->
+<!--                <div class="item" id="">-->
+<!--                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"-->
+<!--                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">-->
+<!--                    <p class="name">-->
+<!--                        <span>奶茶三兄弟</span>-->
+<!--                    </p>-->
+<!--                    <span class="price">¥16</span>-->
+<!--                </div>-->
+<!--                <div class="item" id="">-->
+<!--                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"-->
+<!--                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">-->
+<!--                    <p class="name">-->
+<!--                        <span>奶茶三兄弟</span>-->
+<!--                    </p>-->
+<!--                    <span class="price">¥16</span>-->
+<!--                </div>-->
+<!--                <div class="item" id="">-->
+<!--                    <img data-src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20"-->
+<!--                         src="http://p1.meituan.net/xianfu/9297305c4f8fbdd0b5f68c74ec45701a58924.jpg%40249w_249h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20">-->
+<!--                    <p class="name">-->
+<!--                        <span>奶茶三兄弟</span>-->
+<!--                    </p>-->
+<!--                    <span class="price">¥16</span>-->
+<!--                </div>-->
             </div>
         </div>
     </form>
@@ -107,8 +109,21 @@
     </div>
 </form>
 </body>
-<script th:src="@{/static/plugins/bower_components/jquery/dist/jquery.min.js}"
-        src="../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="../../bysj/static/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="../../bysj/static/bootstrap/js/bootstrap-paginator.js"></script>
+<!-- Menu Plugin JavaScript -->
+<script src="../../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+<!--slimscroll JavaScript -->
+<script src="../../bysj/static/js/jquery.slimscroll.js"></script>
+<!--Wave Effects -->
+<script src="../../bysj/static/js/waves.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="../../bysj/static/js/custom.min.js"></script>
+<script th:src="@{/static/bootstrap/js/bootstrap-select.min.js}"
+        src="../bysj/static/bootstrap/js/bootstrap-select.min.js"></script>
 <script th:src="@{/static/bootstrapValidator/js/bootstrapValidator.min.js}"
         src="../bysj/static/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script th:replace="page/base/global :: jsVar"></script>
