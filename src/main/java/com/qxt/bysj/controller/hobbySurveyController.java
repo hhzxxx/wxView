@@ -40,10 +40,8 @@ public class hobbySurveyController {
     @ResponseBody
     public Result<Object> findBand(Model model) {
         Result<Object> result = new Result<>();
-//        PageResult page = productBrandService.find(new HashMap<String, Object>());
         Map<String, Object> map = new HashMap<>();
         List<ProductBrand> brand = productBrandService.find(map);
-//        model.addAttribute("page", page);
         result.setData(brand);
         return result;
     }
