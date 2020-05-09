@@ -14,8 +14,8 @@ public class IndexController {
         return "index";   //"page/index.html"
     }
 
-    @RequestMapping(value = "/hobbySurvey",method = RequestMethod.GET)
-    public String hobbySurvey(ModelMap modelMap) {
-        return "page/hobbySurvey";
-    }
+//    @RequestMapping(value = "/hobbySurvey",method = RequestMethod.GET)
+//    public String hobbySurvey(ModelMap modelMap) {
+//        return "page/hobbySurvey";
+//    }
 }
