@@ -85,4 +85,16 @@
     <include refid="Base_Column_List"/>
     from product_brand
   </select>
+
+  <select id="findPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from product_brand
+    <where>
+      <if test="brandName!= null and brandName!=''">
+        AND (brandName LIKE '%' #{brandName} '%')
+      </if>
+    </where>
+    order by id desc
+  </select>
 </mapper>

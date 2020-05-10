@@ -91,45 +91,28 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                             <h4 class="modal-title" id="myModalLabel" style="text-align: center">新增</h4>
                         </div>
-                        <div class="modal-body" style="padding: 15px 30px" >
+                        <div class="modal-body" style="padding: 15px 30px">
                             <form class="form-horizontal form-material" id="productForm">
                                 <div class="form-group" style="overflow: visible">
-                                    <label class="col-md-12" style="padding:0;">产品所属品牌</label>
-                                    <div class="col-md-12" style="border-bottom: 1px solid #eee;padding: 10px 0">
-                                        <select id="brandSelect" class="selectpicker" name="brandId">
-                                            <option value="">请选择</option>
-                                        </select>
-                                    </div>
+                                    <label class="col-md-12" style="padding:0;">品牌名称</label>
+                                    <div class="col-md-12" >
+                                        <input type="text" placeholder="请输入名称"
+                                               class="form-control form-control-line" name="brandName"
+                                               id="brandName"></div>
                                 </div>
                                 <div class="form-group" style="overflow: visible">
-                                    <label class="col-md-12" style="padding:0;">产品分类</label>
-                                    <div class="col-md-12" style="border-bottom: 1px solid #eee;padding: 10px 0">
-                                        <select id="typeSelect" class="selectpicker" name="typeId">
-                                            <option value="" >请选择</option>
-                                        </select>
-                                    </div>
+                                    <label class="col-md-12">品牌简介</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="请输入简介"
+                                               class="form-control form-control-line" name="Introduction"
+                                               id="Introduction"></div>
                                 </div>
-                                <div class="form-group" style="overflow: visible" >
-                                    <label class="col-md-12">名称</label>
+                                <div class="form-group" style="overflow: visible">
+                                    <label class="col-md-12">品牌图片</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="请输入名称"
-                                               class="form-control form-control-line" name="productName"
-                                               id="productName"></div>
-                                </div>
-                                <div class="form-group" style="overflow: visible">
-                                    <label class="col-md-12">价格</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="请输入价格"
-                                               class="form-control form-control-line" name="price"
-                                               id="price" ></div>
-                                </div>
-                                <div class="form-group" style="overflow: visible">
-                                    <label class="col-md-12">图片</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="请添加图片"
-                                               class="form-control form-control-line"
-                                               name="pic" id="pic">
-                                    </div>
+                                               class="form-control form-control-line" name="brandPic"
+                                               id="brandPic"></div>
                                 </div>
                                 <!--                        </div>-->
                             </form>
@@ -172,7 +155,7 @@
     <script th:src="@{/static/bootstrapValidator/js/bootstrapValidator.min.js}"
             src="../bysj/static/bootstrapValidator/js/bootstrapValidator.min.js"></script>
     <script th:replace="page/base/global :: jsVar"></script>
-    <script th:src="@{/static/apps/js/product.js}"></script>
+    <script th:src="@{/static/apps/js/brandProduct.js}"></script>
     <!--    <script type="text/javascript">-->
     <!--        $("#btn_add").click(function (){-->
     <!--            $("#myModalLabel").text("新增");-->
@@ -193,9 +176,11 @@
     .modal-footer {
         border: 0
     }
-    .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover{
+
+    .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
         background-color: #b5a8b9;
     }
+
     /*body  {*/
     /*    overflow: visible;*/
     /*}*/
