@@ -6,7 +6,7 @@ import com.qxt.bysj.dao.ProductBrandMapper;
 import com.qxt.bysj.domain.ProductBrand;
 import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.ProductBrandService;
-import com.qxt.bysj.utils.PageRequest;
+import com.qxt.bysj.domain.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

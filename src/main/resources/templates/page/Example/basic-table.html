@@ -33,6 +33,7 @@
     <![endif]-->
     <link th:href="@{/static/plugins/bower_components/fonts.googleapis/fonts.css}"
           href="../bysj/static/plugins/bower_components/fonts.googleapis/fonts.css" rel="stylesheet">
+    <link th:href="@{/static/apps/css/upLoad.css}" href="../bysj/static/apps/css/upLoad.css" rel="stylesheet">
 </head>
 
 <body>
@@ -123,15 +124,16 @@
                                                class="form-control form-control-line" name="price"
                                                id="price" ></div>
                                 </div>
-                                <div class="form-group" style="overflow: visible">
+                                <div class="form-group" style="height: 225px;overflow: visible">
                                     <label class="col-md-12">图片</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="请添加图片"
-                                               class="form-control form-control-line"
-                                               name="pic" id="pic">
+                                        <a id="down_1" ></a>
+                                        <a href="javascript:;" class="a-upload">
+                                            <input id="file_1" name="file" type="file" accept="image/*" fileid="100"  onchange="upfileAndSave(this,1,'productPic')"   style="width:100px;" >上传图片
+                                        </a>
+                                        <div id="preview" hidden style="width: 300px;height:300px;border:1px solid gray;"></div>
                                     </div>
                                 </div>
-                                <!--                        </div>-->
                             </form>
                     </div>
                     <div class="modal-footer">
@@ -151,6 +153,7 @@
             href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></footer>
 </div>
 <!-- /#page-wrapper -->
+</div>
 </div>
 <!-- /#wrapper -->
 <!-- jQuery -->
@@ -173,6 +176,7 @@
         src="../bysj/static/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 <script th:replace="page/base/global :: jsVar"></script>
 <script th:src="@{/static/apps/js/product.js}"></script>
+
 <!--    <script type="text/javascript">-->
 <!--        $("#btn_add").click(function (){-->
 <!--            $("#myModalLabel").text("新增");-->

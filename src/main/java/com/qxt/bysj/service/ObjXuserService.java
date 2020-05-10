@@ -1,8 +1,8 @@
 package com.qxt.bysj.service;
 
 import com.qxt.bysj.domain.ObjXuser;
-import com.qxt.bysj.utils.PageRequest;
-import com.qxt.bysj.utils.PageResult;
+import com.qxt.bysj.domain.PageRequest;
+import com.qxt.bysj.domain.PageResult;
 
 public interface ObjXuserService extends BaseService<ObjXuser> {
 

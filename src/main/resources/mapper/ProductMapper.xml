@@ -123,6 +123,12 @@
             <if test="productName!= null and productName!=''">
                 AND (productName LIKE '%' #{productName} '%')
             </if>
+            <if test="brandId!= null and brandId!=''">
+                AND u.brandId = #{brandId}
+            </if>
+            <if test="typeId!= null and typeId!=''">
+                AND u.typeId = #{typeId}
+            </if>
         </where>
         order by id desc
     </select>

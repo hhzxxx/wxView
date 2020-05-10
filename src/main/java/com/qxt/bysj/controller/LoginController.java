@@ -5,11 +5,10 @@ import com.qxt.bysj.domain.SessionUser;
 import com.qxt.bysj.service.ManagerService;
 import com.qxt.bysj.utils.IpUtil;
 import com.qxt.bysj.utils.MD5Utils;
-import com.qxt.bysj.utils.Result;
+import com.qxt.bysj.domain.Result;
 import com.qxt.bysj.utils.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

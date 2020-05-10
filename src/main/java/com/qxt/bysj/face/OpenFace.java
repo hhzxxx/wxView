@@ -9,11 +9,11 @@ import com.qxt.bysj.threads.TestThreadPoolManager;
 import com.qxt.bysj.utils.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -43,6 +43,8 @@ public class OpenFace {
     TestThreadPoolManager testThreadPoolManager;
     @Autowired
     private ObjXuserService objXuserService;
+    @Autowired
+    private UpFileUtil upFileUtil;
     @Value("${app.secret}")
     private String secret;
     @Value("${app.id}")
@@ -486,6 +488,52 @@ public class OpenFace {
                 result.setMessage("后台出错！");
             }
         }
+        return result;
+    }
+
+
+    private static long maxFileSize = 20*1024*1024;
+    /**
+     * 上传文件
+     */
+    @RequestMapping(value = "/upfile", method = RequestMethod.POST)
+    public @ResponseBody Result<Object> uploadFile(@RequestParam(value = "file",required=false) MultipartFile file,
+                                           @RequestParam(value = "objId",required=false) Long objId,
+                                           @RequestParam(value = "objType",required=false) String objType) throws Exception {
+        Result<Object> result = new Result<>();
+        String storeFile = null;
+        String fileName = null;
+        UpFile upFile = new UpFile();
+        try {
+            if (file==null){
+                result.setMessage("文件不能为空");
+                return result;
+            }
+            fileName = file.getOriginalFilename();
+
+            //处理IE上传带路径的问题
+            int iPos = fileName.lastIndexOf("\\");
+            if (iPos>0) fileName = fileName.substring(iPos+1);
+            if (fileName!=null && fileName.length()>0) {
+                long size = file.getSize();
+                if (size>maxFileSize){
+                    result.setMessage("文件大小超过"+(maxFileSize/1024/1024)+"M.");
+                    return result;
+                }
+                storeFile = upFileUtil.saveOssFile(file,objType); //OSS保存文件
+            }
+        } catch (Exception e) {
+            result.setMessage("上传失败！");
+        } finally {
+            if(storeFile.length()>0){
+                result.setMessage("上传成功！");
+                result.setCode("200");
+                upFile.setOrifile(fileName);
+                upFile.setStoragefile(storeFile);
+                result.setData(upFile);
+            }
+        }
+
         return result;
     }
 

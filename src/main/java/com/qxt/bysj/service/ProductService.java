@@ -1,8 +1,6 @@
 package com.qxt.bysj.service;
 
 import com.qxt.bysj.domain.Product;
-import com.qxt.bysj.utils.PageRequest;
-import com.qxt.bysj.utils.PageResult;
 
 public interface ProductService extends BaseService<Product>{
 

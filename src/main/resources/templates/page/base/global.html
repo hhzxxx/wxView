@@ -69,6 +69,105 @@
     	}
     	/**************************************时间格式化处理-END************************************/
 
+    	//上传图片
+		function upfileAndSave(file, domnId,fileType) {
+			if($("#preview").length>0){
+				$("#preview").hide();
+			}
+			var liobj = document.getElementById("down_"+domnId);
+			var afile = file.files[0];
+			var p = liobj.parentNode;
+			var objId = 0;
+			if (afile!=null) {
+				var formData = new FormData();
+				formData.append('file', afile);
+				formData.append('objId', objId);
+				formData.append('objType', fileType);
+				var postUrl =  ctx+'Face/upfile';
+				$.ajax({
+					url:  postUrl,
+					type: 'POST',
+					cache: false,
+					data: formData,
+					processData: false,
+					contentType: false,
+					complete: function() {
+					}, success: function(result) {
+						if (result.code!='200') {
+							alert(result.message?result.message:"文件上传异常（error）");
+						} else {
+							var file = result.data;
+
+							// $("#down_"+domnId).siblings().remove();
+							$(".a-upload").remove();
+							$("#down_"+domnId).attr("onclick", "downfile('"+file.storagefile+"')");
+							$("#down_"+domnId).attr("storageFile", file.storagefile);
+							$("#down_"+domnId).html(file.orifile);
+							$("#down_"+domnId).attr("fileid", file.id); //fileid="100" newA.setAttribute("fileid", fileId);
+							var newButton=document.createElement("i");
+							newButton.setAttribute("class","fa fa-trash-o text-danger");
+							newButton.setAttribute("onclick","deleteFile('"+domnId+"','"+fileType+"');");
+							$("#down_"+domnId).after(newButton);
+							if($("#preview").length>0){
+								$("#preview").show();
+								var img = new Image();
+								img.src=file.storagefile;
+								var $img = $(img);
+								$('#preview').empty().append($img);
+							}
+						}
+					}, error: function(result, b) {
+						alert(result.message?result.message:"文件上传异常（error）");
+					}
+				});
+			}
+		}
+
+		//下载
+		function downfile(url) {
+			if (url=='' || url==null) {
+			} else {
+				window.open(url);
+			}
+		}
+
+		//删除
+		function deleteFile(domnId,fileType){
+			var liobj = document.getElementById("down_"+domnId);
+			var fileId = $(liobj).attr("fileid");
+			if(fileId!=null && fileId.length>0){
+				$.ajax({
+					url:  '/oapi/pub/sys/delete?fileId='+fileId,
+					type: 'GET',
+					cache: false,
+					processData: false,
+					contentType: false,
+					complete: function() {
+					}, success: function(result) {
+						if (result.code!='0') {
+							alert("文件删除异常, 原因："+result.message);
+						} else {
+							alert("文件删除成功!");
+							$(liobj).siblings().remove();
+							$(liobj).html("");
+							addUpBtn(domnId,fileType);
+						}
+					}, error: function(result, b) {
+						alert("文件删除异常（error）");
+					}
+				});
+			}else {
+				$(liobj).siblings().remove();
+				$(liobj).html("");
+				addUpBtn(domnId,fileType);
+			}
+		}
+
+		function addUpBtn(domnId,fileType) {
+			$("#down_"+domnId).after("<a href=\"javascript:;\" class=\"a-upload\">\n" +
+					"<input id=\"file_"+domnId+"\" name=\"file\" accept=\"image/*\" type=\"file\" fileid=\"100\" onchange=\"upfileAndSave(this, '"+domnId+"','"+fileType+"')\"   style=\"width:100px;\" />上传图片\n" +
+					"</a>")
+		}
 </script> 
 </body>
 </html>

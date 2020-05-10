@@ -6,7 +6,7 @@ import com.qxt.bysj.domain.ProductType;
 import com.qxt.bysj.service.ProductBrandService;
 import com.qxt.bysj.service.ProductService;
 import com.qxt.bysj.service.ProductTypeService;
-import com.qxt.bysj.utils.Result;
+import com.qxt.bysj.domain.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

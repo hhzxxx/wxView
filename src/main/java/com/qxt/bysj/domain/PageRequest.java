@@ -1,4 +1,4 @@
-package com.qxt.bysj.utils;
+package com.qxt.bysj.domain;
 
 import com.qxt.bysj.domain.dto.ruleDto;
 

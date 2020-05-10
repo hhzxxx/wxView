@@ -1,6 +1,8 @@
 package com.qxt.bysj.utils;
 
 import com.github.pagehelper.PageInfo;
+import com.qxt.bysj.domain.PageRequest;
+import com.qxt.bysj.domain.PageResult;
 
 /**
  * @Author qxt

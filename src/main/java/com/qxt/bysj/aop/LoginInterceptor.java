@@ -2,6 +2,8 @@ package com.qxt.bysj.aop;
 
 import com.qxt.bysj.domain.Manager;
 import com.qxt.bysj.domain.SessionUser;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
