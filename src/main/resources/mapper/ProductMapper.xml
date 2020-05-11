@@ -85,6 +85,9 @@
             <if test="typeId != null">
                 typeId = #{typeId,jdbcType=INTEGER},
             </if>
+            <if test="pic != null">
+                pic = #{pic,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -93,7 +96,8 @@
     set productName = #{productName,jdbcType=VARCHAR},
       price = #{price,jdbcType=VARCHAR},
       brandId = #{brandId,jdbcType=INTEGER},
-      typeId = #{typeId,jdbcType=INTEGER}
+      typeId = #{typeId,jdbcType=INTEGER},
+      pic = #{pic,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

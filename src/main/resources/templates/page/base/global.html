@@ -69,8 +69,32 @@
     	}
     	/**************************************时间格式化处理-END************************************/
 
+    	function showPic(url,domnId,fileType,urlDom) {
+			var liobj = document.getElementById("down_"+domnId);
+			$(liobj).siblings().remove();
+			$(liobj).html("");
+			addUpBtn(domnId,fileType,urlDom);
+			if(url.length>0){
+				$(".a-upload").remove();
+				$("#down_"+domnId).attr("onclick", "downfile('"+url+"')");
+				$("#down_"+domnId).attr("storageFile",url);
+				// $("#down_"+domnId).html(file.orifile);
+				var newButton=document.createElement("i");
+				newButton.setAttribute("class","fa fa-trash-o text-danger");
+				newButton.setAttribute("onclick","deleteFile('"+domnId+"','"+fileType+"','"+urlDom+"');");
+				$("#down_"+domnId).after(newButton);
+				if($("#preview").length>0){
+					$("#preview").show();
+					var img = new Image();
+					img.src=url;
+					var $img = $(img);
+					$('#preview').empty().append($img);
+				}
+			}
+		}
+
     	//上传图片
-		function upfileAndSave(file, domnId,fileType) {
+		function upfileAndSave(file, domnId,fileType,urlDom) {
 			if($("#preview").length>0){
 				$("#preview").hide();
 			}
@@ -100,13 +124,14 @@
 
 							// $("#down_"+domnId).siblings().remove();
 							$(".a-upload").remove();
+							$("#"+urlDom).val(file.storagefile);
 							$("#down_"+domnId).attr("onclick", "downfile('"+file.storagefile+"')");
 							$("#down_"+domnId).attr("storageFile", file.storagefile);
-							$("#down_"+domnId).html(file.orifile);
+							// $("#down_"+domnId).html(file.orifile);
 							$("#down_"+domnId).attr("fileid", file.id); //fileid="100" newA.setAttribute("fileid", fileId);
 							var newButton=document.createElement("i");
 							newButton.setAttribute("class","fa fa-trash-o text-danger");
-							newButton.setAttribute("onclick","deleteFile('"+domnId+"','"+fileType+"');");
+							newButton.setAttribute("onclick","deleteFile('"+domnId+"','"+fileType+"','"+urlDom+"');");
 							$("#down_"+domnId).after(newButton);
 							if($("#preview").length>0){
 								$("#preview").show();
@@ -132,7 +157,7 @@
 		}
 
 		//删除
-		function deleteFile(domnId,fileType){
+		function deleteFile(domnId,fileType,urlDom){
 			var liobj = document.getElementById("down_"+domnId);
 			var fileId = $(liobj).attr("fileid");
 			if(fileId!=null && fileId.length>0){
@@ -150,7 +175,7 @@
 							alert("文件删除成功!");
 							$(liobj).siblings().remove();
 							$(liobj).html("");
-							addUpBtn(domnId,fileType);
+							addUpBtn(domnId,fileType,urlDom);
 						}
 					}, error: function(result, b) {
 						alert("文件删除异常（error）");
@@ -159,14 +184,15 @@
 			}else {
 				$(liobj).siblings().remove();
 				$(liobj).html("");
-				addUpBtn(domnId,fileType);
+				$("#"+urlDom).val("");
+				addUpBtn(domnId,fileType,urlDom);
 			}
 		}
 
-		function addUpBtn(domnId,fileType) {
+		function addUpBtn(domnId,fileType,urlDom) {
 			$("#down_"+domnId).after("<a href=\"javascript:;\" class=\"a-upload\">\n" +
-					"<input id=\"file_"+domnId+"\" name=\"file\" accept=\"image/*\" type=\"file\" fileid=\"100\" onchange=\"upfileAndSave(this, '"+domnId+"','"+fileType+"')\"   style=\"width:100px;\" />上传图片\n" +
-					"</a>")
+					"<input id=\"file_"+domnId+"\" name=\"file\" accept=\"image/*\" type=\"file\" fileid=\"100\" onchange=\"upfileAndSave(this, '"+domnId+"','"+fileType+"','"+urlDom+"')\"   style=\"width:100px;\" />上传图片\n" +
+					"</a><div id=\"preview\" hidden style=\"width: 300px;height:300px;border:1px solid gray;\"></div>\n")
 		}
 </script> 
 </body>

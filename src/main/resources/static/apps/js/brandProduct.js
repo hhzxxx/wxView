@@ -15,7 +15,7 @@ $(function () {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            brandName: {
+            brandname: {
                 message: '添加失败',
                 validators: {
                     notEmpty: {
@@ -59,7 +59,7 @@ $(function () {
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    brandName: {
+                    brandname: {
                         message: '修改失败',
                         validators: {
                             notEmpty: {
@@ -76,19 +76,19 @@ $(function () {
                 var data = JSON.stringify($("#productForm").serializeJson());
                 var obj = {
                     id: proId,
-                    brandName: $("#productForm").serializeJson().brandName,
-                    price: $("#productForm").serializeJson().price,
-                    pic: $("#productForm").serializeJson().pic
+                    brandname: $("#productForm").serializeJson().brandname,
+                    introduction: $("#productForm").serializeJson().introduction,
+                    brandpic: $("#productForm").serializeJson().brandpic
                 };
                 $.ajax({
-                    url: ctx + "updateDetail",
+                    url: ctx + "updateBrandDetail",
                     data: JSON.stringify(obj),
                     type: "post",
                     contentType: "application/json; charset=utf-8",
                     success: function (res) {
-                        window.location.reload();
                         if (res.code === "200") {
                             alert(res.message ? res.message : "修改成功");
+                            window.location.reload();
                         } else {
                             alert(res.message ? res.message : "修改失败");
                         }
@@ -123,7 +123,7 @@ $(function () {
                 /*<![CDATA[*/
                 res.data.content.forEach(function (item) {
                     /*]]*/
-                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td>" + item.brandpic + "</td><td>" + item.introduction + "</td><td>"
+                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td><img style='height: 80px;' src="+item.brandpic+"></td><td>" + item.introduction + "</td><td>"
                         + "<button class=\"btn btn-primary\" onclick='changePro(" + JSON.stringify(item) + ")' >修改</button><button class=\"btn btn-primary\" id='delete' onclick='delPro(" + JSON.stringify(item) + ")'>删除</button>" + "</td></tr></tbody>"
                 });
                 $("#table1").append(inf);
@@ -171,7 +171,7 @@ $(function () {
                                 /*<![CDATA[*/
                                 res.data.content.forEach(function (item) {
                                     /*]]*/
-                                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td>" + item.brandpic + "</td><td>" + item.introduction + "</td><td>"
+                                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td><img style='height: 80px;' src="+item.brandpic+"></td><td>" + item.introduction + "</td><td>"
                                         + "<button class=\"btn btn-primary\" onclick='changePro(" + JSON.stringify(item) + ")' >修改</button><button class=\"btn btn-primary\" id='delete' onclick='delPro(" + JSON.stringify(item) + ")'>删除</button>" + "</td></tr></tbody>"
                                 });
                                 $("#table1").empty();
@@ -197,9 +197,10 @@ $(function () {
             success: function (res) {
                 $('#con-close-modal').modal('show');
                 // debugger
-                $("#brandName").val(res.data.brandname);
-                $("#Introduction").val(res.data.brandpic);
-                $("#brandPic").val(res.data.introduction);
+                $("#brandname").val(res.data.brandname);
+                $("#introduction").val(res.data.introduction);
+                $("#brandpic").val(res.data.brandpic);
+                showPic(res.data.brandpic,1,'productBrandPic','brandpic');
             }
         });
     };
@@ -212,15 +213,15 @@ $(function () {
         };
         if (confirm('确定要删除吗？')) {
             $.ajax({
-                url: ctx + "delDetail",
+                url: ctx + "delBrandDetail",
                 data: JSON.stringify(obj),
                 type: "post",
                 contentType: "application/json; charset=utf-8",
                 success: function (res) {
                     if (res.code === "200") {
-                        alert(res.message ? res.message : "修改成功");
+                        alert(res.message ? res.message : "删除成功");
                     } else {
-                        alert(res.message ? res.message : "修改失败");
+                        alert(res.message ? res.message : "删除失败");
                     }
                     window.location.reload();
                 }
@@ -234,12 +235,14 @@ $(function () {
     });
     $("#btn_close").click(function (e) {
         $('#con-close-modal').modal('hide');
-        window.location.reload();
     });
     // $("#brandSelect").change(function (e) {
     //     var options = $("#brandSelect option:selected");
     //     // selectedId = options.val();
     //     alert(options.val());
     // });
+    $("#reload").click(function (e) {
+        window.location.reload();
+    });
 });
 

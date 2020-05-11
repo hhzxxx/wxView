@@ -44,6 +44,8 @@ public class OpenFace {
     @Autowired
     private ObjXuserService objXuserService;
     @Autowired
+    private UpFileService upFileService;
+    @Autowired
     private UpFileUtil upFileUtil;
     @Value("${app.secret}")
     private String secret;
@@ -516,6 +518,7 @@ public class OpenFace {
             if (iPos>0) fileName = fileName.substring(iPos+1);
             if (fileName!=null && fileName.length()>0) {
                 long size = file.getSize();
+                upFile.setOrisize(Math.toIntExact(size));
                 if (size>maxFileSize){
                     result.setMessage("文件大小超过"+(maxFileSize/1024/1024)+"M.");
                     return result;
@@ -530,6 +533,10 @@ public class OpenFace {
                 result.setCode("200");
                 upFile.setOrifile(fileName);
                 upFile.setStoragefile(storeFile);
+                upFile.setObjecttype(objType);
+                String uuid = UUID.randomUUID().toString();
+                upFile.setUuid(uuid);
+                upFileService.insert(upFile);
                 result.setData(upFile);
             }
         }

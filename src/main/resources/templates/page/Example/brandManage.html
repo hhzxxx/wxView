@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../../bysj/static/plugins/images/favicon.png">
-    <title>产品管理</title>
+    <title>产品品牌管理</title>
     <!-- Bootstrap Core CSS -->
     <link th:href="@{/static/bootstrap/dist/css/bootstrap.min.css}"
           href="../bysj/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,8 +31,9 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link th:href="@{/static/plugins/bower_components/fonts.googleapis/fonts.css}"
+    <link th:href="@{/static/css/fonts.googleapis/fonts.css}"
           href="../bysj/static/plugins/bower_components/fonts.googleapis/fonts.css" rel="stylesheet">
+    <link th:href="@{/static/apps/css/upLoad.css}" href="../bysj/static/apps/css/upLoad.css" rel="stylesheet">
 </head>
 
 <body>
@@ -49,13 +50,12 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Basic Table</h4></div>
-                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"><a href="#"
-                                                                     class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Upgrade
-                    to Pro</a>
+                    <h4 class="page-title">产品品牌管理</h4></div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"><a id="reload"
+                                                                     class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">刷新</a>
                     <ol class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li class="active">Basic Table</li>
+                        <li><a href="#">产品管理</a></li>
+                        <li class="active">产品品牌管理</li>
                     </ol>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -97,24 +97,29 @@
                                     <label class="col-md-12" style="padding:0;">品牌名称</label>
                                     <div class="col-md-12" >
                                         <input type="text" placeholder="请输入名称"
-                                               class="form-control form-control-line" name="brandName"
-                                               id="brandName"></div>
+                                               class="form-control form-control-line" name="brandname"
+                                               id="brandname"></div>
                                 </div>
                                 <div class="form-group" style="overflow: visible">
                                     <label class="col-md-12">品牌简介</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="请输入简介"
-                                               class="form-control form-control-line" name="Introduction"
-                                               id="Introduction"></div>
+                                               class="form-control form-control-line" name="introduction"
+                                               id="introduction"></div>
                                 </div>
-                                <div class="form-group" style="overflow: visible">
+                                <div class="form-group"  style="height: 225px;overflow: visible">
                                     <label class="col-md-12">品牌图片</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="请输入名称"
-                                               class="form-control form-control-line" name="brandPic"
-                                               id="brandPic"></div>
+                                        <input id="brandpic" name="brandpic" hidden>
+                                        <div class="col-md-12">
+                                            <a id="down_1" ></a>
+                                            <a href="javascript:;" class="a-upload">
+                                                <input id="file_1" name="file" type="file" accept="image/*" fileid="100"  onchange="upfileAndSave(this,1,'productBrandPic','brandpic')"   style="width:100px;" >上传图片
+                                            </a>
+                                            <div id="preview" hidden style="width: 300px;height:300px;border:1px solid gray;"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!--                        </div>-->
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -137,17 +142,16 @@
     </div>
     <!-- /#wrapper -->
     <!-- jQuery -->
-    <script src="../../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <script th:src="@{/static/plugins/bower_components/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../bysj/static/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <script src="../../bysj/static/bootstrap/js/bootstrap-paginator.js"></script>
+    <script th:src="@{/static/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap-paginator.js}"></script>
     <!-- Menu Plugin JavaScript -->
-    <script src="../../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <script th:src="@{/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js}"></script>
     <!--slimscroll JavaScript -->
-    <script src="../../bysj/static/js/jquery.slimscroll.js"></script>
+    <script th:src="@{/static/js/jquery.slimscroll.js}"></script>
     <!--Wave Effects -->
-    <script src="../../bysj/static/js/waves.js"></script>
+    <script th:src="@{/static/js/waves.js}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="../../bysj/static/js/custom.min.js"></script>
     <script th:src="@{/static/bootstrap/js/bootstrap-select.min.js}"

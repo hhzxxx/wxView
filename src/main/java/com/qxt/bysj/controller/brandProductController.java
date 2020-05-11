@@ -1,10 +1,10 @@
 package com.qxt.bysj.controller;
 
+import com.qxt.bysj.domain.PageRequest;
+import com.qxt.bysj.domain.PageResult;
 import com.qxt.bysj.domain.ProductBrand;
+import com.qxt.bysj.domain.Result;
 import com.qxt.bysj.service.ProductBrandService;
-import com.qxt.bysj.utils.PageRequest;
-import com.qxt.bysj.utils.PageResult;
-import com.qxt.bysj.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,25 +62,25 @@ public class brandProductController {
         result.setData(productBrandList);
         return result;
     }
-//
-//    @RequestMapping(value = "/delDetail", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Result<Object> delDetail(@RequestBody ProductBrand productBrand, HttpServletRequest request, HttpServletResponse response) {
-//        Result<Object> result = new Result<>();
-//        Integer id = product.getId();
-//        productService.deleteById(id);
-//        result.setCode("200");
-//        result.setMessage("删除成功！");
-//        return result;
-//    }
-//
-//    @RequestMapping(value = "/updateDetail", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Result<Object> updateDetail(@RequestBody ProductBrand productBrand, HttpServletRequest request, HttpServletResponse response) {
-//        Result<Object> result = new Result<>();
-//        productService.update(product);
-//        result.setCode("200");
-//        result.setMessage("修改成功！");
-//        return result;
-//    }
+
+    @RequestMapping(value = "/delBrandDetail", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Object> delBrandDetail(@RequestBody ProductBrand productBrand, HttpServletRequest request, HttpServletResponse response) {
+        Result<Object> result = new Result<>();
+        Integer id = productBrand.getId();
+        productBrandService.deleteById(id);
+        result.setCode("200");
+        result.setMessage("删除成功！");
+        return result;
+    }
+
+    @RequestMapping(value = "/updateBrandDetail", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Object> updateBrandDetail(@RequestBody ProductBrand productBrand, HttpServletRequest request, HttpServletResponse response) {
+        Result<Object> result = new Result<>();
+        productBrandService.update(productBrand);
+        result.setCode("200");
+        result.setMessage("修改成功！");
+        return result;
+    }
 }

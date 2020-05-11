@@ -1,10 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../bysj/static/plugins/images/favicon.png">
     <title>产品分类管理</title>
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/static/bootstrap/dist/css/bootstrap.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Menu CSS -->
+    <link th:href="@{/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}"
+          href="../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link th:href="@{/static/css/animate.css}" href="../bysj/static/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/static/css/style.css}" href="../bysj/static/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link th:href="@{/static/css/colors/megna-dark.css}" href="../bysj/static/css/colors/megna-dark.css" id="theme"
+          rel="stylesheet">
+    <link th:href="@{/static/bootstrapValidator/css/bootstrapValidator.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet"/>
+    <link th:href="@{/static/bootstrap/dist/css/bootstrap-select.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link th:href="@{/static/css/fonts.googleapis/fonts.css}"
+          href="../bysj/static/plugins/bower_components/fonts.googleapis/fonts.css" rel="stylesheet">
 </head>
-<body>
 
+<body>
+<!-- Preloader -->
+<div class="preloader">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+<div id="wrapper">
+    <!--start of 标题栏-吊顶-->
+    <head th:replace="page/base/header::bysj-header"></head>
+    <!--end of 标题栏-吊顶-->
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">产品分类管理</h4></div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"><a id="reload"
+                                                                     class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">刷新</a>
+                    <ol class="breadcrumb">
+                        <li><a href="#">产品管理</a></li>
+                        <li class="active">产品分类管理</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <!--                            <h3 class="box-title">Basic Table</h3>-->
+                        <!--                            <p class="text-muted">Add class <code>.table</code></p>-->
+                        <p id="btn_add"
+                           class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
+                           style="float:none!important;margin-left: 0px!important;">添&nbsp&nbsp&nbsp&nbsp&nbsp加</p>
+                        <div class="table-responsive">
+                            <table class="table" id="table1">
+                            </table>
+                            <div aria-label="Page navigation" id="example">
+                                <ul class="pagination" id="pageLimit">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <!--添加弹出框-->
+            <div class="modal fade" id="con-close-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 data-keyboard="false" data-backdrop="static"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                            <h4 class="modal-title" id="myModalLabel" style="text-align: center">新增</h4>
+                        </div>
+                        <div class="modal-body" style="padding: 15px 30px">
+                            <form class="form-horizontal form-material" id="productForm">
+                                <div class="form-group" style="overflow: visible">
+                                    <label class="col-md-12" style="padding:0;">分类名称</label>
+                                    <div class="col-md-12" >
+                                        <input type="text" placeholder="请输入名称"
+                                               class="form-control form-control-line" name="typename"
+                                               id="typename"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="btn_close"><span
+                                    class="glyphicon glyphicon-remove"></span>关闭
+                            </button>
+                            <button type="button" id="btn_submit" class="btn btn-primary"><span
+                                    class="glyphicon glyphicon-floppy-disk"></span>保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2017 &copy; Pixel Admin brought to you by wrappixel - More Templates <a
+                    href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a
+                    href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></footer>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="../../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../bysj/static/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="../../bysj/static/bootstrap/js/bootstrap-paginator.js"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="../../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="../../bysj/static/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="../../bysj/static/js/waves.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../../bysj/static/js/custom.min.js"></script>
+    <script th:src="@{/static/bootstrap/js/bootstrap-select.min.js}"
+            src="../bysj/static/bootstrap/js/bootstrap-select.min.js"></script>
+    <script th:src="@{/static/bootstrapValidator/js/bootstrapValidator.min.js}"
+            src="../bysj/static/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+    <script th:replace="page/base/global :: jsVar"></script>
+    <script th:src="@{/static/apps/js/type.js}"></script>
+    <!--    <script type="text/javascript">-->
+    <!--        $("#btn_add").click(function (){-->
+    <!--            $("#myModalLabel").text("新增");-->
+    <!--            $('#con-close-modal').modal();-->
+    <!--        })-->
+    <!--    </script>-->
 </body>
+<style>
+    .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+        background-color: #516673;
+        border-color: #516673;
+    }
+
+    .btn-default, .btn-default.disabled {
+        background: #fff;
+    }
+
+    .modal-footer {
+        border: 0
+    }
+
+    .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
+        background-color: #b5a8b9;
+    }
+
+    /*body  {*/
+    /*    overflow: visible;*/
+    /*}*/
+</style>
 </html>
