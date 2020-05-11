@@ -211,15 +211,26 @@
     </select>
 
     <select id="findPage"  resultMap="BaseResultMap">
-        select
-        u.*,o.face
-        from tab_article u left join tab_owner o on o.ownerId = u.ownerId
-        <where>
-            status &lt;&gt; 9
-            <if test="title!= null and title!=''">
-                AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
-            </if>
-        </where>
+      SELECT x.*
+      from(select
+      DISTINCT u.id as dd,u.*
+      from tab_article u
+      <if test="tagId!= null and tagId!=''">
+        LEFT JOIN tab_tagxarticle r on u.id = r.articleId
+      </if>
+      <where>status &lt;&gt; 9
+        <if test="title!= null and title!=''">
+          AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
+        </if>
+        <if test="tagId!= null and tagId!=''">
+          AND r.tagId = #{tagId}
+        </if>
+        ORDER BY
+        u.hot DESC
+        LIMIT 300
+      </where>) x
+      group by x.id
+      order by rand()
     </select>
 
     <select id="selectByCvid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
