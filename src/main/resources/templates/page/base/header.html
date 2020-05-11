@@ -5,8 +5,8 @@
 									  data-toggle="collapse" data-target=".navbar-collapse"><i
 				class="fa fa-bars"></i></a>
 			<div class="top-left-part"><a class="logo" th:href="@{/index}" href="index.html"><b><img
-					src="../bysj/static/plugins/images/pixeladmin-logo.png" alt="home"/></b><span class="hidden-xs"><img
-					src="../bysj/static/plugins/images/pixeladmin-text.png" alt="home"/></span></a></div>
+					th:src="@{/static/plugins/images/pixeladmin-logo.png}" alt="home"/></b><span class="hidden-xs"><img
+					th:src="@{/static/plugins/images/pixeladmin-text.png}" alt="home"/></span></a></div>
 			<ul class="nav navbar-top-links navbar-left m-l-20 hidden-xs">
 				<li>
 					<form onsubmit="return false;" role="search" class="app-search hidden-xs">
@@ -17,8 +17,9 @@
 			</ul>
 			<ul class="nav navbar-top-links navbar-right pull-right">
 				<li>
-					<a class="profile-pic" href="#"> <img src="../bysj/static/plugins/images/users/varun.jpg" alt="user-img"
-														  width="36" class="img-circle"><b class="hidden-xs" th:text="${session.SessionUser.name}">Steave</b>
+					<a  class="profile-pic" th:href="@{/Profile/ProfileMain}"  href="#">
+						<img th:src="@{/static/plugins/images/users/varun.jpg}"  alt="user-img" width="36" class="img-circle">
+						<b class="hidden-xs" th:text="${session.SessionUser.name}">Steave</b>
 					</a>
 				</li>
 				<li>
