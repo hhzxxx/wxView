@@ -318,6 +318,20 @@
         order by rand()
     </select>
 
+  <select id="findPageOrder"  resultMap="BaseResultMap">
+    select
+    u.*
+    from tab_video u
+    <where>status &lt;&gt; 9
+      <if test="title!= null and title!=''">
+        AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
+      </if>
+      <if test="tagId!= null and tagId!=''">
+        AND r.tagId = #{tagId}
+      </if>
+    </where>
+  </select>
+
     <select id="findIndexPage"  resultMap="BaseResultMap">
         SELECT x.*
         from(select

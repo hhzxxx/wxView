@@ -21,6 +21,25 @@ public class PageRequest {
 
     private List<ruleDto> rules;
 
+    private String order;  //排序字段
+    private String orderType;  //排序类型
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
     public List<ruleDto> getRules() {
         return rules;
     }

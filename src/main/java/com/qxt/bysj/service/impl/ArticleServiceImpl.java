@@ -4,19 +4,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qxt.bysj.dao.ArticleMapper;
-import com.qxt.bysj.domain.Article;
-import com.qxt.bysj.domain.Owner;
+import com.qxt.bysj.domain.*;
 import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.ArticleService;
 import com.qxt.bysj.service.OwnerService;
 import com.qxt.bysj.service.TagService;
+import com.qxt.bysj.utils.DateUtil;
 import com.qxt.bysj.utils.EmojiFilter;
-import com.qxt.bysj.domain.PageRequest;
-import com.qxt.bysj.domain.PageResult;
 import com.qxt.bysj.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.*;
 
 @Service
@@ -98,6 +97,14 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
             }
         }
         List<Article> sysMenus = ArticleDao.findIndexPage(map);
+        Date date = new Date();
+        for(Article article:sysMenus){
+            try {
+                article.setCreated(-DateUtil.longOfTwoDate(article.getCreatetime(),date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         return new PageInfo<Article>(sysMenus);
     }
 }

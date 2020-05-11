@@ -68,10 +68,20 @@ public class BaseServiceImpl<T> implements BaseService<T> {
      * @param pageRequest
      * @return
      */
-    private PageInfo<T> getPageInfo(PageRequest pageRequest) {
+    public PageInfo<T> getPageInfo(PageRequest pageRequest) {
         int pageNum = pageRequest.getPageNum();
         int pageSize = pageRequest.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
+        String order = pageRequest.getOrder();
+        String orderType = pageRequest.getOrderType();
+        if(order!=null && order.length()>0){
+            String orderBy =order;
+            if(orderType!=null && orderType.length()>0){
+                orderBy =orderBy+" "+orderType;
+            }
+            PageHelper.startPage(pageNum, pageSize,orderBy);
+        }else {
+            PageHelper.startPage(pageNum, pageSize);
+        }
         List<ruleDto> rules = pageRequest.getRules();
         Map<String, Object> map = new HashMap<>();
         if(rules.size()>0){

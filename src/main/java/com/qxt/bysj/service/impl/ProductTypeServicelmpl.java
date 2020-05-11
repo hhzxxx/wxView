@@ -20,23 +20,4 @@ public class ProductTypeServicelmpl extends BaseServiceImpl<ProductType> impleme
     @Autowired
     private ProductTypeMapper productTypeDao;
 
-    /**
-     * 调用分页插件完成分页
-     * @param pageRequest
-     * @return
-     */
-    private PageInfo<ProductType> getIndexPage(PageRequest pageRequest) {
-        int pageNum = pageRequest.getPageNum();
-        int pageSize = pageRequest.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
-        List<ruleDto> rules = pageRequest.getRules();
-        Map<String, Object> map = new HashMap<>();
-        if(rules.size()>0){
-            for(int i=0;i<rules.size();i++){
-                map.put(rules.get(i).getRuleName(),rules.get(i).getRuleValue());
-            }
-        }
-        List<ProductType> sysMenus = productTypeDao.findPage(map);
-        return new PageInfo<ProductType>(sysMenus);
-    }
 }

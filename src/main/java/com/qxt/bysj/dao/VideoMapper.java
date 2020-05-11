@@ -15,4 +15,7 @@ public interface VideoMapper extends BaseMapper<Video> {
      * @return
      */
     List<Video> findIndexPage(Map<String, Object> map);
+
+    List<Video> findPageOrder(Map<String, Object> map);
+
 }

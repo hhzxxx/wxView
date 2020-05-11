@@ -9,6 +9,7 @@ import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.OwnerService;
 import com.qxt.bysj.service.TagService;
 import com.qxt.bysj.service.VideoService;
+import com.qxt.bysj.utils.DateUtil;
 import com.qxt.bysj.utils.EmojiFilter;
 import com.qxt.bysj.domain.PageRequest;
 import com.qxt.bysj.domain.PageResult;
@@ -16,6 +17,7 @@ import com.qxt.bysj.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.*;
 
 @Service
@@ -73,6 +75,11 @@ public class VideoServiceImpl extends BaseServiceImpl<Video> implements VideoSer
         return PageUtils.getPageResult(pageRequest, getIndexPage(pageRequest));
     }
 
+    @Override
+    public PageResult findPageOrder(PageRequest pageRequest) {
+        return PageUtils.getPageResult(pageRequest, getPageOrder(pageRequest));
+    }
+
     /**
      * 调用分页插件完成分页
      * @param pageRequest
@@ -90,6 +97,52 @@ public class VideoServiceImpl extends BaseServiceImpl<Video> implements VideoSer
             }
         }
         List<Video> sysMenus = videoDao.findIndexPage(map);
+        Date date = new Date();
+        for(Video video:sysMenus){
+            try {
+                video.setCreated(-DateUtil.longOfTwoDate(video.getCreatetime(),date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return new PageInfo<Video>(sysMenus);
+    }
+
+    /**
+     * 调用分页插件完成分页
+     * @param pageRequest
+     * @return
+     */
+    private PageInfo<Video> getPageOrder(PageRequest pageRequest) {
+        int pageNum = pageRequest.getPageNum();
+        int pageSize = pageRequest.getPageSize();
+        String order = pageRequest.getOrder();
+        String orderType = pageRequest.getOrderType();
+        if(order!=null && order.length()>0){
+            String orderBy =order;
+            if(orderType!=null && orderType.length()>0){
+                orderBy =orderBy+" "+orderType;
+            }
+            PageHelper.startPage(pageNum, pageSize,orderBy);
+        }else {
+            PageHelper.startPage(pageNum, pageSize);
+        }
+        List<ruleDto> rules = pageRequest.getRules();
+        Map<String, Object> map = new HashMap<>();
+        if(rules.size()>0){
+            for(int i=0;i<rules.size();i++){
+                map.put(rules.get(i).getRuleName(),rules.get(i).getRuleValue());
+            }
+        }
+        List<Video> sysMenus = videoDao.findPageOrder(map);
+        Date date = new Date();
+        for(Video video:sysMenus){
+            try {
+                video.setCreated(-DateUtil.longOfTwoDate(video.getCreatetime(),date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         return new PageInfo<Video>(sysMenus);
     }
 }

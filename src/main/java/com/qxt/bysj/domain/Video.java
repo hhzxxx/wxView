@@ -107,6 +107,17 @@ public class Video {
     private Integer collection;
     private Integer reply;
 
+    //非db
+    private Integer created;
+
+    public Integer getCreated() {
+        return created;
+    }
+
+    public void setCreated(Integer created) {
+        this.created = created;
+    }
+
     public Integer getReply() {
         return reply;
     }

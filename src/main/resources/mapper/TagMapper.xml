@@ -51,9 +51,10 @@ FROM
 				t.tagId
 			ORDER BY
 				RAND()
-			LIMIT 20
+			LIMIT 40
 		)
 	) x
+        order by x.hot desc
     </select>
 
     <select id="find"  resultMap="BaseResultMap">

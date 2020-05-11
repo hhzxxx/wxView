@@ -4,6 +4,9 @@ import com.qxt.bysj.domain.Video;
 import com.qxt.bysj.domain.PageRequest;
 import com.qxt.bysj.domain.PageResult;
 
+import java.util.List;
+import java.util.Map;
+
 public interface  VideoService extends BaseService<Video> {
 
     Video selectByAvid(Integer avid);
@@ -19,4 +22,7 @@ public interface  VideoService extends BaseService<Video> {
      * @return PageResult 自定义，统一分页查询结果
      */
     PageResult findIndexPage(PageRequest pageRequest);
+
+    PageResult findPageOrder(PageRequest pageRequest);
+
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.*;
 
 @Controller
@@ -179,6 +180,16 @@ public class OpenFace {
     public Result<Object> videoPage(@RequestBody PageRequest pageQuery) {
         Result<Object> result = new Result<>();
         PageResult page = videoService.findPage(pageQuery);
+        List<Video> list = (List<Video>) page.getContent();
+        Date date = new Date();
+        for(Video video:list){
+            try {
+                video.setCreated(-DateUtil.longOfTwoDate(video.getCreatetime(),date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        page.setContent(list);
         result.setData(page);
         return result;
     }
@@ -200,17 +211,6 @@ public class OpenFace {
         list.add(dto);
         pageQuery.setRules(list);
         PageResult page = videoService.findIndexPage(pageQuery);
-/*        List<Video> list = (List<Video>) page.getContent();
-        List<Integer> idList = new ArrayList<>();
-        List<Video> res = new ArrayList<>();
-        for(int i=0;i<list.size();i++){
-            if(!idList.contains(list.get(i).getId())){
-                idList.add(list.get(i).getId());
-                res.add(list.get(i));
-            }
-        }
-        page.setContent(res);
-        page.setPageSize(res.size());*/
         result.setData(page);
         return result;
     }
@@ -423,6 +423,16 @@ public class OpenFace {
     public Result<Object> articlePage(@RequestBody PageRequest pageQuery) {
         Result<Object> result = new Result<>();
         PageResult page = articleService.findPage(pageQuery);
+        List<Article> list = (List<Article>) page.getContent();
+        Date date = new Date();
+        for(Article article:list){
+            try {
+                article.setCreated(-DateUtil.longOfTwoDate(article.getCreatetime(),date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        page.setContent(list);
         result.setData(page);
         return result;
     }
@@ -541,6 +551,20 @@ public class OpenFace {
             }
         }
 
+        return result;
+    }
+
+    /**
+     * 视频查询接口 可排序
+     * @param pageQuery
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findVideoPageOrder", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> findVideoPageOrder(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        PageResult page = videoService.findPageOrder(pageQuery);
+        result.setData(page);
         return result;
     }
 

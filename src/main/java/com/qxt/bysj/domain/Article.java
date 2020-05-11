@@ -36,6 +36,15 @@ public class Article {
     //非DB
     private String content;
     private String face;
+    private Integer created;
+
+    public Integer getCreated() {
+        return created;
+    }
+
+    public void setCreated(Integer created) {
+        this.created = created;
+    }
 
     public String getFace() {
         return face;
