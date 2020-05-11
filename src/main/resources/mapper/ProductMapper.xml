@@ -133,6 +133,9 @@
             <if test="typeId!= null and typeId!=''">
                 AND u.typeId = #{typeId}
             </if>
+            <if test="keyword!= null and keyword!=''">
+                AND ((u.productName LIKE '%' #{keyword} '%') or (e.typeName LIKE '%' #{keyword} '%') or (o.brandName LIKE '%' #{keyword} '%'))
+            </if>
         </where>
         order by id desc
     </select>

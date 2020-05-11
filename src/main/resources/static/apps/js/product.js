@@ -129,11 +129,16 @@ $(function () {
             }
         }
     });
-    window.onload = function () {
+
+    var init = function () {
+        $("#table1").empty();
         var obj = {
             pageSize: proPageSize,
             pageNum: proPageNum, //页数
-            rules: []
+            rules: [{
+                "ruleName": "keyword",
+                "ruleValue": $("#keyword").val()
+            }]
         };
         $.ajax({
             url: ctx + "findDetail",
@@ -156,7 +161,7 @@ $(function () {
                 /*<![CDATA[*/
                 res.data.content.forEach(function (item) {
                     /*]]*/
-                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td>" + item.typeName + "</td><td>" + item.productName + "</td><td>" + item.price + "<td><img style='height: 80px;' src="+item.pic+"><td>"
+                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td>" + item.typeName + "</td><td>" + item.productName + "</td><td>" + item.price + "<td><img style='height: 80px;' src=" + item.pic + "><td>"
                         + "<button class=\"btn btn-primary\" onclick='changePro(" + JSON.stringify(item) + ")' >修改</button><button class=\"btn btn-primary\" id='delete' onclick='delPro(" + JSON.stringify(item) + ")'>删除</button>" + "</td></tr></tbody>"
                 });
                 $("#table1").append(inf);
@@ -181,11 +186,13 @@ $(function () {
                         }
                     },//点击事件，用于通过Ajax来刷新整个list列表
                     onPageClicked: function (event, originalEvent, type, page) {
-                        // debugger
                         var obj = {
                             pageSize: proPageSize,
                             pageNum: page, //页数
-                            rules: []
+                            rules: [{
+                                "ruleName": "keyword",
+                                "ruleValue": $("#keyword").val()
+                            }]
                         };
                         $.ajax({
                             url: ctx + "findDetail",
@@ -207,7 +214,7 @@ $(function () {
                                 /*<![CDATA[*/
                                 res.data.content.forEach(function (item) {
                                     /*]]*/
-                                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td>" + item.typeName + "</td><td>" + item.productName + "</td><td>" + item.price + "<td><img style='height: 80px;' src="+item.pic+"><td>"
+                                    inf += "<tbody><tr><td>" + item.id + "</td><td>" + item.brandname + "</td><td>" + item.typeName + "</td><td>" + item.productName + "</td><td>" + item.price + "<td><img style='height: 80px;' src=" + item.pic + "><td>"
                                         + "<button class=\"btn btn-primary\" onclick='changePro(" + JSON.stringify(item) + ")' >修改</button><button class=\"btn btn-primary\" id='delete' onclick='delPro(" + JSON.stringify(item) + ")'>删除</button>" + "</td></tr></tbody>"
                                 });
                                 $("#table1").empty();
@@ -219,6 +226,8 @@ $(function () {
                 $("#pageLimit").bootstrapPaginator(options);
             }
         });
+    };
+    var initBrand = function() {
         $.ajax({
             url: ctx + "findBand",
             data: '',
@@ -238,6 +247,8 @@ $(function () {
                 $('#brandSelect').selectpicker('render');
             }
         });
+    }
+    var initType = function() {
         $.ajax({
             url: ctx + "findType",
             data: '',
@@ -349,5 +360,21 @@ $(function () {
     $("#reload").click(function (e) {
         window.location.reload();
     });
+
+    $("#keySearch").click(function () {
+        init();
+    });
+
+    $('#keyword').bind('keypress',function(event){
+        if(event.keyCode == "13"){
+            init();
+        }
+    });
+
+    window.onload = function () {
+        init();
+        initBrand();
+        initType();
+    }
 });
 

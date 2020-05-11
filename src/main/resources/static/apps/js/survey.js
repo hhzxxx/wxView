@@ -48,18 +48,12 @@ $(function () {
     $("#brandSelect").change(function (e) {
         var options = $("#brandSelect option:selected");
         data.brandId = options.val();
-        console.log(data.brandId, "brandId");
-        if (data.brandId && data.typeId) {
-            product()
-        }
+        product()
     });
     $("#typeSelect").change(function (e) {
         var options = $("#typeSelect option:selected");
         data.typeId = options.val();
-        console.log(data.typeId, "typeId");
-        if (data.brandId && data.typeId) {
-            product()
-        }
+        product()
     });
 
     function product() {
