@@ -60,11 +60,11 @@ $(function () {
                     contentType: "application/json; charset=utf-8",
                     success: function (res) {
                         if (res.code === "200") {
-                            alert(res.message ? res.message : "添加成功");
+                            $('#con-close-modal').modal('hide');
+                            init();
                         } else {
                             alert(res.message ? res.message : "添加失败");
                         }
-                        window.location.reload();
                     }
                 });
             } else {
@@ -117,8 +117,8 @@ $(function () {
                     contentType: "application/json; charset=utf-8",
                     success: function (res) {
                         if (res.code === "200") {
-                            alert(res.message ? res.message : "修改成功");
-                            window.location.reload();
+                            $('#con-close-modal').modal('hide');
+                            init();
                         } else {
                             alert(res.message ? res.message : "修改失败");
                         }
@@ -334,8 +334,7 @@ $(function () {
                 contentType: "application/json; charset=utf-8",
                 success: function (res) {
                     if (res.code === "200") {
-                        alert(res.message ? res.message : "删除成功");
-                        window.location.reload();
+                        init();
                     } else {
                         alert(res.message ? res.message : "删除失败");
                     }

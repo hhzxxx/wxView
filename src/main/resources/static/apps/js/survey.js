@@ -5,7 +5,8 @@ $(function () {
         brandId: '',
         typeId: ""
     };
-    window.onload = function () {
+
+    var init=function(){
         $.ajax({
             url: ctx + "hobbySurveyPage/findBand",
             data: '',
@@ -65,25 +66,41 @@ $(function () {
             contentType: "application/json; charset=utf-8",
             success: function (res) {
                 res.data.forEach(function (item){
-                    var inf = "<div  class=\"item\" id=\"item\" onclick='checkProduct(" + item.id + ")'>" +
+                    var inf = "<div  class=\"item\" id='item_"+item.id+"' onclick='checkProduct(" + item.id + ")'>" +
                         "<img src=" + item.pic + ">" +
                         "<p class=\"name\">" +
                         "<span>"+ item.productName+"</span>"+
                         "</p>"+
                         "<span class=\"price\">"+ item.price+"</span>"+
                         "</div>"
-                    $("#productItem").empty();
                     $("#productItem").append(inf);
                 })
             }
         });
     }
     checkProduct = function (e) {
-        if ($(".item").hasClass("items")) {
-            $(".item").removeClass("items");
+        if ($("#item_"+e).hasClass("items")) {
+            $("#item_"+e).removeClass("items");
         } else {
-            $(".item").addClass("items");
+            $("#item_"+e).addClass("items");
         }
-        console.log(e,'id')
     };
+
+    $("#btn_submit").click(function () {
+
+    })
+
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+
+        var url =decodeURI(decodeURI(window.location.search)); //获取url中"?"符后的字串，使用了两次decodeRUI解码
+
+        var r = url.substr(1).match(reg); //匹配目标参数
+        if(r != null) return unescape(r[2]);
+        return null; //返回参数值
+    }
+
+    window.onload = function () {
+        init();
+    }
 });
