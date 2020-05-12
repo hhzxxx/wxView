@@ -5,6 +5,11 @@ body {
     /*top: 5%;*/
     padding: 5px;
 }
+#productItem{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 * {
     margin: 0;
     padding: 0;
