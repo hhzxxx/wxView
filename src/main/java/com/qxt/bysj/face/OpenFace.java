@@ -468,6 +468,7 @@ public class OpenFace {
         }
         Integer cvid = entity.getCvid();
         String obj =  httpGet.getGetStr("https://www.bilibili.com/read/mobile/"+cvid,null);
+        //Jsoup解析html
         Document doc = Jsoup.parse(obj);
         String div = doc.select("div .max-content").select("div .article-holder").html();
         String html = div.replaceAll("//","http://");
