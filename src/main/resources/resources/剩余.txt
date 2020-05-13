@@ -1,0 +1,76 @@
+1、重新加载图标
+2、资讯列表样式
+3、排行榜排序接口  √
+4、资讯排行榜 
+5、品牌、分类后台管理系统操作   √
+6、喜好调查提交
+7、喜好调查统计
+8、小程序查看个人提交的历史调查
+9、分类中资讯详情跳转
+10、修改密码 √
+11、后台管理系统查询   √
+12、资讯查询确定
+
+
+	<swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight + 'px'}}">
+		<swiper-item wx:for="{{[0,1]}}" wx:for-item="tabItem" wx:for-index="idx" wx:key="idx">
+			<scroll-view scroll-y="true" class="scoll-h" bindscrolltolower="nextDataPage" wx:if="{{tabItem == 1}}" style="height:{{scrollHeight + 'px'}}">
+				<!-- 评论列表 -->
+				<!-- 评论数 -->
+				<view class="comments-area">
+					<block wx:for="{{replyList}}" wx:key="index">
+						<!-- <view class="comments-count">评论111条</view> -->
+						<!-- 评论列表 -->
+						<view class="comments-list">
+							<!-- 左侧头像 -->
+							<view class="comment-image">
+								<image mode="widthFix" src="{{item.avatarUrl}}" />
+							</view>
+							<!-- 右侧评论信息 -->
+							<view class="comment-info-container">
+								<!-- 作者&评论时间 -->
+								<view class="comment-info">
+									<text class="comment-author">{{item.nickName}}</text>
+									<text class="comment-date">{{item.createtime}}</text>
+								</view>
+								<!-- 评论内容 -->
+								<view class="comment-content-container">
+									<text class="comment-content">{{item.content}}</text>
+								</view>
+							</view>
+						</view>
+						<!-- <view style="display:flex;justify-content: center">
+							<text class="like" style="">猜你喜欢</text>
+						</view> -->
+					</block>
+				</view>
+				<view class='bottomline' wx:if="{{replyList.length > 0}}">{{isLastPage?"没有更多数据了":"加载中..."}}</view>
+				<view class='bottomline' wx:if="{{isData}}">暂无数据</view>
+			</scroll-view>
+			<scroll-view scroll-y="true" class="scoll-h" bindscrolltolower="nextLikeDataPage" wx:if="{{tabItem == 0}}" style="height:{{scrollHeight + 'px'}}">
+				<!-- 其他推荐视频 -->
+				<block wx:for="{{likeList}}" wx:key="index">
+					<view class="other-video" bindtap="clickVideo" data-item="{{item}}">
+						<!-- 左侧图片 -->
+						<view class="other-video-image-container">
+							<image src="{{item.pic}}" mode="aspectFit" />
+						</view>
+						<!-- 右侧视频信息 -->
+						<view class="other-video-info-container">
+							<!-- 标题 -->
+							<view class="other-video-title">{{item.title}}</view>
+							<!-- 创作人 -->
+							<text class="comment-count">{{item.owner}}</text>
+							<!-- 播放量 -->
+							<view class="other-video-info">
+								<!-- 播放量 -->
+								<text class="play-count">{{item.hot}}观看</text>
+							</view>
+						</view>
+					</view>
+				</block>
+				<view class='bottomline' wx:if="{{likeList.length > 0}}">{{isLastLikePage?"没有更多数据了":"加载中..."}}</view>
+				<view class='bottomline' wx:if="{{isLikeData}}">暂无数据</view>
+			</scroll-view>
+		</swiper-item>
+	</swiper>
