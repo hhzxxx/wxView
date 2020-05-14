@@ -2,7 +2,7 @@ package com.qxt.bysj.controller;
 
 import com.qxt.bysj.domain.Manager;
 import com.qxt.bysj.domain.Result;
-import com.qxt.bysj.domain.SessionUser;
+import com.qxt.bysj.domain.dto.SessionUser;
 import com.qxt.bysj.service.ManagerService;
 import com.qxt.bysj.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;

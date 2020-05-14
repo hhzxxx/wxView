@@ -9,6 +9,9 @@ $(function () {
         brandIds: [],
         typeIds: []
     };
+    var tasteList = [];
+    var tempList = [];
+
 
     var init=function(){
         $.ajax({

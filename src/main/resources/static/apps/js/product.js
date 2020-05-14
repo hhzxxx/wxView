@@ -226,9 +226,12 @@ $(function () {
         });
     };
     var initBrand = function() {
+        var obj = {
+            rules: []
+        };
         $.ajax({
-            url: ctx + "Product/findBand",
-            data: '',
+            url: ctx + "ProductBrand/find",
+            data: JSON.stringify(obj),
             type: "post",
             contentType: "application/json; charset=utf-8",
             success: function (res) {
@@ -247,9 +250,12 @@ $(function () {
         });
     }
     var initType = function() {
+        var obj = {
+            rules: []
+        };
         $.ajax({
-            url: ctx + "Product/findType",
-            data: '',
+            url: ctx + "ProductType/find",
+            data: JSON.stringify(obj),
             type: "post",
             contentType: "application/json; charset=utf-8",
             success: function (res) {

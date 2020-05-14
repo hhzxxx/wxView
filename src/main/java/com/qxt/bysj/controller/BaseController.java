@@ -1,15 +1,20 @@
 package com.qxt.bysj.controller;
 
 import com.qxt.bysj.domain.*;
+import com.qxt.bysj.domain.dto.PageRequest;
+import com.qxt.bysj.domain.dto.PageResult;
+import com.qxt.bysj.domain.dto.RuleRequest;
+import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.BaseService;
-import com.qxt.bysj.service.ProductTasteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class BaseController<T, S extends BaseService<T>> {
     protected abstract S service();
@@ -23,7 +28,17 @@ public abstract class BaseController<T, S extends BaseService<T>> {
         return result;
     }
 
-
+    @RequestMapping(value = "/find", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Object> find(@RequestBody RuleRequest ruleQuery, Model model) {
+        Result<Object> result = new Result<>();
+        Map<String,Object> map = new HashMap<>();
+        List<ruleDto> ruleList = ruleQuery.getRules();
+        ruleList.forEach(dto -> map.put(dto.getRuleName(),dto.getRuleValue()));
+        List<T> resList = this.service().find(map);
+        result.setData(resList);
+        return result;
+    }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody

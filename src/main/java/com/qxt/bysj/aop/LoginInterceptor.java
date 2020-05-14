@@ -1,19 +1,13 @@
 package com.qxt.bysj.aop;
 
-import com.qxt.bysj.domain.Manager;
-import com.qxt.bysj.domain.SessionUser;
-import org.apache.tomcat.util.http.fileupload.FileUploadBase;
-import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
-import org.springframework.lang.Nullable;
+import com.qxt.bysj.domain.dto.SessionUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Map;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {

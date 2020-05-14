@@ -3,6 +3,8 @@ package com.qxt.bysj.face;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qxt.bysj.domain.*;
+import com.qxt.bysj.domain.dto.PageRequest;
+import com.qxt.bysj.domain.dto.PageResult;
 import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.*;
 import com.qxt.bysj.threads.TestThreadPoolManager;

@@ -1,4 +1,4 @@
-package com.qxt.bysj.domain;
+package com.qxt.bysj.domain.dto;
 
 public class SessionUser {
     private String account;

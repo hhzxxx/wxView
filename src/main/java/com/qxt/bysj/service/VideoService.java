@@ -1,11 +1,8 @@
 package com.qxt.bysj.service;
 import com.alibaba.fastjson.JSONObject;
 import com.qxt.bysj.domain.Video;
-import com.qxt.bysj.domain.PageRequest;
-import com.qxt.bysj.domain.PageResult;
-
-import java.util.List;
-import java.util.Map;
+import com.qxt.bysj.domain.dto.PageRequest;
+import com.qxt.bysj.domain.dto.PageResult;
 
 public interface  VideoService extends BaseService<Video> {
 

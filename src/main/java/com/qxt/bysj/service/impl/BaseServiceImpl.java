@@ -5,8 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.qxt.bysj.dao.BaseMapper;
 import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.BaseService;
-import com.qxt.bysj.domain.PageRequest;
-import com.qxt.bysj.domain.PageResult;
+import com.qxt.bysj.domain.dto.PageRequest;
+import com.qxt.bysj.domain.dto.PageResult;
 import com.qxt.bysj.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,4 +1,4 @@
-package com.qxt.bysj.domain;
+package com.qxt.bysj.domain.dto;
 
 import com.qxt.bysj.domain.dto.ruleDto;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * @Date 2020/3/4 10:36
  * @Version 1.0
  */
-public class PageRequest {
+public class PageRequest extends RuleRequest {
     /**
      * 当前页码
      */
@@ -19,7 +19,6 @@ public class PageRequest {
      */
     private int pageSize;
 
-    private List<ruleDto> rules;
 
     private String order;  //排序字段
     private String orderType;  //排序类型
@@ -38,14 +37,6 @@ public class PageRequest {
 
     public void setOrderType(String orderType) {
         this.orderType = orderType;
-    }
-
-    public List<ruleDto> getRules() {
-        return rules;
-    }
-
-    public void setRules(List<ruleDto> rules) {
-        this.rules = rules;
     }
 
     public int getPageNum() {

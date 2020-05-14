@@ -1,7 +1,7 @@
 package com.qxt.bysj.service;
 
-import com.qxt.bysj.domain.PageRequest;
-import com.qxt.bysj.domain.PageResult;
+import com.qxt.bysj.domain.dto.PageRequest;
+import com.qxt.bysj.domain.dto.PageResult;
 
 import java.util.List;
 import java.util.Map;

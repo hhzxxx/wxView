@@ -2,8 +2,8 @@ package com.qxt.bysj.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qxt.bysj.domain.Article;
-import com.qxt.bysj.domain.PageRequest;
-import com.qxt.bysj.domain.PageResult;
+import com.qxt.bysj.domain.dto.PageRequest;
+import com.qxt.bysj.domain.dto.PageResult;
 
 public interface ArticleService extends BaseService<Article> {
 

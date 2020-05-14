@@ -5,6 +5,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qxt.bysj.dao.ArticleMapper;
 import com.qxt.bysj.domain.*;
+import com.qxt.bysj.domain.dto.PageRequest;
+import com.qxt.bysj.domain.dto.PageResult;
 import com.qxt.bysj.domain.dto.ruleDto;
 import com.qxt.bysj.service.ArticleService;
 import com.qxt.bysj.service.OwnerService;
