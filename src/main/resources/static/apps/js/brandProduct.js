@@ -33,7 +33,7 @@ $(function () {
                 var data = JSON.stringify($("#productForm").serializeJson());
                 console.log(data);
                 $.ajax({
-                    url: ctx + "saveBrandFrom",
+                    url: ctx + "ProductBrand/insert",
                     data: data,
                     type: "post",
                     contentType: "application/json; charset=utf-8",
@@ -81,7 +81,7 @@ $(function () {
                     brandpic: $("#productForm").serializeJson().brandpic
                 };
                 $.ajax({
-                    url: ctx + "updateBrandDetail",
+                    url: ctx + "ProductBrand/update",
                     data: JSON.stringify(obj),
                     type: "post",
                     contentType: "application/json; charset=utf-8",
@@ -108,7 +108,7 @@ $(function () {
             rules: []
         };
         $.ajax({
-            url: ctx + "findBrandDetail",
+            url: ctx + "ProductBrand/findPage",
             data: JSON.stringify(obj),
             type: "post",
             contentType: "application/json; charset=utf-8",
@@ -157,7 +157,7 @@ $(function () {
                             rules: []
                         };
                         $.ajax({
-                            url: ctx + "findDetail",
+                            url: ctx + "ProductBrand/findPage",
                             data: JSON.stringify(obj),
                             type: "post",
                             contentType: "application/json; charset=utf-8",
@@ -188,13 +188,9 @@ $(function () {
     };
     changePro = function (e) {
         proId = e.id;
-        var obj = {
-            id: e.id
-        };
         $.ajax({
-            url: ctx + "findByBrandId",
-            data: JSON.stringify(obj),
-            type: "post",
+            url: ctx + "ProductBrand/get?id="+proId,
+            type: "get",
             contentType: "application/json; charset=utf-8",
             success: function (res) {
                 $('#con-close-modal').modal('show');
@@ -208,16 +204,10 @@ $(function () {
     };
     delPro = function (e) {
         var id = e.id;
-        console.log(id);
-        //alert("确定要删除"+id+"吗？");
-        var obj = {
-            id: id
-        };
         if (confirm('确定要删除吗？')) {
             $.ajax({
-                url: ctx + "delBrandDetail",
-                data: JSON.stringify(obj),
-                type: "post",
+                url: ctx + "ProductBrand/delete?id="+id,
+                type: "get",
                 contentType: "application/json; charset=utf-8",
                 success: function (res) {
                     if (res.code === "200") {

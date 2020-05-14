@@ -30,17 +30,17 @@ $(function () {
                 var data = JSON.stringify($("#productForm").serializeJson());
                 console.log(data);
                 $.ajax({
-                    url: ctx + "saveTypeFrom",
+                    url: ctx + "ProductType/insert",
                     data: data,
                     type: "post",
                     contentType: "application/json; charset=utf-8",
                     success: function (res) {
                         if (res.code === "200") {
                             alert(res.message ? res.message : "添加成功");
+                            init();
                         } else {
                             alert(res.message ? res.message : "添加失败");
                         }
-                        window.location.reload();
                     }
                 });
             } else {
@@ -76,14 +76,14 @@ $(function () {
                     typename: $("#productForm").serializeJson().typename
                 };
                 $.ajax({
-                    url: ctx + "updateTypeDetail",
+                    url: ctx + "ProductType/update",
                     data: JSON.stringify(obj),
                     type: "post",
                     contentType: "application/json; charset=utf-8",
                     success: function (res) {
-                        window.location.reload();
                         if (res.code === "200") {
                             alert(res.message ? res.message : "修改成功");
+                            init();
                         } else {
                             alert(res.message ? res.message : "修改失败");
                         }
@@ -94,14 +94,15 @@ $(function () {
             }
         }
     });
-    window.onload = function () {
+    var init = function () {
+        $("#table1").empty();
         var obj = {
             pageSize: proPageSize,
             pageNum: proPageNum, //页数
             rules: []
         };
         $.ajax({
-            url: ctx + "findTypeDetail",
+            url: ctx + "ProductType/findPage",
             data: JSON.stringify(obj),
             type: "post",
             contentType: "application/json; charset=utf-8",
@@ -148,7 +149,7 @@ $(function () {
                             rules: []
                         };
                         $.ajax({
-                            url: ctx + "findDetail",
+                            url: ctx + "ProductType/findPage",
                             data: JSON.stringify(obj),
                             type: "post",
                             contentType: "application/json; charset=utf-8",
@@ -177,13 +178,9 @@ $(function () {
     };
     changePro = function (e) {
         proId = e.id;
-        var obj = {
-            id: e.id
-        };
         $.ajax({
-            url: ctx + "findByTypeId",
-            data: JSON.stringify(obj),
-            type: "post",
+            url: ctx + "ProductType/get?id="+proId,
+            type: "get",
             contentType: "application/json; charset=utf-8",
             success: function (res) {
                 $('#con-close-modal').modal('show');
@@ -195,23 +192,18 @@ $(function () {
     delPro = function (e) {
         var id = e.id;
         console.log(id);
-        //alert("确定要删除"+id+"吗？");
-        var obj = {
-            id: id
-        };
         if (confirm('确定要删除吗？')) {
             $.ajax({
-                url: ctx + "delTypeDetail",
-                data: JSON.stringify(obj),
-                type: "post",
+                url: ctx + "ProductType/delete?id="+id,
+                type: "get",
                 contentType: "application/json; charset=utf-8",
                 success: function (res) {
                     if (res.code === "200") {
                         alert(res.message ? res.message : "删除成功");
+                        init();
                     } else {
                         alert(res.message ? res.message : "删除失败");
                     }
-                    window.location.reload();
                 }
             });
         } else {
@@ -223,7 +215,6 @@ $(function () {
     });
     $("#btn_close").click(function (e) {
         $('#con-close-modal').modal('hide');
-        window.location.reload();
     });
     // $("#brandSelect").change(function (e) {
     //     var options = $("#brandSelect option:selected");
@@ -231,7 +222,12 @@ $(function () {
     //     alert(options.val());
     // });
     $("#reload").click(function (e) {
-        window.location.reload();
+        init();
     });
+
+    window.onload = function () {
+        init();
+    }
+
 });
 
