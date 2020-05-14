@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller//以json格式输出
-public class typeProductController {
+public class ProductTypeController {
     @Autowired
     private ProductTypeService productTypeService;
 

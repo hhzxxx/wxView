@@ -52,9 +52,8 @@ $(function () {
             bv.validate();
             if (bv.isValid()) {
                 var data = JSON.stringify($("#productForm").serializeJson());
-                console.log(data);
                 $.ajax({
-                    url: ctx + "saveFrom",
+                    url: ctx + "Product/insert",
                     data: data,
                     type: "post",
                     contentType: "application/json; charset=utf-8",
@@ -111,7 +110,7 @@ $(function () {
                     pic: $("#productForm").serializeJson().pic
                 };
                 $.ajax({
-                    url: ctx + "updateDetail",
+                    url: ctx + "Product/update",
                     data: JSON.stringify(obj),
                     type: "post",
                     contentType: "application/json; charset=utf-8",
@@ -141,7 +140,7 @@ $(function () {
             }]
         };
         $.ajax({
-            url: ctx + "findDetail",
+            url: ctx + "Product/findPage",
             data: JSON.stringify(obj),
             type: "post",
             contentType: "application/json; charset=utf-8",
@@ -195,7 +194,7 @@ $(function () {
                             }]
                         };
                         $.ajax({
-                            url: ctx + "findDetail",
+                            url: ctx + "Product/findPage",
                             data: JSON.stringify(obj),
                             type: "post",
                             contentType: "application/json; charset=utf-8",
@@ -229,7 +228,7 @@ $(function () {
     };
     var initBrand = function() {
         $.ajax({
-            url: ctx + "findBand",
+            url: ctx + "Product/findBand",
             data: '',
             type: "post",
             contentType: "application/json; charset=utf-8",
@@ -250,7 +249,7 @@ $(function () {
     }
     var initType = function() {
         $.ajax({
-            url: ctx + "findType",
+            url: ctx + "Product/findType",
             data: '',
             type: "post",
             contentType: "application/json; charset=utf-8",
@@ -271,13 +270,9 @@ $(function () {
     };
     changePro = function (e) {
         proId = e.id;
-        var obj = {
-            id: e.id
-        };
         $.ajax({
-            url: ctx + "findById",
-            data: JSON.stringify(obj),
-            type: "post",
+            url: ctx + "Product/get?id="+proId,
+            type: "get",
             contentType: "application/json; charset=utf-8",
             success: function (res) {
                 $('#con-close-modal').modal('show');
@@ -321,16 +316,10 @@ $(function () {
     };
     delPro = function (e) {
         var id = e.id;
-        console.log(id);
-        //alert("确定要删除"+id+"吗？");
-        var obj = {
-            id: id
-        };
         if (confirm('确定要删除吗？')) {
             $.ajax({
-                url: ctx + "delDetail",
-                data: JSON.stringify(obj),
-                type: "post",
+                url: ctx + "Product/delete?id="+id,
+                type: "get",
                 contentType: "application/json; charset=utf-8",
                 success: function (res) {
                     if (res.code === "200") {

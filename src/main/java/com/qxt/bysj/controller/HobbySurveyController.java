@@ -23,7 +23,7 @@ import java.util.Map;
 
 @RequestMapping(value = "/hobbySurveyPage", method = RequestMethod.POST)
 @Controller
-public class hobbySurveyController {
+public class HobbySurveyController {
     @Autowired
     private ProductService productService;
     @Autowired
