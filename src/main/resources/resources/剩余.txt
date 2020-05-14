@@ -6,10 +6,12 @@
 6、喜好调查提交
 7、喜好调查统计
 8、小程序查看个人提交的历史调查
-9、分类中资讯详情跳转
+9、分类中资讯详情跳转 √
 10、修改密码 √
 11、后台管理系统查询   √
-12、资讯查询确定
+12、资讯查询确定 √
+
+https://www.wjx.cn/jq/40406331.aspx  问卷调查
 
 
 	<swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight + 'px'}}">

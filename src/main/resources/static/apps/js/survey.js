@@ -1,9 +1,13 @@
 $(function () {
+    $(".selectpicker").selectpicker({
+        noneSelectedText : '请选择'//默认显示内容
+    });
+
     var typeList = [];
     var brandList = [];
     var data = {
-        brandId: '',
-        typeId: ""
+        brandIds: [],
+        typeIds: []
     };
 
     var init=function(){
@@ -47,36 +51,44 @@ $(function () {
         });
     };
     $("#brandSelect").change(function (e) {
-        var options = $("#brandSelect option:selected");
-        data.brandId = options.val();
+        data.brandIds = [];
+        $("#brandSelect option:selected").each(function(){
+            data.brandIds.push($(this).val());
+        });
         product()
     });
     $("#typeSelect").change(function (e) {
-        var options = $("#typeSelect option:selected");
-        data.typeId = options.val();
+        data.typeIds = [];
+        $("#typeSelect option:selected").each(function(){
+            data.typeIds.push($(this).val());
+        });
         product()
     });
 
     function product() {
         $("#productItem").empty();
-        $.ajax({
-            url: ctx + "hobbySurveyPage/findProduct",
-            data: JSON.stringify(data),
-            type: "post",
-            contentType: "application/json; charset=utf-8",
-            success: function (res) {
-                res.data.forEach(function (item){
-                    var inf = "<div  class=\"item\" id='item_"+item.id+"' onclick='checkProduct(" + item.id + ")'>" +
-                        "<img src=" + item.pic + ">" +
-                        "<p class=\"name\">" +
-                        "<span>"+ item.productName+"</span>"+
-                        "</p>"+
-                        "<span class=\"price\">"+ item.price+"</span>"+
-                        "</div>"
-                    $("#productItem").append(inf);
-                })
-            }
-        });
+        if(data.brandIds.length>0){
+            if(data.typeIds.length === 0) data.typeIds = null;
+            $.ajax({
+                url: ctx + "hobbySurveyPage/findProduct",
+                data: JSON.stringify(data),
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    res.data.forEach(function (item){
+                        var inf = "<div  class=\"item\" id='item_"+item.id+"' onclick='checkProduct(" + item.id + ")'>" +
+                            "<img src=" + item.pic + ">" +
+                            "<p class=\"name\">" +
+                            "<span>"+ item.productName+"</span>"+
+                            "</p>"+
+                            "<span class=\"price\">"+ item.price+"</span>"+
+                            "</div>"
+                        $("#productItem").append(inf);
+                    })
+                }
+            });
+            if(data.typeIds == null) data.typeIds = [];
+        }
     }
     checkProduct = function (e) {
         if ($("#item_"+e).hasClass("items")) {

@@ -271,7 +271,7 @@
         r.articleId = #{articleId} )
       </if>
       <if test="title!= null and title!=''">
-        and u.title LIKE  '%' #{title} '%' OR u.remark like '%' #{title} '%'
+        and ((u.title LIKE  '%' #{title} '%') OR (u.remark like '%' #{title} '%'))
       </if>
       ) x
       group by x.id

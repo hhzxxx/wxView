@@ -60,11 +60,11 @@ public class hobbySurveyController {
     @ResponseBody
     public Result<Object> findProduct(@RequestBody Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
         Result<Object> result = new Result<>();
-        Integer brandId = product.getBrandId();
-        Integer typeId = product.getTypeId();
+        Integer[] brandIds = product.getBrandIds();
+        Integer[] typeIds = product.getTypeIds();
         Map<String, Object> map = new HashMap<>();
-        map.put("brandId",brandId);
-        map.put("typeId",typeId);
+        map.put("brandIds",brandIds);
+        map.put("typeIds",typeIds);
         List<Product> productList = productService.find(map);
         result.setData(productList);
         return result;

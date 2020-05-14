@@ -12,6 +12,24 @@ public class Product {
     private String brandname;
     private String brandpic;
     private String typeName;
+    private Integer[] brandIds;
+    private Integer[] typeIds;
+
+    public Integer[] getBrandIds() {
+        return brandIds;
+    }
+
+    public void setBrandIds(Integer[] brandIds) {
+        this.brandIds = brandIds;
+    }
+
+    public Integer[] getTypeIds() {
+        return typeIds;
+    }
+
+    public void setTypeIds(Integer[] typeIds) {
+        this.typeIds = typeIds;
+    }
 
     public String getTypeName() {
         return typeName;

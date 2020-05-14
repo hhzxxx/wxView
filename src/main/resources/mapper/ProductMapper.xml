@@ -115,6 +115,16 @@
             <if test="typeId!= null and typeId!=''">
                 AND u.typeId = #{typeId}
             </if>
+            <if test="typeIds!= null and typeIds!=''"> AND u.typeId in
+                <foreach item="typeId" index="index" collection="typeIds" open="(" separator="," close=")">
+                    #{typeId}
+                </foreach>
+            </if>
+            <if test="brandIds!= null and brandIds!=''"> AND u.brandId in
+                <foreach item="brandId" index="index" collection="brandIds" open="(" separator="," close=")">
+                    #{brandId}
+                </foreach>
+            </if>
         </where>
         order by id desc
     </select>
