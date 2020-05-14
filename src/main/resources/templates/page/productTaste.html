@@ -61,18 +61,35 @@
             </div>
             <!-- /row -->
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <div class="white-box">
                         <!--                            <h3 class="box-title">Basic Table</h3>-->
                         <!--                            <p class="text-muted">Add class <code>.table</code></p>-->
                         <p id="btn_add"
                            class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
-                           style="float:none!important;margin-left: 0px!important;">添&nbsp&nbsp&nbsp&nbsp&nbsp加</p>
+                           style="float:none!important;margin-left: 0px!important;">添&nbsp&nbsp&nbsp&nbsp&nbsp加</p><p style="float: right;font-size: 21px;">甜度</p>
                         <div class="table-responsive">
                             <table class="table" id="table1">
                             </table>
                             <div aria-label="Page navigation" id="example">
                                 <ul class="pagination" id="pageLimit">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="white-box">
+                        <!--                            <h3 class="box-title">Basic Table</h3>-->
+                        <!--                            <p class="text-muted">Add class <code>.table</code></p>-->
+                        <p id="btn_add2"
+                           class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light"
+                           style="float:none!important;margin-left: 0px!important;">添&nbsp&nbsp&nbsp&nbsp&nbsp加</p><p style="float: right;font-size: 21px;">温度</p>
+                        <div class="table-responsive">
+                            <table class="table" id="table2">
+                            </table>
+                            <div aria-label="Page navigation" id="example2">
+                                <ul class="pagination" id="pageLimit2">
                                 </ul>
                             </div>
                         </div>
@@ -112,6 +129,38 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="con-close-modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 data-keyboard="false" data-backdrop="static"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                            <h4 class="modal-title" id="myModalLabel2" style="text-align: center">新增</h4>
+                        </div>
+                        <div class="modal-body" style="padding: 15px 30px">
+                            <form class="form-horizontal form-material" id="productForm2">
+                                <div class="form-group" style="overflow: visible">
+                                    <label class="col-md-12" style="padding:0;">口味名称</label>
+                                    <div class="col-md-12" >
+                                        <input type="text" placeholder="请输入名称"
+                                               class="form-control form-control-line" name="temperaturename"
+                                               id="temperaturename"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="btn_close2"><span
+                                    class="glyphicon glyphicon-remove"></span>关闭
+                            </button>
+                            <button type="button" id="btn_submit2" class="btn btn-primary"><span
+                                    class="glyphicon glyphicon-floppy-disk"></span>保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- /.container-fluid -->
             <footer class="footer text-center"> 后台管理系统</footer>
         </div>
