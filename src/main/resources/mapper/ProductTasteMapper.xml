@@ -68,4 +68,22 @@
       hot = #{hot,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="find" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from product_taste
+  </select>
+
+  <select id="findPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from product_taste
+    <where>
+      <if test="tastename!= null and tastename!=''">
+        AND (tastename LIKE '%' #{tastename} '%')
+      </if>
+    </where>
+    order by id desc
+  </select>
 </mapper>

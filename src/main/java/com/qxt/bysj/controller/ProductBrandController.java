@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller//以json格式输出
+@Controller
 @RequestMapping(value = "/ProductBrand", method = RequestMethod.POST)
 public class ProductBrandController extends BaseController<ProductBrand,ProductBrandService> {
     @Autowired

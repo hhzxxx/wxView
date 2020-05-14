@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Controller//以json格式输出
+@Controller
 @RequestMapping(value = "/ProductType", method = RequestMethod.POST)
 public class ProductTypeController extends BaseController<ProductType,ProductTypeService> {
     @Autowired

@@ -40,7 +40,7 @@ $(function () {
                     success: function (res) {
                         if (res.code === "200") {
                             $('#con-close-modal').modal('hide');
-                            init();
+                            window.location.reload();
                         } else {
                             alert(res.message ? res.message : "添加失败");
                         }
@@ -88,7 +88,7 @@ $(function () {
                     success: function (res) {
                         if (res.code === "200") {
                             $('#con-close-modal').modal('hide');
-                            init();
+                            window.location.reload();
                         } else {
                             alert(res.message ? res.message : "修改失败");
                         }
@@ -226,6 +226,7 @@ $(function () {
     });
     $("#btn_close").click(function (e) {
         $('#con-close-modal').modal('hide');
+        window.location.reload();
     });
     // $("#brandSelect").change(function (e) {
     //     var options = $("#brandSelect option:selected");

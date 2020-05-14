@@ -36,8 +36,8 @@ $(function () {
                     contentType: "application/json; charset=utf-8",
                     success: function (res) {
                         if (res.code === "200") {
-                            alert(res.message ? res.message : "添加成功");
-                            init();
+                            $('#con-close-modal').modal('hide');
+                            window.location.reload();
                         } else {
                             alert(res.message ? res.message : "添加失败");
                         }
@@ -82,8 +82,8 @@ $(function () {
                     contentType: "application/json; charset=utf-8",
                     success: function (res) {
                         if (res.code === "200") {
-                            alert(res.message ? res.message : "修改成功");
-                            init();
+                            $('#con-close-modal').modal('hide');
+                            window.location.reload();
                         } else {
                             alert(res.message ? res.message : "修改失败");
                         }
@@ -215,6 +215,7 @@ $(function () {
     });
     $("#btn_close").click(function (e) {
         $('#con-close-modal').modal('hide');
+        window.location.reload();
     });
     // $("#brandSelect").change(function (e) {
     //     var options = $("#brandSelect option:selected");

@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller//以json格式输出
+@Controller
 @RequestMapping(value = "/Product", method = RequestMethod.POST)
 public class ProductController extends BaseController<Product,ProductService> {
     @Autowired
