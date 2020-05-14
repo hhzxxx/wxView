@@ -24,7 +24,7 @@ public class typeProductController {
 
     @RequestMapping(value = "/typeManage", method = RequestMethod.GET)
     public String typeManage() {
-        return "page/Example/typeManage";
+        return "page/typeManage";
     }
 
     @RequestMapping(value = "/saveTypeFrom", method = RequestMethod.POST)

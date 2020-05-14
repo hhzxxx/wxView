@@ -4,7 +4,6 @@ import com.qxt.bysj.domain.Manager;
 import com.qxt.bysj.domain.Result;
 import com.qxt.bysj.domain.SessionUser;
 import com.qxt.bysj.service.ManagerService;
-import com.qxt.bysj.service.ProductService;
 import com.qxt.bysj.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,7 @@ public class ProfileController {
 
     @RequestMapping(value = "/ProfileMain", method = RequestMethod.GET)
     public String ProfileMain() {
-        return "page/Example/profile";
+        return "page/profile";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)

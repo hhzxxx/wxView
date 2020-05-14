@@ -32,7 +32,7 @@ public class ProductController {
 
     @RequestMapping(value = "/productList", method = RequestMethod.GET)
     public String productList() {
-        return "page/Example/productList";
+        return "page/productList";
     }
 
     @RequestMapping(value = "/saveFrom", method = RequestMethod.POST)

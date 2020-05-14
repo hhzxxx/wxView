@@ -24,7 +24,7 @@ public class brandProductController {
 
     @RequestMapping(value = "/brandManage", method = RequestMethod.GET)
     public String brandManage() {
-        return "page/Example/brandManage";
+        return "page/brandManage";
     }
 
     @RequestMapping(value = "/saveBrandFrom", method = RequestMethod.POST)
