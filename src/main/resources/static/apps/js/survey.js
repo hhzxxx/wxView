@@ -3,15 +3,38 @@ $(function () {
         noneSelectedText : '请选择'//默认显示内容
     });
 
-    var typeList = [];
-    var brandList = [];
     var data = {
         brandIds: [],
         typeIds: []
     };
-    var tasteList = [];
-    var tempList = [];
+    var obj = {
+        typelist1 : [],
+        brandlist1 : [],
+        tastelist1 : [],
+        templist1 : [],
+        productlist1 : [],
+        remark : "",
+        openid : ""
+    }
 
+    $('#productForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            remark: {
+                validators: {
+                    stringLength: {
+                        max : 250,
+                        message: '*最多250个字'
+                    }
+                }
+            }
+        }
+    });
 
     var init=function(){
         $.ajax({
@@ -20,11 +43,8 @@ $(function () {
             type: "post",
             contentType: "application/json; charset=utf-8",
             success: function (res) {
-                console.log(res.data);
-                brandList = res.data;
-                for (var i = 0; i < brandList.length; i++) {
-                    // console.log(funList[i].id)
-                    $("#brandSelect").append("<option value='" + brandList[i].id + "'>" + brandList[i].brandname + "</option>");
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#brandSelect").append("<option value='" + res.data[i].id + "'>" + res.data[i].brandname + "</option>");
                 }
                 ;
                 //使用refresh方法更新UI以匹配新状态。
@@ -39,11 +59,8 @@ $(function () {
             type: "post",
             contentType: "application/json; charset=utf-8",
             success: function (res) {
-                console.log(res.data);
-                typeList = res.data;
-                for (var i = 0; i < typeList.length; i++) {
-                    // console.log(funList[i].id)
-                    $("#typeSelect").append("<option value='" + typeList[i].id + "'>" + typeList[i].typename + "</option>");
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#typeSelect").append("<option value='" + res.data[i].id + "'>" + res.data[i].typename + "</option>");
                 }
                 ;
                 //使用refresh方法更新UI以匹配新状态。
@@ -52,20 +69,69 @@ $(function () {
                 $('#typeSelect').selectpicker('render');
             }
         });
+        $.ajax({
+            url: ctx + "hobbySurveyPage/findTaste",
+            data: '',
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#tasteSelect").append("<option value='" + res.data[i].id + "'>" + res.data[i].tastename + "</option>");
+                }
+                ;
+                //使用refresh方法更新UI以匹配新状态。
+                $('#tasteSelect').selectpicker('refresh');
+                //render方法强制重新渲染引导程序 - 选择ui。
+                $('#tasteSelect').selectpicker('render');
+            }
+        });
+        $.ajax({
+            url: ctx + "hobbySurveyPage/findTemp",
+            data: '',
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#tempSelect").append("<option value='" + res.data[i].id + "'>" + res.data[i].temperaturename + "</option>");
+                }
+                ;
+                //使用refresh方法更新UI以匹配新状态。
+                $('#tempSelect').selectpicker('refresh');
+                //render方法强制重新渲染引导程序 - 选择ui。
+                $('#tempSelect').selectpicker('render');
+            }
+        });
     };
     $("#brandSelect").change(function (e) {
         data.brandIds = [];
+        obj.brandlist1 = [];
         $("#brandSelect option:selected").each(function(){
             data.brandIds.push($(this).val());
+            obj.brandlist1.push($(this).val());
+
         });
         product()
     });
     $("#typeSelect").change(function (e) {
         data.typeIds = [];
+        obj.typelist1 = [];
         $("#typeSelect option:selected").each(function(){
             data.typeIds.push($(this).val());
+            obj.typelist1.push($(this).val());
         });
         product()
+    });
+    $("#tasteSelect").change(function (e) {
+        obj.tastelist1 = [];
+        $("#tasteSelect option:selected").each(function(){
+            obj.tastelist1.push($(this).val());
+        });
+    });
+    $("#tempSelect").change(function (e) {
+        obj.templist1 = [];
+        $("#tempSelect option:selected").each(function(){
+            obj.templist1.push($(this).val());
+        });
     });
 
     function product() {
@@ -79,7 +145,7 @@ $(function () {
                 contentType: "application/json; charset=utf-8",
                 success: function (res) {
                     res.data.forEach(function (item){
-                        var inf = "<div  class=\"item\" id='item_"+item.id+"' onclick='checkProduct(" + item.id + ")'>" +
+                        var inf = "<div  class=\"item\" id='item_"+item.id+"' data-id='"+item.id+"' onclick='checkProduct(" + item.id + ")'>" +
                             "<img src=" + item.pic + ">" +
                             "<p class=\"name\">" +
                             "<span>"+ item.productName+"</span>"+
@@ -102,7 +168,31 @@ $(function () {
     };
 
     $("#btn_submit").click(function () {
+        var bv = $("#productForm").data('bootstrapValidator');
+        bv.validate();
+        if (bv.isValid()) {
+            obj.remark = $("#remark").val();
+            obj.productlist1 = [];
+            var list = $("#productItem").find('div[class^="item items"]');
+            if(list.length>0){
+                for(var i=0;i<list.length;i++){
+                    obj.productlist1.push(list[i].dataset.id);
+                }
+            }
+            obj.openid = getUrlParam("openid");
+            $.ajax({
+                url: ctx + "hobbySurveyPage/save",
+                data: JSON.stringify(obj),
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    if (res.code === "200") {
 
+                    } else {
+                    }
+                }
+            });
+        }
     })
 
     function getUrlParam(name) {

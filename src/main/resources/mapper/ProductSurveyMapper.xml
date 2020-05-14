@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qxt.bysj.dao.ProductSurveyMapper" >
+  <resultMap id="BaseResultMap" type="com.qxt.bysj.domain.ProductSurvey" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="typeList" property="typelist" jdbcType="VARCHAR" />
+    <result column="brandList" property="brandlist" jdbcType="VARCHAR" />
+    <result column="tasteList" property="tastelist" jdbcType="VARCHAR" />
+    <result column="tempList" property="templist" jdbcType="VARCHAR" />
+    <result column="productList" property="productlist" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, createTime, openid, typeList, brandList, tasteList, tempList, productList, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_survey
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_survey
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qxt.bysj.domain.ProductSurvey" >
+    insert into product_survey (id, createTime, openid, 
+      typeList, brandList, tasteList, 
+      tempList, productList, remark
+      )
+    values (#{id,jdbcType=INTEGER}, now(), #{openid,jdbcType=VARCHAR},
+      #{typelist,jdbcType=VARCHAR}, #{brandlist,jdbcType=VARCHAR}, #{tastelist,jdbcType=VARCHAR}, 
+      #{templist,jdbcType=VARCHAR}, #{productlist,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qxt.bysj.domain.ProductSurvey" >
+    insert into product_survey
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="typelist != null" >
+        typeList,
+      </if>
+      <if test="brandlist != null" >
+        brandList,
+      </if>
+      <if test="tastelist != null" >
+        tasteList,
+      </if>
+      <if test="templist != null" >
+        tempList,
+      </if>
+      <if test="productlist != null" >
+        productList,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        now(),
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="typelist != null" >
+        #{typelist,jdbcType=VARCHAR},
+      </if>
+      <if test="brandlist != null" >
+        #{brandlist,jdbcType=VARCHAR},
+      </if>
+      <if test="tastelist != null" >
+        #{tastelist,jdbcType=VARCHAR},
+      </if>
+      <if test="templist != null" >
+        #{templist,jdbcType=VARCHAR},
+      </if>
+      <if test="productlist != null" >
+        #{productlist,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qxt.bysj.domain.ProductSurvey" >
+    update product_survey
+    <set >
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="typelist != null" >
+        typeList = #{typelist,jdbcType=VARCHAR},
+      </if>
+      <if test="brandlist != null" >
+        brandList = #{brandlist,jdbcType=VARCHAR},
+      </if>
+      <if test="tastelist != null" >
+        tasteList = #{tastelist,jdbcType=VARCHAR},
+      </if>
+      <if test="templist != null" >
+        tempList = #{templist,jdbcType=VARCHAR},
+      </if>
+      <if test="productlist != null" >
+        productList = #{productlist,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qxt.bysj.domain.ProductSurvey" >
+    update product_survey
+    set createTime = #{createtime,jdbcType=TIMESTAMP},
+      openid = #{openid,jdbcType=VARCHAR},
+      typeList = #{typelist,jdbcType=VARCHAR},
+      brandList = #{brandlist,jdbcType=VARCHAR},
+      tasteList = #{tastelist,jdbcType=VARCHAR},
+      tempList = #{templist,jdbcType=VARCHAR},
+      productList = #{productlist,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

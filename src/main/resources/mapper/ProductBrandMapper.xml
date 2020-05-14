@@ -6,9 +6,10 @@
     <result column="brandName" property="brandname" jdbcType="VARCHAR" />
     <result column="brandPic" property="brandpic" jdbcType="VARCHAR" />
     <result column="Introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="hot" property="hot" jdbcType="INTEGER"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, brandName, brandPic, Introduction
+    id, brandName, brandPic, Introduction,hot
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -22,9 +23,9 @@
   </delete>
   <insert id="insert" parameterType="com.qxt.bysj.domain.ProductBrand" >
     insert into product_brand (id, brandName, brandPic, 
-      Introduction)
+      Introduction,hot)
     values (#{id,jdbcType=INTEGER}, #{brandname,jdbcType=VARCHAR}, #{brandpic,jdbcType=VARCHAR}, 
-      #{introduction,jdbcType=VARCHAR})
+      #{introduction,jdbcType=VARCHAR},  #{hot,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.qxt.bysj.domain.ProductBrand" >
     insert into product_brand
@@ -41,6 +42,9 @@
       <if test="introduction != null" >
         Introduction,
       </if>
+      <if test="hot != null">
+        hot,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -54,6 +58,9 @@
       </if>
       <if test="introduction != null" >
         #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="hot != null">
+        #{hot,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -69,6 +76,9 @@
       <if test="introduction != null" >
         Introduction = #{introduction,jdbcType=VARCHAR},
       </if>
+      <if test="hot != null">
+        hot = #{hot,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -76,7 +86,8 @@
     update product_brand
     set brandName = #{brandname,jdbcType=VARCHAR},
       brandPic = #{brandpic,jdbcType=VARCHAR},
-      Introduction = #{introduction,jdbcType=VARCHAR}
+      Introduction = #{introduction,jdbcType=VARCHAR},
+              hot = #{hot,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -84,6 +95,13 @@
     select
     <include refid="Base_Column_List"/>
     from product_brand
+    <where>
+      <if test="ids!= null and ids!=''"> AND id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </where>
   </select>
 
   <select id="findPage" resultMap="BaseResultMap">

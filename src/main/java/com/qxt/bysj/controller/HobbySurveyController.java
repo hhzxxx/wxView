@@ -1,12 +1,7 @@
 package com.qxt.bysj.controller;
 
-import com.qxt.bysj.domain.Product;
-import com.qxt.bysj.domain.ProductBrand;
-import com.qxt.bysj.domain.ProductType;
-import com.qxt.bysj.service.ProductBrandService;
-import com.qxt.bysj.service.ProductService;
-import com.qxt.bysj.service.ProductTypeService;
-import com.qxt.bysj.domain.Result;
+import com.qxt.bysj.domain.*;
+import com.qxt.bysj.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +25,12 @@ public class HobbySurveyController {
     private ProductBrandService productBrandService;
     @Autowired
     private ProductTypeService productTypeService;
+    @Autowired
+    private ProductTemperatureService productTemperatureService;
+    @Autowired
+    private ProductTasteService productTasteService;
+    @Autowired
+    private ProductSurveyService productSurveyService;
 
     @RequestMapping(value = "/hobbySurvey", method = RequestMethod.GET)
     public String hobbySurvey() {
@@ -56,6 +57,26 @@ public class HobbySurveyController {
         return result;
     }
 
+    @RequestMapping(value = "/findTaste", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Object> findTaste(Model model) {
+        Result<Object> result = new Result<>();
+        Map<String, Object> map = new HashMap<>();
+        List<ProductTaste> list = productTasteService.find(map);
+        result.setData(list);
+        return result;
+    }
+
+    @RequestMapping(value = "/findTemp", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Object> findTemp(Model model) {
+        Result<Object> result = new Result<>();
+        Map<String, Object> map = new HashMap<>();
+        List<ProductTemperature> list = productTemperatureService.find(map);
+        result.setData(list);
+        return result;
+    }
+
     @RequestMapping(value = "/findProduct", method = RequestMethod.POST)
     @ResponseBody
     public Result<Object> findProduct(@RequestBody Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -68,6 +89,23 @@ public class HobbySurveyController {
         List<Product> productList = productService.find(map);
         result.setData(productList);
         return result;
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Result<Object> save(@RequestBody ProductSurvey productSurvey,Model model) {
+        Result<Object> result = new Result<>();
+        try {
+            productSurveyService.dealSurvey(productSurvey);
+            result.setCode("200");
+            result.setMessage("操作成功！");
+        }catch (Exception e){
+            result.setCode("0");
+            result.setMessage("操作失败！");
+            System.out.println(e.getMessage());
+        }finally {
+            return result;
+        }
     }
 
 }

@@ -73,6 +73,13 @@
     select
     <include refid="Base_Column_List"/>
     from product_taste
+    <where>
+      <if test="ids!= null and ids!=''"> AND id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </where>
   </select>
 
   <select id="findPage" resultMap="BaseResultMap">

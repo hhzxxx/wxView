@@ -8,9 +8,10 @@
         <result column="pic" property="pic" jdbcType="VARCHAR"/>
         <result column="brandId" property="brandId" jdbcType="INTEGER"/>
         <result column="typeId" property="typeId" jdbcType="INTEGER"/>
+        <result column="hot" property="hot" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, productName, price, pic, brandId, typeId
+    id, productName, price, pic, brandId, typeId,hot
   </sql>
     <select id="selectByProductName" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -29,9 +30,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.qxt.bysj.domain.Product">
-    insert into product (productName, price, pic, brandId, typeId)
+    insert into product (productName, price, pic, brandId, typeId,hot)
     values (#{productName,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
-      #{brandId,jdbcType=INTEGER},  #{typeId,jdbcType=INTEGER})
+      #{brandId,jdbcType=INTEGER},  #{typeId,jdbcType=INTEGER},  #{hot,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="com.qxt.bysj.domain.Product">
         insert into product
@@ -51,6 +52,9 @@
             <if test="typeId != null">
                 typeId,
             </if>
+            <if test="hot != null">
+                hot,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="productName != null">
@@ -67,6 +71,9 @@
             </if>
             <if test="typeId != null">
                 #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="hot != null">
+                #{hot,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -88,6 +95,9 @@
             <if test="pic != null">
                 pic = #{pic,jdbcType=VARCHAR},
             </if>
+            <if test="hot != null">
+                hot = #{hot,jdbcType=INTEGER},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -97,7 +107,9 @@
       price = #{price,jdbcType=VARCHAR},
       brandId = #{brandId,jdbcType=INTEGER},
       typeId = #{typeId,jdbcType=INTEGER},
-      pic = #{pic,jdbcType=VARCHAR}
+      pic = #{pic,jdbcType=VARCHAR},
+        hot = #{hot,jdbcType=INTEGER}
+
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -123,6 +135,11 @@
             <if test="brandIds!= null and brandIds!=''"> AND u.brandId in
                 <foreach item="brandId" index="index" collection="brandIds" open="(" separator="," close=")">
                     #{brandId}
+                </foreach>
+            </if>
+            <if test="ids!= null and ids!=''"> AND u.id in
+                <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+                    #{id}
                 </foreach>
             </if>
         </where>

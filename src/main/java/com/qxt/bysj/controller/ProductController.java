@@ -25,10 +25,6 @@ public class ProductController extends BaseController<Product,ProductService> {
     protected ProductService service() {
         return productService;
     }
-    @Autowired
-    private ProductBrandService productBrandService;
-    @Autowired
-    private ProductTypeService productTypeService;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String productList() {

@@ -4,9 +4,10 @@
   <resultMap id="BaseResultMap" type="com.qxt.bysj.domain.ProductType" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="typeName" property="typename" jdbcType="VARCHAR" />
+    <result column="hot" property="hot" jdbcType="INTEGER"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, typeName
+    id, typeName,hot
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -19,8 +20,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.qxt.bysj.domain.ProductType" >
-    insert into product_type (id, typeName)
-    values (#{id,jdbcType=INTEGER}, #{typename,jdbcType=VARCHAR})
+    insert into product_type (id, typeName,hot)
+    values (#{id,jdbcType=INTEGER}, #{typename,jdbcType=VARCHAR},  #{hot,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.qxt.bysj.domain.ProductType" >
     insert into product_type
@@ -31,6 +32,9 @@
       <if test="typename != null" >
         typeName,
       </if>
+      <if test="hot != null">
+        hot,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -38,6 +42,9 @@
       </if>
       <if test="typename != null" >
         #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="hot != null">
+        #{hot,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -47,18 +54,30 @@
       <if test="typename != null" >
         typeName = #{typename,jdbcType=VARCHAR},
       </if>
+      <if test="hot != null">
+        hot = #{hot,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.qxt.bysj.domain.ProductType" >
     update product_type
-    set typeName = #{typename,jdbcType=VARCHAR}
+    set typeName = #{typename,jdbcType=VARCHAR},
+            hot = #{hot,jdbcType=VARCHAR}
+
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="find" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from product_type
+    <where>
+      <if test="ids!= null and ids!=''"> AND id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </where>
   </select>
 
   <select id="findPage" resultMap="BaseResultMap">
