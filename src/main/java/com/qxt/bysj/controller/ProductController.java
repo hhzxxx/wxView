@@ -30,9 +30,9 @@ public class ProductController {
     @Autowired
     private ProductTypeService productTypeService;
 
-    @RequestMapping(value = "/basicTable", method = RequestMethod.GET)
-    public String basicTable() {
-        return "page/Example/basic-table";
+    @RequestMapping(value = "/productList", method = RequestMethod.GET)
+    public String productList() {
+        return "page/Example/productList";
     }
 
     @RequestMapping(value = "/saveFrom", method = RequestMethod.POST)

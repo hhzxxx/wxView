@@ -4,6 +4,15 @@ public class ProductType {
     private Integer id;
 
     private String typename;
+    private Integer hot;
+
+    public Integer getHot() {
+        return hot;
+    }
+
+    public void setHot(Integer hot) {
+        this.hot = hot;
+    }
 
     public Integer getId() {
         return id;

@@ -8,6 +8,15 @@ public class ProductBrand {
     private String brandpic;
 
     private String introduction;
+    private Integer hot;
+
+    public Integer getHot() {
+        return hot;
+    }
+
+    public void setHot(Integer hot) {
+        this.hot = hot;
+    }
 
     public Integer getId() {
         return id;

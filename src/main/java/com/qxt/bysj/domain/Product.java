@@ -7,6 +7,7 @@ public class Product {
     private String pic;
     private Integer brandId;
     private Integer typeId;
+    private Integer hot;
 
     //非DB
     private String brandname;
@@ -14,6 +15,14 @@ public class Product {
     private String typeName;
     private Integer[] brandIds;
     private Integer[] typeIds;
+
+    public Integer getHot() {
+        return hot;
+    }
+
+    public void setHot(Integer hot) {
+        this.hot = hot;
+    }
 
     public Integer[] getBrandIds() {
         return brandIds;
