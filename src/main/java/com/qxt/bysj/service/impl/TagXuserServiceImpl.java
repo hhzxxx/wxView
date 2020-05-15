@@ -11,4 +11,8 @@ public class TagXuserServiceImpl extends BaseServiceImpl<TagXuser> implements Ta
     @Autowired
     private TagXuserMapper TagXuserDao;
 
+    @Override
+    public int deleteByUserId(Integer userId) {
+        return TagXuserDao.deleteByUserId(userId);
+    }
 }

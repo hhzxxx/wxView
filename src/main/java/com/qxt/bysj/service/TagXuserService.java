@@ -8,5 +8,5 @@ import com.qxt.bysj.domain.TagXuser;
  * @Version 1.0
  */
 public interface TagXuserService extends BaseService<TagXuser> {
-
+    int deleteByUserId(Integer userId);
 }

@@ -162,6 +162,7 @@ public class OpenFace {
         User user = userService.selectByOpenid(openid);
         Integer userId = user.getId();
         if(tagIds.size()>0){
+            tagXuserService.deleteByUserId(userId);
             for(int i=0;i<tagIds.size();i++){
                 TagXuser obj = new TagXuser();
                 obj.setTagid(tagIds.get(i));

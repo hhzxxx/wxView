@@ -187,9 +187,12 @@ $(function () {
                 contentType: "application/json; charset=utf-8",
                 success: function (res) {
                     if (res.code === "200") {
-
+                        wx.miniProgram.postMessage({ data: '提交成功' })
                     } else {
+                        wx.miniProgram.postMessage({ data: '提交失败' })
                     }
+                    wx.miniProgram.navigateBack({delta: 1})
+
                 }
             });
         }
