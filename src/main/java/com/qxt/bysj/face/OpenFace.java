@@ -274,9 +274,16 @@ public class OpenFace {
 //        Document doc = Jsoup.parse(obj);
 //        Elements elements = doc.select("span[id=basic-addon1]").select("a");
 //        String url = elements.get(0).attr("href");
-        String obj =  biliRequest.getHTMLContentByHttpGetMethod("https://www.xbeibeix.com/api/bilibiliapi.php?url=https://www.bilibili.com/&aid="+video.getAvid()+"&cid="+video.getCid(),null);
-        JSONObject jsonObject = JSON.parseObject(obj);
-        String url = jsonObject.getString("url");
+        String url = "";
+        if(video.getUrl()!=null &&video.getUrl().length()>0 ){
+            url = video.getUrl();
+        }else {
+            String obj =  biliRequest.getHTMLContentByHttpGetMethod("https://www.xbeibeix.com/api/bilibiliapi.php?url=https://www.bilibili.com/&aid="+video.getAvid()+"&cid="+video.getCid(),null);
+            JSONObject jsonObject = JSON.parseObject(obj);
+            url = jsonObject.getString("url");
+            video.setUrl(url);
+            videoService.update(video);
+        }
         System.out.println(url);
         objXuserList = objXuserService.find(objXuserQuery);
         entity = objXuserList.get(0);

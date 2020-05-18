@@ -106,6 +106,7 @@ public class Video {
     private Integer bad;
     private Integer collection;
     private Integer reply;
+    private String url;
 
     //非db
     private Integer created;
@@ -160,6 +161,14 @@ public class Video {
 
     public Integer getCid() {
         return cid;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public void setCid(Integer cid) {
