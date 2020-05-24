@@ -278,4 +278,15 @@
       order by rand()
       /*order by x.hot desc,x.tHot desc,x.createTime desc,x.reply desc*/
     </select>
+
+    <select id="findPageOrder"  resultMap="BaseResultMap">
+        select
+        u.*
+        from tab_article u
+        <where>status &lt;&gt; 9
+            <if test="title!= null and title!=''">
+                AND (title LIKE  '%' #{title} '%' OR remark like '%' #{title} '%')
+            </if>
+        </where>
+    </select>
 </mapper>
