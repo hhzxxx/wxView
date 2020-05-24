@@ -138,4 +138,28 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="find" resultType="com.qxt.bysj.domain.ProductSurvey">
+    select
+    u.*,r.avatarUrl,r.nickname
+    from product_survey u left join tab_user r on u.openid = r.openid
+    <where>
+      <if test="openid!= null and openid!=''">
+        AND u.openid = #{openid}
+      </if>
+    </where>
+    order by u.createTime desc
+  </select>
+
+  <select id="findPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from product_survey
+    <where>
+      <if test="openid!= null and openid!=''">
+        AND openid = #{openid}
+      </if>
+    </where>
+    order by createTime desc
+  </select>
 </mapper>

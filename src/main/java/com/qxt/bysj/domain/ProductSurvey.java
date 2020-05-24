@@ -33,6 +33,25 @@ public class ProductSurvey {
 
     private Integer[] productlist1;
 
+    private String avatarUrl;
+    private String nickname;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public Integer[] getTypelist1() {
         return typelist1;
     }

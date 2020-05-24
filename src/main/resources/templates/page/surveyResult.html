@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../bysj/static/plugins/images/favicon.png">
+    <title>调查统计</title>
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/static/bootstrap/dist/css/bootstrap.min.css}" href="../bysj/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Menu CSS -->
+    <link th:href="@{/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css}" href="../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link th:href="@{/static/css/animate.css}" href="../bysj/static/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/static/css/style.css}" href="../bysj/static/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link th:href="@{/static/bootstrap/dist/css/bootstrap-select.min.css}"
+          href="../bysj/static/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet"/>
+    <link th:href="@{/static/css/colors/megna-dark.css}" href="../bysj/static/css/colors/megna-dark.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link th:href="@{/static/apps/css/chart.css}" rel="stylesheet">
+    <link th:href="@{/static/css/fonts.googleapis/fonts.css}" href="../bysj/static/plugins/bower_components/fonts.googleapis/fonts.css" rel="stylesheet">
+<style>
+    .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+        width: 190px;
+    }
+</style>
+</head>
+
+<body>
+    <!-- Page Content -->
+    <div id="page-wrapper" style="margin: 0 0 0 0px;">
+        <div class="container-fluid">
+            <div class="row bg-title">
+            </div>
+            <!-- row -->
+            <div class="row">
+                <!--col -->
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="white-box">
+                        <div class="col-in row">
+                            <div class="col-md-6 col-sm-6 col-xs-6"><i data-icon="E" class="linea-icon linea-basic"></i>
+                                <h5 class="text-muted vb">产品总数</h5></div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <!--/*@thymesVar id="productNum" type="java.lang.Integer"*/-->
+                                <h3 class="counter text-right m-t-15 text-danger"  th:text=" ${productNum}"></h3></div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 40%"><span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <!--col -->
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="white-box">
+                        <div class="col-in row">
+                            <div class="col-md-6 col-sm-6 col-xs-6"><i class="linea-icon linea-basic"
+                                                                       data-icon="&#xe01b;"></i>
+                                <h5 class="text-muted vb">调查人次</h5></div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <!--/*@thymesVar id="peopleNum" type="java.lang.Integer"*/-->
+                                <h3 class="counter text-right m-t-15 text-megna" th:text=" ${peopleNum}"></h3></div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-megna" role="progressbar" aria-valuenow="40"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 40%"><span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <!--col -->
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="white-box">
+                        <div class="col-in row">
+                            <div class="col-md-6 col-sm-6 col-xs-6"><i class="linea-icon linea-basic"
+                                                                       data-icon="&#xe00b;"></i>
+                                <h5 class="text-muted vb">提交总数</h5></div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <!--/*@thymesVar id="surveyNum" type="java.lang.Integer"*/-->
+                                <h3 class="counter text-right m-t-15 text-primary" th:text=" ${surveyNum}"></h3></div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 40%"><span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">甜度爱好</h3>
+                        <div class="comment-center">
+                            <div class="admin-chart-panel">
+                                <div id="pie-chart-1" class="chart-box">
+                                    <!--TODO: 绘制图表区域--->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">温度爱好</h3>
+                        <div class="comment-center">
+                            <div class="admin-chart-panel">
+                                <div id="pie-chart-2" class="chart-box">
+                                    <!--TODO: 绘制图表区域--->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h2 class="box-title" style="height: 30px;">热度排行
+                            <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                                <select id="brandSelect" class="selectpicker" name="brandId" multiple>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                                <select id="typeSelect" class="selectpicker" name="typeId" multiple>
+                                </select>
+                            </div>
+                        </h2>
+                        <div style="margin-top: 45px;" class="table-responsive">
+                            <table class="table ">
+                                <thead>
+                                <tr>
+                                    <th>名称</th>
+                                    <th>图片</th>
+                                    <th>价格</th>
+                                </tr>
+                                </thead>
+                                <tbody id="productItem">
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <!-- row -->
+
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                        <h3 class="box-title">最新点评</h3>
+                        <div class="col-md-4 col-lg-4 col-sm-12" th:each="entity,stat : ${surveyList}">
+                            <div class="white-box">
+                                <div class="comment-center" >
+                                    <!--/*@thymesVar id="surveyList" type="java.util.List"*/-->
+                                    <div class="comment-body" style="border-bottom: 0;"  >
+                                        <div class="user-img">
+                                            <img th:src="${entity.avatarUrl}" alt="user" class="img-circle"></div>
+                                        <div class="mail-contnet">
+                                            <h5 th:text="${entity.nickname}"></h5> <span class="mail-desc" th:text="${entity.remark!=null ? entity.remark : ''}"></span><a
+                                                href="javacript:void(0)" class="action"><i class="ti-close text-danger"></i></a>
+                                            <a href="javacript:void(0)" class="action"><i class="ti-check text-success"></i></a><span
+                                                class="time pull-right" th:text="${#dates.format(entity.createtime,'yyyy-MM-dd HH:mm:ss')}"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+    </div>
+        <!-- /.container-fluid -->
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script th:src="@{/static/plugins/bower_components/jquery/dist/jquery.min.js}" src="../bysj/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/static/bootstrap/dist/js/bootstrap.min.js}" src="../bysj/static/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Menu Plugin JavaScript -->
+<script th:src="@{/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js}" src="../bysj/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+<!--slimscroll JavaScript -->
+<script th:src="@{/static/js/jquery.slimscroll.js}" src="../bysj/static/js/jquery.slimscroll.js"></script>
+<!--Wave Effects -->
+<script th:src="@{/static/js/waves.js}" src="../bysj/static/js/waves.js"></script>
+<!--Counter js -->
+<script th:src="@{/static/plugins/bower_components/waypoints/lib/jquery.waypoints.js}" src="../bysj/static/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
+<script th:src="@{/static/plugins/bower_components/counterup/jquery.counterup.min.js}"  src="../bysj/static/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+<!--Morris JavaScript -->
+<script th:src="@{/static/plugins/bower_components/raphael/raphael-min.js}" src="../bysj/static/plugins/bower_components/raphael/raphael-min.js"></script>
+<script th:src="@{/static/plugins/bower_components/morrisjs/morris.js}" src="../bysj/static/plugins/bower_components/morrisjs/morris.js"></script>
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/static/js/custom.min.js}" src="../bysj/static/js/custom.min.js"></script>
+<script th:src="@{/static/js/dashboard1.js}" src="../bysj/static/js/dashboard1.js"></script>
+<script th:replace="page/base/global :: jsVar"></script>
+<script th:src="@{/static/bootstrap/js/bootstrap-select.min.js}" src="../bysj/static/bootstrap/js/bootstrap-select.min.js"></script>
+<script th:src="@{/static/echarts/echarts.min.js}"></script>
+<script th:src="@{/static/echarts/echarts-liquidfill.js}"></script>
+<script th:src="@{/static/plugins/bower_components/toast-master/js/jquery.toast.js}" src="../bysj/static/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+<script th:fragment="jsVar"  type="text/javascript" th:inline="javascript">
+    var tempChartList = /*[[${tempChartList}]]*/ '';
+    var tasteChartList = /*[[${tasteChartList}]]*/ '';
+
+    $("#brandSelect").selectpicker({
+        noneSelectedText : '品牌选择'//默认显示内容
+    });
+    $("#typeSelect").selectpicker({
+        noneSelectedText : '类型选择'//默认显示内容
+    });
+
+    var data = {
+        brandIds: [],
+        typeIds: []
+    };
+    var obj = {
+        typelist1 : [],
+        brandlist1 : [],
+        tastelist1 : [],
+        templist1 : [],
+        productlist1 : [],
+        remark : "",
+        openid : ""
+    }
+
+    var initPieChart1 = function(data ) {
+        var myChart = echarts.init(document.getElementById('pie-chart-1'));
+        // 指定图表的配置项和数据
+        var option = {
+
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+
+            series: [
+                {
+                    name: '甜度类型',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '50%'],
+                    data: [
+                        {value: tasteChartList[0].value, name: tasteChartList[0].name},
+                        {value: tasteChartList[1].value, name: tasteChartList[1].name},
+                        {value: tasteChartList[2].value, name: tasteChartList[2].name}
+                    ].sort(function (a, b) { return a.value - b.value; }),
+                    color:['#7E9CD2','#0376E9','#FEC34D','#FBBAA6','#0bC3F5','#9A54C8','#F87E7D','#85E9B5','#6E83DE'],
+                    roseType: 'radius',
+                    label: {
+                        color: 'black'
+                    },
+                    labelLine: {
+                        lineStyle: {
+                            color: 'black'
+                        },
+                        smooth: 0.2,
+                        length: 10,
+                        length2: 20
+                    },
+                    itemStyle: {
+                        // color: '#c23531',
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+
+                    animationType: 'scale',
+                    animationEasing: 'elasticOut',
+                    animationDelay: function (idx) {
+                        return Math.random() * 200;
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option,true);
+    }
+
+    var initPieChart2 = function(data ) {
+        var myChart = echarts.init(document.getElementById('pie-chart-2'));
+        // 指定图表的配置项和数据
+        var option = {
+
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+
+/*            visualMap: {
+                show: false,
+                min: 80,
+                max: 600,
+                inRange: {
+                    colorLightness: [0, 1]
+                }
+            },*/
+            series: [
+                {
+                    name: '温度类型',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '50%'],
+                    data: [
+                        {value: tempChartList[0].value, name: tempChartList[0].name},
+                        {value: tempChartList[1].value, name: tempChartList[1].name},
+                        {value: tempChartList[2].value, name: tempChartList[2].name},
+                        {value: tempChartList[3].value, name: tempChartList[3].name}
+                    ].sort(function (a, b) { return a.value - b.value; }),
+                    color:['#0bC3F5','#0376E9','#85E9B5','#FBF88D','#FEC34D','#FBBAA6','#9A54C8','#F87E7D','#7E9CD2','#6E83DE'],
+                    roseType: 'radius',
+                    label: {
+                        color: 'black'
+                    },
+                    labelLine: {
+                        lineStyle: {
+                            color: 'black'
+                        },
+                        smooth: 0.2,
+                        length: 10,
+                        length2: 20
+                    },
+                    itemStyle: {
+                        // color: '#c23531',
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+
+                    animationType: 'scale',
+                    animationEasing: 'elasticOut',
+                    animationDelay: function (idx) {
+                        return Math.random() * 200;
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option,true);
+    }
+
+    var initSelect=function(){
+        $.ajax({
+            url: ctx + "hobbySurveyPage/findBand",
+            data: '',
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#brandSelect").append("<option value='" + res.data[i].id + "'>" + res.data[i].brandname + "</option>");
+                }
+                ;
+                //使用refresh方法更新UI以匹配新状态。
+                $('#brandSelect').selectpicker('refresh');
+                //render方法强制重新渲染引导程序 - 选择ui。
+                $('#brandSelect').selectpicker('render');
+            }
+        });
+        $.ajax({
+            url: ctx + "hobbySurveyPage/findType",
+            data: '',
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#typeSelect").append("<option value='" + res.data[i].id + "'>" + res.data[i].typename + "</option>");
+                }
+                ;
+                //使用refresh方法更新UI以匹配新状态。
+                $('#typeSelect').selectpicker('refresh');
+                //render方法强制重新渲染引导程序 - 选择ui。
+                $('#typeSelect').selectpicker('render');
+            }
+        });
+    };
+
+    $("#brandSelect").change(function (e) {
+        data.brandIds = [];
+        obj.brandlist1 = [];
+        $("#brandSelect option:selected").each(function(){
+            data.brandIds.push($(this).val());
+            obj.brandlist1.push($(this).val());
+
+        });
+        initProduct()
+    });
+    $("#typeSelect").change(function (e) {
+        data.typeIds = [];
+        obj.typelist1 = [];
+        $("#typeSelect option:selected").each(function(){
+            data.typeIds.push($(this).val());
+            obj.typelist1.push($(this).val());
+        });
+        initProduct()
+    });
+
+    var initProduct = function(){
+        $("#productItem").empty();
+        if(data.typeIds.length === 0) data.typeIds = null;
+        if(data.brandIds.length === 0) data.brandIds = null;
+        $.ajax({
+            url: ctx + "hobbySurveyPage/findProduct",
+            data: JSON.stringify(data),
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                res.data.forEach(function (item){
+                    var inf = '<tr data-id="'+item.id+'">\n' +
+                        '<td class="txt-oflo">'+item.productName+'</td>\n' +
+                        '<td class="txt-oflo"><img style="width: 50px;" src='+item.pic+'></td>\n' +
+                        '<td><span class="text-success">'+ item.price+'</span></td>\n' +
+                        '</tr>';
+                    $("#productItem").append(inf);
+                })
+            }
+        });
+        if(data.typeIds == null) data.typeIds = [];
+        if(data.brandIds == null) data.brandIds = [];
+    }
+
+
+    window.onload = function () {
+        initSelect();
+        initProduct();
+        initPieChart1();
+        initPieChart2();
+    }
+
+</script>
+</body>
+
+</html>

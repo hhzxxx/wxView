@@ -143,7 +143,7 @@
                 </foreach>
             </if>
         </where>
-        order by id desc
+        order by u.hot desc
     </select>
 
     <select id="findPage" resultMap="BaseResultMap">

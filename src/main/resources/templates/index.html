@@ -36,17 +36,17 @@
     <!--start of 标题栏-吊顶-->
     <head th:replace="page/base/header::bysj-header"></head>
     <!--end of 标题栏-吊顶-->
-    <!-- Page Content -->
-    <div id="page-wrapper">
+    <!-- Page Content -->s
+<!--    <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                     <h4 class="page-title">首页</h4></div>
-                <!-- /.col-lg-12 -->
+                &lt;!&ndash; /.col-lg-12 &ndash;&gt;
             </div>
-            <!-- row -->
+            &lt;!&ndash; row &ndash;&gt;
             <div class="row">
-                <!--col -->
+                &lt;!&ndash;col &ndash;&gt;
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="white-box">
                         <div class="col-in row">
@@ -64,8 +64,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.col -->
-                <!--col -->
+                &lt;!&ndash; /.col &ndash;&gt;
+                &lt;!&ndash;col &ndash;&gt;
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="white-box">
                         <div class="col-in row">
@@ -84,8 +84,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.col -->
-                <!--col -->
+                &lt;!&ndash; /.col &ndash;&gt;
+                &lt;!&ndash;col &ndash;&gt;
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="white-box">
                         <div class="col-in row">
@@ -104,10 +104,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.col -->
+                &lt;!&ndash; /.col &ndash;&gt;
             </div>
-            <!-- /.row -->
-            <!--row -->
+            &lt;!&ndash; /.row &ndash;&gt;
+            &lt;!&ndash;row &ndash;&gt;
             <div class="row">
                 <div class="col-md-12">
                     <div class="white-box">
@@ -124,7 +124,7 @@
                     </div>
                 </div>
             </div>
-            <!--row -->
+            &lt;!&ndash;row &ndash;&gt;
             <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
@@ -198,8 +198,8 @@
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
-            <!-- row -->
+            &lt;!&ndash; /.row &ndash;&gt;
+            &lt;!&ndash; row &ndash;&gt;
             <div class="row">
                 <div class="col-md-12 col-lg-6 col-sm-12">
                     <div class="white-box">
@@ -284,10 +284,13 @@
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
+            &lt;!&ndash; /.row &ndash;&gt;
         </div>
-        <!-- /.container-fluid -->
+        &lt;!&ndash; /.container-fluid &ndash;&gt;
         <footer class="footer text-center"> 后台管理系统</footer>
+    </div>-->
+    <div id="page-wrapper">
+        <iframe style="width: 100%;height: 960px;" th:src="@{/hobbySurveyPage/surveyResult}"></iframe>
     </div>
     <!-- /#page-wrapper -->
 </div>
@@ -314,15 +317,6 @@
 <script th:src="@{/static/plugins/bower_components/toast-master/js/jquery.toast.js}" src="../bysj/static/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $.toast({
-            heading: 'Welcome to Pixel admin',
-            text: 'Use the predefined ones, or specify a custom position object.',
-            position: 'top-right',
-            loaderBg: '#ff6849',
-            icon: 'info',
-            hideAfter: 3500,
-            stack: 6
-        })
     });
 </script>
 </body>
