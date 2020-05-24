@@ -15,4 +15,6 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     List<Article> findIndexPage(Map<String, Object> map);
+
+    List<Article> findPageOrder(Map<String, Object> map);
 }

@@ -82,6 +82,11 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
         return pageResult;
     }
 
+    @Override
+    public PageResult findPageOrder(PageRequest pageRequest) {
+        return PageUtils.getPageResult(pageRequest, getPageOrder(pageRequest));
+    }
+
     /**
      * 调用分页插件完成分页
      * @param pageRequest
@@ -99,6 +104,39 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements Arti
             }
         }
         List<Article> sysMenus = ArticleDao.findIndexPage(map);
+        Date date = new Date();
+        for(Article article:sysMenus){
+            try {
+                article.setCreated(-DateUtil.longOfTwoDate(article.getCreatetime(),date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return new PageInfo<Article>(sysMenus);
+    }
+
+    private PageInfo<Article> getPageOrder(PageRequest pageRequest) {
+        int pageNum = pageRequest.getPageNum();
+        int pageSize = pageRequest.getPageSize();
+        String order = pageRequest.getOrder();
+        String orderType = pageRequest.getOrderType();
+        if(order!=null && order.length()>0){
+            String orderBy =order;
+            if(orderType!=null && orderType.length()>0){
+                orderBy =orderBy+" "+orderType;
+            }
+            PageHelper.startPage(pageNum, pageSize,orderBy);
+        }else {
+            PageHelper.startPage(pageNum, pageSize);
+        }
+        List<ruleDto> rules = pageRequest.getRules();
+        Map<String, Object> map = new HashMap<>();
+        if(rules.size()>0){
+            for(int i=0;i<rules.size();i++){
+                map.put(rules.get(i).getRuleName(),rules.get(i).getRuleValue());
+            }
+        }
+        List<Article> sysMenus = ArticleDao.findPageOrder(map);
         Date date = new Date();
         for(Article article:sysMenus){
             try {

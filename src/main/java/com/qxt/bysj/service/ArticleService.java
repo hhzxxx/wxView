@@ -20,4 +20,6 @@ public interface ArticleService extends BaseService<Article> {
      * @return PageResult 自定义，统一分页查询结果
      */
     PageResult findIndexPage(PageRequest pageRequest);
+
+    PageResult findPageOrder(PageRequest pageRequest);
 }

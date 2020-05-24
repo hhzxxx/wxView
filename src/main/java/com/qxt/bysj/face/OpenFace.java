@@ -580,6 +580,20 @@ public class OpenFace {
     }
 
     /**
+     * 资讯查询接口 可排序
+     * @param pageQuery
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findArticlePageOrder", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> findArticlePageOrder(@RequestBody PageRequest pageQuery) {
+        Result<Object> result = new Result<>();
+        PageResult page = articleService.findPageOrder(pageQuery);
+        result.setData(page);
+        return result;
+    }
+
+    /**
      * 停止服务
      * @param id
      * @return
