@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qxt.bysj.dao.OpinionMapper" >
+  <resultMap id="BaseResultMap" type="com.qxt.bysj.domain.Opinion" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+    <result column="opinionTitle" property="opinionTitle" jdbcType="VARCHAR"/>
+      <result column="opinionContent" property="opinionContent" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userId,opinionTitle,opinionContent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tab_opinion
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tab_opinion
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qxt.bysj.domain.Opinion" >
+    insert into tab_opinion (id, userId,opinionTitle,opinionContent)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{opinionTitle,jdbcType=VARCHAR},  #{opinionContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qxt.bysj.domain.Opinion" >
+    insert into tab_opinion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+          userId,
+      </if>
+      <if test="opinionTitle != null">
+          opinionTitle,
+      </if>
+        <if test="opinionContent != null">
+            opinionContent,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+        <if test="userId != null" >
+            #{userId,jdbcType=VARCHAR},
+        </if>
+      <if test="opinionTitle != null" >
+        #{opinionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="opinionContent != null">
+        #{opinionContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qxt.bysj.domain.Opinion" >
+    update tab_opinion
+    <set >
+      <if test="opinionTitle != null" >
+          opinionTitle = #{opinionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="opinionContent != null">
+          opinionContent = #{opinionContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qxt.bysj.domain.ProductType" >
+    update tab_opinion
+    set opinionTitle = #{opinionTitle,jdbcType=VARCHAR},
+            opinionContent = #{hot,jdbcType=VARCHAR}
+
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="find" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tab_opinion
+    <where>
+      <if test="id!= null and id!=''"> AND id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </where>
+  </select>
+
+  <select id="findPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tab_opinion
+    <where>
+      <if test="opinionTitle!= null and opinionTitle!=''">
+        AND (opinionTitle LIKE '%' #{typeName} '%')
+      </if>
+    </where>
+    order by id desc
+  </select>
+</mapper>

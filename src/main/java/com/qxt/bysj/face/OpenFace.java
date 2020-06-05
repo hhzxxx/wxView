@@ -25,6 +25,8 @@ import java.util.*;
 @RequestMapping(value = "/Face", method = RequestMethod.POST)
 public class OpenFace {
     @Autowired
+    private OpinionService opinionService;
+    @Autowired
     private UserService userService;
     @Autowired
     private ReplyService replyService;
@@ -54,7 +56,6 @@ public class OpenFace {
     private String secret;
     @Value("${app.id}")
     private String appid;
-
     /**
      * 登陆
      * @return
@@ -590,6 +591,26 @@ public class OpenFace {
         Result<Object> result = new Result<>();
         PageResult page = articleService.findPageOrder(pageQuery);
         result.setData(page);
+        return result;
+    }
+
+    /**
+     * 意见反馈
+     */
+    @ResponseBody
+    @RequestMapping(value = "/insertOpinion", produces = "application/json", method = RequestMethod.POST)
+    public Result<Object> insertOpinion(@RequestBody Opinion opinion, HttpServletRequest request) {
+        Result<Object> result = new Result<>();
+        String userId = opinion.getUserId();
+        String opinionTitle = opinion.getOpinionTitle();
+        String opinionContent = opinion.getOpinionContent();
+        Opinion newOpinion = new Opinion();
+        newOpinion.setUserId(userId);
+        newOpinion.setOpinionTitle(opinionTitle);
+        newOpinion.setOpinionContent(opinionContent);
+        opinionService.insert(newOpinion);
+        result.setCode("200");
+        result.setMessage("保存成功！");
         return result;
     }
 

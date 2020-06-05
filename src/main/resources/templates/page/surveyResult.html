@@ -137,16 +137,18 @@
                 <div class="col-sm-12">
                     <div class="white-box">
                         <h2 class="box-title" style="height: 30px;">热度排行
-                            <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                            <div style="display: flex;flex-wrap:wrap;padding-bottom: 10px">
+                            <div class="col-md-2 col-sm-4 col-xs-12 pull-right" style="padding-left: 0;">
                                 <select id="brandSelect" class="selectpicker" name="brandId" multiple>
                                 </select>
                             </div>
-                            <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
+                            <div class="col-md-2 col-sm-4 col-xs-12 pull-right" style="padding-left: 0;">
                                 <select id="typeSelect" class="selectpicker" name="typeId" multiple>
                                 </select>
                             </div>
+                            </div>
                         </h2>
-                        <div style="margin-top: 45px;" class="table-responsive">
+                        <div style="margin-top: 90px;" class="table-responsive">
                             <table class="table ">
                                 <thead>
                                 <tr>
@@ -188,6 +190,11 @@
             <!-- /.row -->
         </div>
     </div>
+        <div>
+            <a th:href="@{/hobbySurveyPage/hobbySurvey}"  href="hobbySurvey.html">
+            <img th:src="@{/static/apps/img/insert.svg}" style="position: fixed;width: 35px;height: 35px;bottom: 30px;right: 30px;">
+            </a>
+        </div>
         <!-- /.container-fluid -->
 <!-- /#wrapper -->
 <!-- jQuery -->
